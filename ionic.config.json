@@ -1,0 +1,7 @@
+{
+  "name": "BeatSync",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
