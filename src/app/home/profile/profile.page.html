@@ -1,0 +1,53 @@
+<ion-content scroll-y="false">
+  <div id="container">
+    <div class="title">Profile</div>
+    <div class="card">
+      <div class="pfp">
+        <img
+          src="../../../assets/images/badbunny.jpeg"
+          alt="profile"
+          class="pfp-img"
+        />
+      </div>
+      <div class="name">Bad Bunny</div>
+      <div class="userType">Artist</div>
+      <div class="editButton">
+        <app-control-button
+          source="../../../assets/images/edit.png"
+          [size]="30"
+        ></app-control-button>
+      </div>
+    </div>
+  </div>
+  <app-option-card
+    class="option-1"
+    source="../../../assets/images/profile/upload-music.png"
+    [title]="'Upload music'"
+  ></app-option-card>
+  <app-option-card
+    class="option-2"
+    source="../../../assets/images/profile/edit-account.png"
+    [title]="'Edit account'"
+  ></app-option-card>
+  <app-option-card
+    class="option-3"
+    source="../../../assets/images/profile/delete-account.png"
+    [title]="'Delete account'"
+  ></app-option-card>
+  <app-option-card
+    class="option-4"
+    source="../../../assets/images/profile/log-out.png"
+    [title]="'Log out'"
+    (onPress)="handleLogoutPress()"
+  ></app-option-card>
+  <app-confirmation-modal
+    [visible]="showModal"
+    [image]="'../../../assets/images/log-out-icon.png'"
+    [title]="'See you soon!'"
+    [text]="'You are about to logout. Are you sure this is what you want?'"
+    [cancelButtonText]="'CANCEL'"
+    [acceptButtonText]="'ACCEPT'"
+    (onCancel)="handleCancel()"
+    (onAccept)="handleAccept()"
+  ></app-confirmation-modal>
+</ion-content>

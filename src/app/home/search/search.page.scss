@@ -1,0 +1,40 @@
+ion-content {
+  --ion-background-color: linear-gradient(180deg, #171717 0%, #000000 100%);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  padding-top: 30px;
+}
+
+.title {
+  font-family: "BROmnySemiBold";
+  font-size: 25px;
+  margin-bottom: 10px;
+  margin-top: 46px;
+  margin-left: 22px;
+}
+
+.subtitle {
+  font-family: "BROmnyRegular";
+  font-size: 16px;
+  margin-top: 34px;
+  margin-bottom: 30px;
+  margin-left: 22px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  margin-left: 22px;
+}
+
+.cards app-category-card {
+  width: 100%;
+  margin-bottom: 18px;
+}

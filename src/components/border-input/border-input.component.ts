@@ -30,7 +30,6 @@ export class BorderInputComponent implements OnInit {
   inputControl: FormControl;
 
   constructor() {
-    // Inicializa inputControl aquí para asegurarte de que tenga un valor
     this.inputControl = new FormControl(this.value || '');
   }
 

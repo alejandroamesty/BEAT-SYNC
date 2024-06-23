@@ -74,3 +74,18 @@ $app-theme: mat.define-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+  font-family: 'BROmnyMedium';
+  src: url('./assets/fonts/BROmny-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'BROmnyRegular';
+  src: url('./assets/fonts/BROmny-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'BROmnySemiBold';
+  src: url('./assets/fonts/BROmny-SemiBold.otf') format('opentype');
+}
