@@ -1,0 +1,8 @@
+<button class="control-button"
+        [ngClass]="{ 'scaled': animationState === 'scaled' }"
+        (click)="handleClick()"
+        [@scaleAnimation]="animationState"
+        [style.width.px]="size"
+        [style.height.px]="size">
+  <img [src]="source" class="image" />
+</button>

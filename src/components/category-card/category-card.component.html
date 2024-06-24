@@ -1,0 +1,8 @@
+<div class="card" [@scaleAnimation]="animationState" (click)="handleClick()">
+  <div class="title">{{ title }}</div>
+  <div class="cardBg" [style.background-color]="bgColor">
+    <div class="cardImg">
+      <img [src]="source" alt="Icon" />
+    </div>
+  </div>
+</div>

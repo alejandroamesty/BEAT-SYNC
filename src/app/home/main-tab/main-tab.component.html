@@ -1,0 +1,102 @@
+<div class="content-container">
+  <ng-container *ngIf="activeIndex === 0">
+    <app-home></app-home>
+  </ng-container>
+  <ng-container *ngIf="activeIndex === 1">
+    <app-search></app-search>
+  </ng-container>
+  <ng-container *ngIf="activeIndex === 2">
+    <app-library></app-library>
+  </ng-container>
+  <ng-container *ngIf="activeIndex === 3">
+    <app-profile></app-profile>
+  </ng-container>
+</div>
+
+<div class="navigation">
+  <ul>
+    <li
+      class="list"
+      (click)="setActive(0); $event.preventDefault()"
+      [ngClass]="{ active: activeIndex === 0 }"
+    >
+      <a href="#">
+        <span class="icon">
+          <img
+            src="../../../assets/images/main-tab/music-selected.svg"
+            *ngIf="activeIndex === 0"
+            alt="Active Icon"
+          />
+          <img
+            src="../../../assets/images/main-tab/music.svg"
+            *ngIf="activeIndex !== 0"
+            alt="Inactive Icon"
+          />
+        </span>
+      </a>
+    </li>
+    <li
+      class="list"
+      (click)="setActive(1); $event.preventDefault()"
+      [ngClass]="{ active: activeIndex === 1 }"
+    >
+      <a href="#">
+        <span class="icon">
+          <img
+            src="../../../assets/images/main-tab/search-selected.svg"
+            *ngIf="activeIndex === 1"
+            alt="Active Icon"
+          />
+          <img
+            src="../../../assets/images/main-tab/search.svg"
+            *ngIf="activeIndex !== 1"
+            alt="Inactive Icon"
+          />
+        </span>
+      </a>
+    </li>
+    <li
+      class="list"
+      (click)="setActive(2); $event.preventDefault()"
+      [ngClass]="{ active: activeIndex === 2 }"
+    >
+      <a href="#">
+        <span class="icon">
+          <img
+            src="../../../assets/images/main-tab/library-selected.svg"
+            *ngIf="activeIndex === 2"
+            alt="Active Icon"
+          />
+          <img
+            src="../../../assets/images/main-tab/library.svg"
+            *ngIf="activeIndex !== 2"
+            alt="Inactive Icon"
+          />
+        </span>
+      </a>
+    </li>
+    <li
+      class="list"
+      (click)="setActive(3); $event.preventDefault()"
+      [ngClass]="{ active: activeIndex === 3 }"
+    >
+      <a href="#">
+        <span class="icon">
+          <img
+            src="../../../assets/images/main-tab/profile-selected.svg"
+            *ngIf="activeIndex === 3"
+            alt="Active Icon"
+          />
+          <img
+            src="../../../assets/images/main-tab/profile.svg"
+            *ngIf="activeIndex !== 3"
+            alt="Inactive Icon"
+          />
+        </span>
+      </a>
+    </li>
+    <div class="indicator" [ngClass]="indicatorPosition">
+      <div class="indicator-circle"></div>
+    </div>
+  </ul>
+</div>
