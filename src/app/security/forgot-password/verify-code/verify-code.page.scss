@@ -11,26 +11,17 @@ ion-content {
   color: #ffffff;
 }
 
-.subtitle {
-  position: absolute;
-  left: 30px;
-  top: 149px;
-  font-family: "BROmnyRegular";
-  font-size: 30px;
-  color: #a3a3a9;
-}
-
 .captionInput {
   position: absolute;
-  width: 349px;
+  width: 350px;
   height: 40px;
   left: 30px;
-  top: 222px;
+  top: 160px;
 
   font-family: "BROmnyRegular";
   font-size: 15px;
   line-height: 20px;
-  color: #ffffff;
+  color: #A3A3A9;
 }
 
 .normal-text {
@@ -38,7 +29,7 @@ ion-content {
   width: 414px;
   height: 22px;
   left: calc(50% - 414px / 2);
-  top: 692px;
+  top: 320px;
   font-family: "BROmnyRegular";
   font-size: 15px;
   text-align: center;
@@ -57,7 +48,7 @@ ion-content {
   align-items: center;
   width: 100%;
   position: absolute;
-  top: 282px;
+  top: 234px;
 }
 
 .signInButton {
