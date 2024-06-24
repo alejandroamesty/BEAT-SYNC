@@ -27,6 +27,14 @@ export const routes: Routes = [
     loadComponent: () => import('./security/forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
   },
   {
+    path: 'verify-code',
+    loadComponent: () => import('./security/forgot-password/verify-code/verify-code.page').then( m => m.VerifyCodePage)
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () => import('./security/forgot-password/reset-password/reset-password.page').then( m => m.ResetPasswordPage)
+  },
+  {
     path: 'main-tab',
     loadComponent: () => import('./home/main-tab/main-tab.component').then( m => m.MainTabComponent)
   }

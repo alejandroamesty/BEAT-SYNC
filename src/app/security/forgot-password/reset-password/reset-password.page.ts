@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NavController } from '@ionic/angular';
 import {
   IonContent,
   IonHeader,
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
-
+import { NavController } from '@ionic/angular';
 import { BorderInputComponent } from 'src/components/border-input/border-input.component';
-import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 import { SaveButtonComponent } from 'src/components/save-button/save-button.component';
+import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.page.html',
-  styleUrls: ['./forgot-password.page.scss'],
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.page.html',
+  styleUrls: ['./reset-password.page.scss'],
   standalone: true,
   imports: [
     IonContent,
@@ -26,11 +25,11 @@ import { SaveButtonComponent } from 'src/components/save-button/save-button.comp
     CommonModule,
     FormsModule,
     BorderInputComponent,
-    ControlButtonComponent,
     SaveButtonComponent,
+    ControlButtonComponent,
   ],
 })
-export class ForgotPasswordPage implements OnInit {
+export class ResetPasswordPage implements OnInit {
   constructor(private navCtrl: NavController) {}
 
   ngOnInit() {}
@@ -45,14 +44,7 @@ export class ForgotPasswordPage implements OnInit {
   navigateToVerifyCode() {
     this.navCtrl.navigateForward('verify-code', {
       animated: true,
-      animationDirection: 'forward',
-    });
-  }
-
-  navigateToSignUp() {
-    this.navCtrl.navigateBack('sign-up', {
-      animated: true,
-      animationDirection: 'forward',
+      animationDirection: 'back',
     });
   }
 }
