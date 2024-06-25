@@ -1,5 +1,17 @@
-<ion-content scroll-y="false">
+<ion-content scroll-y="false" class="no-keyboard-scroll">
   <div id="container">
     <div class="title">Library</div>
+    <div class="addButton">
+      <app-control-button
+        source="../../../assets/images/add.png"
+        [size]="36"
+      ></app-control-button>
+    </div>
+    <app-search-input
+      [width]="'366px'"
+      [placeholder]="'Search your playlists'"
+      [focusInput]="false"
+      class="search-input"
+    ></app-search-input>
   </div>
 </ion-content>

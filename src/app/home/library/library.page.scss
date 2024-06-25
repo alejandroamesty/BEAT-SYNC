@@ -13,3 +13,19 @@ ion-content {
   font-size: 25px;
   color: #ffffff;
 }
+
+.addButton {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 355px;
+  top: 45px;
+}
+
+.search-input {
+  position: absolute;
+  width: 366px;
+  height: 44px;
+  left: calc(50% - 366px / 2 - 2px);
+  top: 104px;
+}

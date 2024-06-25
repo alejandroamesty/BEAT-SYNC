@@ -39,7 +39,9 @@ ion-content {
   margin-bottom: 18px;
 }
 
-.search-tracks-wrapper {
+.search-tracks-wrapper,
+.search-albums-wrapper,
+.search-artists-wrapper {
   position: absolute;
   top: 0;
   left: 0;

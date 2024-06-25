@@ -1,0 +1,15 @@
+.music-list-container {
+  position: relative;
+  width: 372px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.music-item {
+  margin-bottom: 67px;
+}
+
+.music-item:last-child {
+  margin-bottom: 0;
+}

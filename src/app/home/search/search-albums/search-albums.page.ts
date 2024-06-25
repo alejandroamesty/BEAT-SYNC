@@ -14,9 +14,9 @@ import { EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-search-tracks',
-  templateUrl: './search-tracks.page.html',
-  styleUrls: ['./search-tracks.page.scss'],
+  selector: 'app-search-albums',
+  templateUrl: './search-albums.page.html',
+  styleUrls: ['./search-albums.page.scss'],
   standalone: true,
   imports: [
     IonContent,
@@ -29,37 +29,37 @@ import { Location } from '@angular/common';
     MusicListComponent,
   ],
 })
-export class SearchTracksPage implements OnInit {
+export class SearchAlbumsPage implements OnInit {
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
 
   musicItems: MusicItem[] = [
     {
       cover: '../../../assets/images/unveranosinti.png',
-      title: 'Sweet Dreams',
-      artists: ['Artist 1', 'Artist 2'],
+      title: 'Un Verano Sin Ti',
+      artists: ['Bad Bunny'],
       explicit: true,
-      type: 'Song',
+      type: 'Album',
     },
     {
       cover: '../../../assets/images/unveranosinti.png',
-      title: 'Sweet Nothing',
-      artists: ['Artist 4', 'Artist 5'],
-      explicit: false,
-      type: 'Song',
-    },
-    {
-      cover: '../../../assets/images/unveranosinti.png',
-      title: 'Safety Net',
-      artists: ['Artist 3', 'Artist 6'],
+      title: 'MOTOMAMI',
+      artists: ['ROSALÍA'],
       explicit: true,
-      type: 'Song',
+      type: 'Album',
     },
     {
       cover: '../../../assets/images/unveranosinti.png',
-      title: 'Songs For You',
-      artists: ['Artist 4', 'Artist 5'],
+      title: 'OASIS',
+      artists: ['J Balvin', 'Bad Bunny'],
+      explicit: true,
+      type: 'Album',
+    },
+    {
+      cover: '../../../assets/images/unveranosinti.png',
+      title: 'MAÑANA SERÁ BONITO',
+      artists: ['KAROL G'],
       explicit: false,
-      type: 'Song',
+      type: 'Album',
     },
   ];
 

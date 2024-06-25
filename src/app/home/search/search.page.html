@@ -17,15 +17,23 @@
         source="../../../assets/images/search-tab/albums-card.png"
         title="Albums"
         bgColor="#7876FF"
+        (onPress)="handleAlbumCardPress()"
       ></app-category-card>
       <app-category-card
         source="../../../assets/images/search-tab/artists-card.png"
         title="Artists"
         bgColor="#61DA5E"
+        (onPress)="handleArtistCardPress()"
       ></app-category-card>
     </div>
   </div>
   <div *ngIf="showSearchTracks" class="search-tracks-wrapper">
     <app-search-tracks></app-search-tracks>
+  </div>
+  <div *ngIf="showSearchAlbums" class="search-albums-wrapper">
+    <app-search-albums></app-search-albums>
+  </div>
+  <div *ngIf="showSearchArtists" class="search-artists-wrapper">
+    <app-search-artists></app-search-artists>
   </div>
 </ion-content>

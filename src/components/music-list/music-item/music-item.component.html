@@ -1,0 +1,34 @@
+<div class="music-item-container" (click)="handleClick()">
+  <img [src]="music.cover" alt="Cover" class="cover" />
+
+  <div class="song-data">
+    <div class="title">{{ music.title }}</div>
+
+    <div class="details-container">
+      <img
+        *ngIf="music.explicit"
+        src="../../../assets/images/explicit.png"
+        alt="Explicit"
+        class="explicit-logo"
+      />
+      <div
+        class="type-artists"
+        [ngClass]="{ 'non-explicit-position': !music.explicit }"
+      >
+        {{ music.type }} • {{ music.artists.join(", ") }}
+      </div>
+    </div>
+  </div>
+
+  <app-control-button
+    [source]="
+      music.type === 'Album'
+        ? '../../../assets/images/go-to.png'
+        : '../../../assets/images/add.png'
+    "
+    [size]="24"
+    (onPress)="onButtonClick()"
+    class="control-button"
+  >
+  </app-control-button>
+</div>

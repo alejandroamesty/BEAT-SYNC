@@ -1,24 +1,24 @@
 <ion-content scroll-y="false">
   <app-search-input
     [width]="'291px'"
-    [placeholder]="'Search by track'"
+    [placeholder]="'Search by artist'"
     [focusInput]="true"
     class="search-input"
     (searchTermChanged)="onSearchTermChanged($event)"
   ></app-search-input>
   <div class="cancel-button" (click)="backClicked()">Cancel</div>
-  <div *ngIf="filteredMusic.length === 0" class="search-preview">
+  <div *ngIf="filteredArtists.length === 0" class="search-preview">
     <img
       src="../../../../assets/images/green-music.png"
       alt="Music Icon"
       class="music-icon"
     />
     <div class="title">Sync to the beat</div>
-    <div class="subtitle">Search for your favorite tracks</div>
+    <div class="subtitle">Search for your favorite artists</div>
   </div>
-  <app-music-list
+  <app-artist-list
     [height]="'438px'"
-    *ngIf="filteredMusic.length > 0"
-    [musicList]="filteredMusic"
-  ></app-music-list>
+    *ngIf="filteredArtists.length > 0"
+    [artistList]="filteredArtists"
+  ></app-artist-list>
 </ion-content>
