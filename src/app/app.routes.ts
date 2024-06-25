@@ -45,5 +45,13 @@ export const routes: Routes = [
   {
     path: 'search-tracks',
     loadComponent: () => import('./home/search/search-tracks/search-tracks.page').then( m => m.SearchTracksPage)
+  },
+  {
+    path: 'search-albums',
+    loadComponent: () => import('./home/search/search-albums/search-albums.page').then( m => m.SearchAlbumsPage)
+  },
+  {
+    path: 'search-artists',
+    loadComponent: () => import('./home/search/search-artists/search-artists.page').then( m => m.SearchArtistsPage)
   }
 ];

@@ -1,0 +1,8 @@
+<div class="artist-list-container" [style.height]="height">
+  <app-artist-item
+    *ngFor="let item of artistList"
+    [artist]="item"
+    (onPress)="handleItemPress(item.name)"
+    class="artist-item"
+  ></app-artist-item>
+</div>

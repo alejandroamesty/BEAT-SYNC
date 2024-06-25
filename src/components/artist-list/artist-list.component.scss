@@ -1,0 +1,15 @@
+.artist-list-container {
+  position: relative;
+  width: 372px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.artist-item {
+  margin-bottom: 67px;
+}
+
+.artist-item:last-child {
+  margin-bottom: 0;
+}

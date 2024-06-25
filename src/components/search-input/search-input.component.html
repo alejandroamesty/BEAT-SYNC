@@ -4,5 +4,10 @@
     class="search-icon"
     alt="Search Icon"
   />
-  <input type="text" class="search-input" [placeholder]="placeholder">
+  <input
+    type="text"
+    class="search-input"
+    [placeholder]="placeholder"
+    (input)="onInputChange($event)"
+  />
 </div>
