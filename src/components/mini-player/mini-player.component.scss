@@ -1,0 +1,67 @@
+.play-bar {
+  position: absolute;
+  width: 370px;
+  height: 68px;
+  mix-blend-mode: normal;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.song-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.song-title {
+  font-family: "BROmnyMedium";
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.artists {
+  font-family: "BROmnyMedium";
+  font-size: 14px;
+  line-height: 18px;
+  color: #d2d2d2;
+}
+
+.like-button,
+.play-button {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.like-button {
+  margin-right: 24px;
+}
+
+.cover-image {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+}
+
+.like-button:hover,
+.play-button:hover {
+  transform: scale(1.1);
+}
+
+.like-button:active,
+.play-button:active {
+  transform: scale(0.9);
+}

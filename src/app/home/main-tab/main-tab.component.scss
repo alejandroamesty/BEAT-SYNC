@@ -21,6 +21,12 @@
   overflow-y: auto;
 }
 
+.player-container {
+  position: absolute;
+  left: calc(50% - 370px / 2);
+  top: calc(50% - 68px / 2 + 229px);
+}
+
 .navigation {
   position: relative;
   width: 100%;
