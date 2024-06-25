@@ -6,6 +6,7 @@
       <app-category-card
         source="../../../assets/images/search-tab/tracks-card.png"
         title="Tracks"
+        (onPress)="handleTrackCardPress()"
       ></app-category-card>
       <app-category-card
         source="../../../assets/images/search-tab/tracks-by-genre-card.png"
@@ -23,5 +24,8 @@
         bgColor="#61DA5E"
       ></app-category-card>
     </div>
+  </div>
+  <div *ngIf="showSearchTracks" class="search-tracks-wrapper">
+    <app-search-tracks></app-search-tracks>
   </div>
 </ion-content>
