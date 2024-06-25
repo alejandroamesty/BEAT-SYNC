@@ -1,0 +1,30 @@
+<div class="play-bar" [style.background-color]="backgroundColor">
+  <div class="song-info">
+    <div class="song-title">{{ songTitle }}</div>
+    <div class="artists">{{ artists }}</div>
+  </div>
+  <div class="like-button" (click)="onLikeClick()" [class.liked]="liked">
+    <img
+      *ngIf="!liked"
+      src="../../assets/images/mini-player/unliked.svg"
+      alt="Like Button"
+    />
+    <img
+      *ngIf="liked"
+      src="../../assets/images/mini-player/liked.svg"
+      alt="Liked Button"
+    />
+  </div>
+  <div class="play-button" (click)="onPlayClick()" [class.paused]="paused">
+    <img
+      *ngIf="!paused"
+      src="../../assets/images/mini-player/play.svg"
+      alt="Play Button"
+    />
+    <img
+      *ngIf="paused"
+      src="../../assets/images/mini-player/pause.svg"
+      alt="Pause Button"
+    />
+  </div>
+</div>

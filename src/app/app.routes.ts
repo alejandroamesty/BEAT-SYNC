@@ -37,5 +37,13 @@ export const routes: Routes = [
   {
     path: 'main-tab',
     loadComponent: () => import('./home/main-tab/main-tab.component').then( m => m.MainTabComponent)
+  },
+  {
+    path: 'search',
+    loadComponent: () => import('./home/search/search.page').then( m => m.SearchPage)
+  },
+  {
+    path: 'search-tracks',
+    loadComponent: () => import('./home/search/search-tracks/search-tracks.page').then( m => m.SearchTracksPage)
   }
 ];
