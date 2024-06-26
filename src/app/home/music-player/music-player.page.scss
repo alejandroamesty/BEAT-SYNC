@@ -1,0 +1,122 @@
+.music-player {
+  background: linear-gradient(180deg, #171717 0%, #000000 100%);
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  
+  .close-button {
+    position: absolute;
+    left: 32px;
+    top: 30px;
+  }
+
+  .album-title {
+    position: absolute;
+    width: 300px;
+    top: 35px;
+    font-family: "BROmnySemiBold";
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #ffffff;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cover {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    top: 81px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+    }
+  }
+
+  .song-title {
+    position: absolute;
+    width: 300px;
+    top: 459px;
+    left: 31px;
+    font-family: "BROmnySemiBold";
+    font-size: 18px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .artists {
+    position: absolute;
+    width: 300px;
+    top: 481px;
+    left: 31px;
+    font-family: "BROmnyMedium";
+    font-size: 18px;
+    color: #61da5e;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .like-button {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    right: 32px;
+    top: 470px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .previous-button,
+  .next-button {
+    position: absolute;
+    width: 54px;
+    height: 54px;
+  }
+
+  .play-pause-button {
+    position: absolute;
+    width: 54px;
+    height: 54px;
+    top: 566px;
+    left: calc(50% - 27px);
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .previous-button {
+    left: 20%;
+    top: 566px;
+  }
+
+  .next-button {
+    right: 20%;
+    top: 566px;
+  }
+  .progress-bar {
+    position: absolute;
+    width: 349px;
+    height: 2px;
+    display: flex;
+    top: 255px;
+  }
+}

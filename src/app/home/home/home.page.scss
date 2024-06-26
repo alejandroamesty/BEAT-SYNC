@@ -7,9 +7,31 @@ ion-content {
   width: 184px;
   height: 33px;
   left: 23px;
-  top: 46px;
+  top: 62px;
 
   font-family: "BROmnySemiBold";
-  font-size: 25px;
+  font-size: 21px;
   color: #ffffff;
+}
+
+app-music-grid {
+  position: absolute;
+  left: 22px;
+  top: 129px;
+}
+
+.subtitle {
+  position: absolute;
+  left: 22px;
+  top: 297px;
+  font-family: "BROmnySemiBold";
+  font-size: 21px;
+  color: #ffffff;
+}
+
+.music-reel {
+  position: absolute;
+  width: 100%;
+  // left: 22px;
+  top: 345px;
 }

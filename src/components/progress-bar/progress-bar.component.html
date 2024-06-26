@@ -1,0 +1,19 @@
+<div class="progress-container">
+  <div
+    class="progress-bar"
+    (mousedown)="startDrag($event)"
+    (touchstart)="startDrag($event)"
+  >
+    <div class="progress" [style.width.%]="progress"></div>
+    <div
+      class="slider"
+      [style.left.%]="progress"
+      (mousedown)="startDrag($event)"
+      (touchstart)="startDrag($event)"
+    ></div>
+  </div>
+  <div class="time-container">
+    <div class="current-time">{{ formatTime(currentTime) }}</div>
+    <div class="duration">{{ formatTime(duration) }}</div>
+  </div>
+</div>

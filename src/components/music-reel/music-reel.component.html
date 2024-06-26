@@ -1,0 +1,15 @@
+<div class="music-reel">
+  <div class="music-box-container">
+    <div *ngFor="let music of musicData" class="music-box-wrapper">
+      <app-music-box
+        [title]="music.title"
+        [cover]="music.cover"
+        [type]="music.type"
+        [description]="music.description"
+        [releaseDate]="music.releaseDate"
+        [songCount]="music.songCount"
+        (onPress)="handleMusicBoxClick()"
+      ></app-music-box>
+    </div>
+  </div>
+</div>
