@@ -1,0 +1,4 @@
+<div class="music-card" [@scaleAnimation]="animationState" (click)="handleClick()">
+  <div class="cover" [ngStyle]="{'background-image': 'url(' + cover + ')'}"></div>
+  <div class="title">{{ title }}</div>
+</div>

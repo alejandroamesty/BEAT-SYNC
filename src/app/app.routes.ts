@@ -53,5 +53,9 @@ export const routes: Routes = [
   {
     path: 'search-artists',
     loadComponent: () => import('./home/search/search-artists/search-artists.page').then( m => m.SearchArtistsPage)
+  },
+  {
+    path: 'music-player',
+    loadComponent: () => import('./home/music-player/music-player.page').then( m => m.MusicPlayerPage)
   }
 ];

@@ -1,0 +1,17 @@
+.music-reel {
+  width: 100%;
+  overflow-x: auto;
+  display: flex;
+}
+
+.music-reel::-webkit-scrollbar {
+  display: none;
+}
+
+.music-box-container {
+  display: flex;
+}
+
+.music-box-wrapper {
+  margin-left: 22px;
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mini-player',
@@ -10,17 +11,18 @@ import { Haptics, ImpactStyle } from '@capacitor/haptics';
   imports: [CommonModule],
 })
 export class MiniPlayerComponent implements OnInit {
-  @Input() songTitle: string = 'Ojitos Lindos';
-  @Input() artists: string = 'Bad Bunny, Bomba Estéreo';
+  @Input() songTitle: string = 'Not playing';
+  @Input() artists: string = 'Waiting for your next beat';
+  @Input() songURL: string = '';
   @Input() coverImageUrl: string = '';
   @Output() likeClicked: EventEmitter<void> = new EventEmitter<void>();
-  @Output() playClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() playClicked: EventEmitter<string> = new EventEmitter<string>();
 
   backgroundColor: string = '#363636';
   liked: boolean = false;
   paused: boolean = true;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.detectBackgroundColor();
@@ -28,7 +30,7 @@ export class MiniPlayerComponent implements OnInit {
 
   detectBackgroundColor() {
     // agregar lógica para detectar el color de fondo
-    this.backgroundColor = '#7C4704';
+    this.backgroundColor = '#212121';
   }
 
   async onLikeClick() {
@@ -39,7 +41,11 @@ export class MiniPlayerComponent implements OnInit {
 
   async onPlayClick() {
     this.paused = !this.paused;
-    this.playClicked.emit(this.paused);
+    this.playClicked.emit(this.songURL); // Emitir la URL de la canción al hacer clic en Play
     await Haptics.impact({ style: ImpactStyle.Light });
+  }
+
+  onPlayerClick() {
+    this.router.navigate(['/music-player']);
   }
 }

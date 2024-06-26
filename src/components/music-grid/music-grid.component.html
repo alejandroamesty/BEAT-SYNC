@@ -1,0 +1,8 @@
+<div class="music-grid">
+  <app-music-card
+    *ngFor="let item of musicItems"
+    [title]="item.title"
+    [cover]="item.cover"
+    (onPress)="handleCardPress(item)"
+  ></app-music-card>
+</div>
