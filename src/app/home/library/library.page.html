@@ -1,10 +1,11 @@
-<ion-content scroll-y="false" class="no-keyboard-scroll">
+<ion-content scroll-y="false" scrollAssist="false" autoFocusAssist="'disabled'">
   <div id="container">
     <div class="title">Library</div>
     <div class="addButton">
       <app-control-button
         source="../../../assets/images/add.png"
         [size]="36"
+        (click)="openModal()"
       ></app-control-button>
     </div>
     <app-search-input
@@ -12,6 +13,37 @@
       [placeholder]="'Search your playlists'"
       [focusInput]="false"
       class="search-input"
+      (searchTermChanged)="onSearchTermChanged($event)"
     ></app-search-input>
+    <div class="playlist-list-container">
+      <div class="playlist-cards">
+        <app-playlist-card type="Liked" [songCount]="1637"></app-playlist-card>
+        <app-playlist-card type="Artist" [songCount]="12"></app-playlist-card>
+      </div>
+      <div class="playlist-items">
+        <app-playlist-item
+          *ngFor="let item of playlistList"
+          [playlist]="item"
+          (onPress)="handleItemPress(item.title)"
+          class="playlist-item"
+        ></app-playlist-item>
+      </div>
+    </div>
   </div>
+  <ng-template #modalContent>
+    <div class="custom-modal-content">
+      <app-simple-input placeholder="Title" [characterLimit]="50"></app-simple-input>
+      <app-simple-input placeholder="Description" [characterLimit]="50"></app-simple-input>
+    </div>
+  </ng-template>
+  <app-custom-modal
+    [visible]="isModalVisible"
+    (visibilityChange)="closeModal()"
+    [title]="'Add New Playlist'"
+    [cancelButtonName]="'Cancel'"
+    [doneButtonName]="'Done'"
+    [cancelButtonAction]="handleCancel.bind(this)"
+    [doneButtonAction]="handleDone.bind(this)"
+    [modalContent]="modalContent"
+  ></app-custom-modal>
 </ion-content>

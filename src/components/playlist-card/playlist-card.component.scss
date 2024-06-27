@@ -1,0 +1,55 @@
+.playlist-card {
+  position: absolute;
+  width: 369px;
+  height: 66px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+
+  &.liked {
+    background: linear-gradient(90deg, #4132e8 0%, #8387e2 77.9%, #acb0f9 100%);
+  }
+
+  &.artist {
+    background: linear-gradient(90deg, #27aeae 0%, #2ecbc2 77.9%, #9ee9e4 100%);
+  }
+}
+
+.left-icon {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 23px;
+  top: calc(50% - 12px);
+}
+
+.content {
+  flex-grow: 1;
+  margin-left: 66px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  font-family: "BROmnyMedium";
+  font-size: 15px;
+  line-height: 22px;
+  color: #ffffff;
+}
+
+.description {
+  font-family: "BROmnyRegular";
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.right-icon {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  right: 23px;
+  top: calc(50% - 12px);
+}

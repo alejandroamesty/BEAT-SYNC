@@ -1,0 +1,19 @@
+<div
+  class="playlist-card"
+  [@scaleAnimation]="animationState"
+  (click)="handleClick()"
+  [ngClass]="{ liked: type === 'Liked', artist: type === 'Artist' }"
+>
+  <div class="left-icon">
+    <img [src]="leftIcon" alt="Playlist Icon" />
+  </div>
+
+  <div class="content">
+    <div class="title">{{ title }}</div>
+    <div class="description">Playlist • {{ songCount }} songs</div>
+  </div>
+
+  <div class="right-icon">
+    <img src="../../assets/images/pinned.png" alt="Pinned Icon" />
+  </div>
+</div>

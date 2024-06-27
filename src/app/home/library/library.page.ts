@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -10,6 +10,10 @@ import {
 import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 import { SearchInputComponent } from 'src/components/search-input/search-input.component';
 import { MusicListComponent } from 'src/components/music-list/music-list.component';
+import { PlaylistCardComponent } from 'src/components/playlist-card/playlist-card.component';
+import { PlaylistItemComponent } from 'src/components/playlist-item/playlist-item.component';
+import { CustomModalComponent } from 'src/components/custom-modal/custom-modal.component';
+import { SimpleInputComponent } from 'src/components/simple-input/simple-input.component';
 
 @Component({
   selector: 'app-library',
@@ -26,43 +30,85 @@ import { MusicListComponent } from 'src/components/music-list/music-list.compone
     ControlButtonComponent,
     SearchInputComponent,
     MusicListComponent,
+    PlaylistCardComponent,
+    PlaylistItemComponent,
+    CustomModalComponent,
+    SimpleInputComponent
   ],
 })
 export class LibraryPage implements OnInit {
-  musicItems = [
+  originalPlaylistList = [
     {
       cover: '../../../assets/images/unveranosinti.png',
-      title: 'Sweet Dreams',
+      title: 'fav songs of 2023',
       user: 'Alejandro',
-      type: 'Playlist',
     },
     {
       cover: '../../../assets/images/unveranosinti.png',
-      title: 'Sweet Nothing',
+      title: 'fav songs of 2024',
       user: 'Alejandro',
-      type: 'Playlist',
     },
     {
       cover: '../../../assets/images/unveranosinti.png',
-      title: 'Sweet Nothing',
+      title: 'reggaetón viejo',
       user: 'Alejandro',
-      type: 'Playlist',
     },
     {
       cover: '../../../assets/images/unveranosinti.png',
-      title: 'Sweet Nothing',
+      title: 'nostálgicas',
       user: 'Alejandro',
-      type: 'Playlist',
     },
     {
       cover: '../../../assets/images/unveranosinti.png',
-      title: 'Sweet Nothing',
+      title: 'boda venezolana',
       user: 'Alejandro',
-      type: 'Playlist',
     },
   ];
 
+  playlistList: Array<{ cover: string; title: string; user: string }> = [];
+  searchTerm: string = '';
+
+  isModalVisible: boolean = false;
+
+  @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
+
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.playlistList = [...this.originalPlaylistList];
+  }
+
+  handleItemPress(title: string) {
+    console.log('Music item pressed:', title);
+  }
+
+  onSearchTermChanged(searchTerm: string) {
+    this.searchTerm = searchTerm;
+
+    if (this.searchTerm.trim() === '') {
+      this.playlistList = [...this.originalPlaylistList];
+    } else {
+      this.playlistList = this.originalPlaylistList.filter((item) =>
+        item.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
+
+  openModal() {
+    this.isModalVisible = true;
+  }
+
+  closeModal() {
+    this.isModalVisible = false;
+  }
+
+  handleCancel() {
+    console.log('Cancel button clicked');
+    this.closeModal();
+  }
+
+  handleDone() {
+    console.log('Done button clicked');
+    this.closeModal();
+  }
 }

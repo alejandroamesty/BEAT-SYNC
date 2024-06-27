@@ -1,0 +1,24 @@
+<ion-content scroll-y="false">
+  <app-search-input
+    [width]="'291px'"
+    [placeholder]="'Search tracks by genre'"
+    [focusInput]="true"
+    class="search-input"
+    (searchTermChanged)="onSearchTermChanged($event)"
+  ></app-search-input>
+  <div class="cancel-button" (click)="backClicked()">Cancel</div>
+  <div *ngIf="filteredMusic.length === 0" class="search-preview">
+    <img
+      src="../../../../assets/images/green-music.png"
+      alt="Music Icon"
+      class="music-icon"
+    />
+    <div class="title">Sync to the beat</div>
+    <div class="subtitle">Search tracks from your favorite genres</div>
+  </div>
+  <app-music-list
+    [height]="'438px'"
+    *ngIf="filteredMusic.length > 0"
+    [musicList]="filteredMusic"
+  ></app-music-list>
+</ion-content>

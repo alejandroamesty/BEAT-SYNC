@@ -1,0 +1,16 @@
+<div class="playlist-item-container" (click)="handleClick()">
+  <img [src]="playlist.cover" alt="Cover" class="cover" />
+  <div class="playlist-data">
+    <div class="title">{{ playlist.title }}</div>
+    <div class="details-container">
+      <div class="description">Playlist • {{ playlist.user }}</div>
+    </div>
+  </div>
+  <app-control-button
+    [source]="'../../../assets/images/edit.png'"
+    [size]="24"
+    (onPress)="onButtonClick()"
+    class="control-button"
+  >
+  </app-control-button>
+</div>

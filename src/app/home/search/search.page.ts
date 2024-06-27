@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { SearchAlbumsPage } from './search-albums/search-albums.page';
 import { SearchArtistsPage } from './search-artists/search-artists.page';
+import { SearchTracksByGenrePage } from './search-tracks-by-genre/search-tracks-by-genre.page';
 
 @Component({
   selector: 'app-search',
@@ -31,13 +32,15 @@ import { SearchArtistsPage } from './search-artists/search-artists.page';
     CategoryCardComponent,
     SearchTracksPage,
     SearchAlbumsPage,
-    SearchArtistsPage
+    SearchArtistsPage,
+    SearchTracksByGenrePage,
   ],
 })
 export class SearchPage implements OnInit {
   showSearchTracks: boolean = false;
   showSearchAlbums: boolean = false;
   showSearchArtists: boolean = false;
+  showSearchTracksByGenre: boolean = false;
   constructor(private router: Router, private _location: Location) {}
 
   ngOnInit() {}
@@ -52,5 +55,9 @@ export class SearchPage implements OnInit {
 
   handleArtistCardPress() {
     this.router.navigate(['search-artists']);
+  }
+
+  handleGenreCardPress() {
+    this.router.navigate(['search-tracks-by-genre']);
   }
 }

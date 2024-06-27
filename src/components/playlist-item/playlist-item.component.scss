@@ -1,0 +1,50 @@
+.playlist-item-container {
+  position: absolute;
+  width: 372px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cover {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  left: 0;
+  top: 0;
+}
+
+.playlist-data {
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.title {
+  font-family: "BROmnyMedium";
+  font-size: 15px;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.details-container {
+  display: flex;
+  align-items: center;
+}
+
+.description {
+  font-family: "BROmnyRegular";
+  font-size: 12px;
+  color: #a3a3a9;
+}
+
+.control-button {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 348px;
+  top: 15px;
+}

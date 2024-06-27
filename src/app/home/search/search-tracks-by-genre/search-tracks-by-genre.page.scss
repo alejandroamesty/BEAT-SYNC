@@ -1,0 +1,72 @@
+ion-content {
+  --ion-background-color: linear-gradient(180deg, #171717 0%, #000000 100%);
+}
+
+.search-tracks-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-input {
+  position: absolute;
+  top: 52px;
+  left: calc(50% - 291px / 2 - 38.5px);
+  bottom: 640px;
+  transition: bottom 0.3s ease;
+}
+
+.cancel-button {
+  position: absolute;
+  left: 336px;
+  top: 62px;
+  font-family: "BROmnyRegular";
+  font-size: 17px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.music-icon {
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  left: calc(50% - 96px / 2);
+  top: 201px;
+  bottom: 59.65%;
+}
+
+.title {
+  position: absolute;
+  width: 250px;
+  height: 31px;
+  left: calc(50% - 250px / 2);
+  top: 308px;
+  font-family: "BROmnySemiBold";
+  font-size: 22px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.subtitle {
+  position: absolute;
+  width: 227px;
+  height: 24px;
+  left: calc(50% - 227px / 2 - 0.5px);
+  top: 337px;
+  font-family: "BROmnyRegular";
+  font-size: 12px;
+  text-align: center;
+  color: rgba(235, 235, 245, 0.6);
+}
+
+app-music-list {
+  position: absolute;
+  width: 370px;
+  height: 438px;
+  left: calc(50% - 370px / 2);
+  top: 126px;
+}
