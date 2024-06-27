@@ -5,5 +5,6 @@ export interface MusicItem {
   title: string;
   artists: string[];
   explicit: boolean;
+  genre?: string;
   type: MusicType;
 }

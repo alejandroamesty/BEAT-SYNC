@@ -12,6 +12,7 @@
         source="../../../assets/images/search-tab/tracks-by-genre-card.png"
         title="Tracks by genre"
         bgColor="#FF7A67"
+        (onPress)="handleGenreCardPress()"
       ></app-category-card>
       <app-category-card
         source="../../../assets/images/search-tab/albums-card.png"
@@ -34,6 +35,9 @@
     <app-search-albums></app-search-albums>
   </div>
   <div *ngIf="showSearchArtists" class="search-artists-wrapper">
+    <app-search-artists></app-search-artists>
+  </div>
+  <div *ngIf="showSearchTracksByGenre" class="search-genres-wrapper">
     <app-search-artists></app-search-artists>
   </div>
 </ion-content>

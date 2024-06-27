@@ -29,3 +29,47 @@ ion-content {
   left: calc(50% - 366px / 2 - 2px);
   top: 104px;
 }
+
+.playlist-cards {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  gap: 85px;
+}
+
+.playlist-list-container {
+  position: relative;
+  width: 372px;
+  height: 375px;
+  display: flex;
+  flex-direction: column;
+  left: calc(50% - 370px / 2);
+  top: 170px;
+  overflow-y: auto;
+}
+
+.playlist-list-container::-webkit-scrollbar {
+  display: none;
+}
+
+.playlist-items {
+  position: relative;
+  width: 372px;
+  display: flex;
+  flex-direction: column;
+  top: 170px;
+}
+
+.playlist-item {
+  margin-bottom: 67px;
+}
+
+.playlist-item:last-child {
+  margin-bottom: 0;
+}
+
+.custom-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
