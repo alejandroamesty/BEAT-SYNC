@@ -1,0 +1,11 @@
+<div class="tracklist-container" [ngStyle]="{ height: height }">
+  <ng-container *ngFor="let track of sortedTracks">
+    <app-album-track
+      [title]="track.title"
+      [artists]="track.artists"
+      [liked]="track.liked"
+      (onPress)="handleTrackLike(track)"
+      class="album-track"
+    ></app-album-track>
+  </ng-container>
+</div>

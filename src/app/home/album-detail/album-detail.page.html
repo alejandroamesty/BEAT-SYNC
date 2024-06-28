@@ -1,0 +1,39 @@
+<ion-content scroll-y="false">
+  <div class="album-detail-container">
+    <div class="close-button">
+      <app-control-button
+        source="../../assets/images/left.png"
+        alt="Close"
+        [size]="24"
+        (onPress)="closePage()"
+      />
+    </div>
+    <div
+      class="album-cover"
+      [ngStyle]="{'background-image': 'url(' + albumCover + ')'}"
+    ></div>
+    <div class="album-type">ALBUM</div>
+    <div class="album-title">{{ albumTitle }}</div>
+    <div class="album-artists">{{ artists }}</div>
+    <div class="album-genre-release">{{ genre }} • {{ releaseYear }}</div>
+    <div class="album-popularity">{{ getStarRating() }}</div>
+    <div class="buttons-container">
+      <app-simple-button
+        caption="Play"
+        source="../../../assets/images/play.png"
+        (onPress)="handlePlayClick()"
+      ></app-simple-button>
+      <app-simple-button
+        caption="View Artist"
+        source="../../../assets/images/artist.png"
+        (onPress)="handlePlayClick()"
+      ></app-simple-button>
+    </div>
+    <div class="tracklist-container">
+      <app-album-tracklist
+        [tracks]="tracklist"
+        height="450px"
+      ></app-album-tracklist>
+    </div>
+  </div>
+</ion-content>

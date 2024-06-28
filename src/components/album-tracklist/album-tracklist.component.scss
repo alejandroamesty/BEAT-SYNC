@@ -1,0 +1,30 @@
+.tracklist-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.tracklist-container::-webkit-scrollbar {
+  display: none;
+}
+
+.tracklist-container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.tracklist-container {
+  -moz-scrollbar-width: none;
+  scrollbar-width: none;
+}
+
+.album-track {
+  margin-bottom: 67px;
+}
+
+.album-track:last-child {
+  margin-bottom: 0;
+}

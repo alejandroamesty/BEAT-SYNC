@@ -61,5 +61,13 @@ export const routes: Routes = [
   {
     path: 'search-tracks-by-genre',
     loadComponent: () => import('./home/search/search-tracks-by-genre/search-tracks-by-genre.page').then( m => m.SearchTracksByGenrePage)
+  },
+  {
+    path: 'album-detail',
+    loadComponent: () => import('./home/album-detail/album-detail.page').then( m => m.AlbumDetailPage)
+  },
+  {
+    path: 'playlist-detail',
+    loadComponent: () => import('./home/playlist-detail/playlist-detail.page').then( m => m.PlaylistDetailPage)
   }
 ];

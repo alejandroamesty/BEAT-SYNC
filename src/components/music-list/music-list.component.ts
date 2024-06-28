@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MusicItemComponent } from './music-item/music-item.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-music-list',
@@ -10,6 +11,8 @@ import { MusicItemComponent } from './music-item/music-item.component';
   imports: [CommonModule, MusicItemComponent],
 })
 export class MusicListComponent {
+  constructor(private router: Router) {}
+
   @Input() musicList: Array<{
     _id?: string;
     refId: string;
@@ -32,7 +35,9 @@ export class MusicListComponent {
 
   @Input() height: string = 'auto';
 
-  handleItemPress(title: string) {
-    console.log('Music item pressed:', title);
+  handleItemPress(type: string) {
+    if (type === 'Album') {
+      this.router.navigate(['album-detail']);
+    }
   }
 }

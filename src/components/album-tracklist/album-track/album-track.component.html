@@ -1,0 +1,18 @@
+<div class="album-track-container">
+  <div class="track-info">
+    <div class="track-title">{{ title }}</div>
+    <div class="track-artists">{{ artists }}</div>
+  </div>
+  <div class="like-button" (click)="onLikeClick()" [class.liked]="liked">
+    <img
+      *ngIf="!liked"
+      src="../../../assets/images/mini-player/unliked.svg"
+      alt="Like Button"
+    />
+    <img
+      *ngIf="liked"
+      src="../../../assets/images/mini-player/liked.svg"
+      alt="Liked Button"
+    />
+  </div>
+</div>
