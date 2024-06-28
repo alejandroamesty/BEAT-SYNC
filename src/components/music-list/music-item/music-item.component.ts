@@ -58,4 +58,15 @@ export class MusicItemComponent {
     this.onPress.emit();
     console.log('Button pressed:', this.music.name);
   }
+
+  getMusicCover(): string {
+    if (
+      this.music.cover_img &&
+      this.music.cover_img.length > 0 &&
+      this.music.cover_img[0]?.url
+    ) {
+      return this.music.cover_img[0].url;
+    }
+    return '../../../assets/images/no-cover.png';
+  }
 }

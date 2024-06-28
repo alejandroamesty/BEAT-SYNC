@@ -1,5 +1,5 @@
 <div class="music-item-container" (click)="handleClick()">
-  <img [src]="music.cover_img[0]?.url" alt="Cover" class="cover" />
+  <img [src]="getMusicCover()" alt="Cover" class="cover" />
 
   <div class="song-data">
     <div class="title">{{ music.name }}</div>

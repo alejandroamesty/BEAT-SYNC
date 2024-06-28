@@ -28,6 +28,14 @@
   font-size: 15px;
   color: #ffffff;
   margin-bottom: 2px;
+  width: 277px;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal;
+  text-overflow: ellipsis;
 }
 
 .details-container {
@@ -45,6 +53,14 @@
   font-family: "BROmnyRegular";
   font-size: 12px;
   color: #a3a3a9;
+  width: 257px;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal;
+  text-overflow: ellipsis;
 }
 
 .control-button {
