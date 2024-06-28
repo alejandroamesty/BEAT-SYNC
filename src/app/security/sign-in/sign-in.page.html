@@ -19,6 +19,7 @@
       [backgroundColor]="'#212121'"
       [isPassword]="false"
       [type]="'email'"
+      (valueChange)="emailChange($event)"
     ></app-border-input>
   </div>
   <div class="captionInput2">Password</div>
@@ -30,6 +31,7 @@
       [backgroundColor]="'#212121'"
       [isPassword]="false"
       [type]="'password'"
+      (valueChange)="passwordChange($event)"
     ></app-border-input>
   </div>
   <div class="forgotPassword" (click)="navigateToForgotPassword()">

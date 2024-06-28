@@ -11,11 +11,19 @@ import { ControlButtonComponent } from 'src/components/control-button/control-bu
 })
 export class ArtistItemComponent {
   @Input() artist: {
-    pfp: string;
+    _id?: string;
+    refId: string;
     name: string;
+    genres: string[];
+    images: any[];
+    popularity: Number | null;
   } = {
-    pfp: '../../../assets/images/badbunny.jpeg',
-    name: 'Bad Bunny',
+    _id: 'unknownId',
+    refId: 'unknownRefId',
+    name: 'Default Title',
+    genres: ['Default Genre'],
+    images: [],
+    popularity: 0,
   };
 
   @Output() onPress = new EventEmitter<void>();

@@ -1,5 +1,5 @@
 <div class="artist-item-container" (click)="handleClick()">
-  <img [src]="artist.pfp" alt="Cover" class="pfp" />
+  <img [src]="artist.images[0]?.url" alt="Cover" class="pfp" />
   <div class="artist-data">
     <div class="name">{{ artist.name }}</div>
     <div class="details-container">

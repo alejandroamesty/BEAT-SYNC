@@ -11,8 +11,12 @@ import { ArtistItemComponent } from './artist-item/artist-item.component';
 })
 export class ArtistListComponent {
   @Input() artistList: Array<{
-    pfp: string;
+    _id?: string;
+    refId: string;
     name: string;
+    genres: string[];
+    images: any[];
+    popularity: Number | null;
   }> = [];
 
   @Input() height: string = 'auto';

@@ -31,24 +31,7 @@ import { ArtistListComponent } from 'src/components/artist-list/artist-list.comp
 export class SearchArtistsPage implements OnInit {
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
 
-  artistItems = [
-    {
-      pfp: '../../../assets/images/badbunny.jpeg',
-      name: 'Daddy Yankee',
-    },
-    {
-      pfp: '../../../assets/images/badbunny.jpeg',
-      name: 'Bad Bunny',
-    },
-    {
-      pfp: '../../../assets/images/badbunny.jpeg',
-      name: 'Farruko',
-    },
-    {
-      pfp: '../../../assets/images/badbunny.jpeg',
-      name: 'Rauw Alejandro',
-    },
-  ];
+  artistItems: any[] = [];
 
   filteredArtists: any[] = [];
   searchTerm: string = '';
@@ -61,14 +44,35 @@ export class SearchArtistsPage implements OnInit {
     this._location.back();
   }
 
-  onSearchTermChanged(searchTerm: string) {
+  private searchTimeout: any;
+
+  async onSearchTermChanged(searchTerm: string) {
     this.searchTerm = searchTerm;
-    if (this.searchTerm.trim() === '') {
-      this.filteredArtists = [];
-    } else {
-      this.filteredArtists = this.artistItems.filter((item) =>
-        item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    }
+    clearTimeout(this.searchTimeout);
+    this.searchTimeout = setTimeout(() => {
+      try {
+        if (this.searchTerm === '') {
+          this.filteredArtists = [];
+          return;
+        }
+        fetch(
+          `https://beatsyncserver.onrender.com/search/Artist?filter=${this.searchTerm}&skip=0`,
+          {
+            method: 'GET',
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Success:', data);
+            this.artistItems = data;
+
+            this.filteredArtists = this.artistItems.filter((item) =>
+              item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+            );
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    }, 500);
   }
 }

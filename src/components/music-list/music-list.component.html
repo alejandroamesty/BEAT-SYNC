@@ -2,7 +2,7 @@
   <app-music-item
     *ngFor="let item of musicList"
     [music]="item"
-    (onPress)="handleItemPress(item.type)"
+    (onPress)="handleItemPress(item.name)"
     class="music-item"
   ></app-music-item>
 </div>
