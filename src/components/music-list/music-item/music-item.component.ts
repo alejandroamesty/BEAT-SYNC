@@ -11,16 +11,39 @@ import { ControlButtonComponent } from 'src/components/control-button/control-bu
 })
 export class MusicItemComponent {
   @Input() music: {
-    cover: string;
-    title: string;
-    artists: string[];
-    explicit: boolean;
+    _id?: string;
+    refId: string;
+    name: string;
+    url?: string | null;
+    cover_img: any[];
+    release_date: string;
+    duration_ms?: Number;
+    disc_number?: Number;
+    track_number?: Number;
+    album?: string;
+    album_refId?: string;
+    artists: any[];
+    genres?: string[];
+    explicit?: boolean;
+    popularity: Number | null;
+    total_tracks?: Number;
     type: 'Song' | 'Album';
   } = {
-    cover: '../../../assets/images/unveranosinti.png',
-    title: 'Default Title',
+    _id: 'unknownId',
+    refId: 'unknownRefId',
+    name: 'Default Title',
+    url: null,
+    cover_img: [],
     artists: ['Default Artist'],
-    explicit: true,
+    release_date: '2021-01-01',
+    duration_ms: 0,
+    disc_number: 0,
+    track_number: 0,
+    album: 'Default Album',
+    album_refId: 'unknownAlbumId',
+    genres: ['Default Genre'],
+    explicit: false,
+    popularity: 0,
     type: 'Song',
   };
 
@@ -28,11 +51,11 @@ export class MusicItemComponent {
 
   handleClick() {
     this.onPress.emit();
-    console.log('Music item pressed:', this.music.title);
+    console.log('Music item pressed:', this.music.name);
   }
 
   onButtonClick() {
     this.onPress.emit();
-    console.log('Button pressed:', this.music.title);
+    console.log('Button pressed:', this.music.name);
   }
 }
