@@ -32,36 +32,7 @@ import { Location } from '@angular/common';
 export class SearchTracksPage implements OnInit {
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
 
-  musicItems: MusicItem[] = [
-    {
-      cover: '../../../assets/images/unveranosinti.png',
-      title: 'Sweet Dreams',
-      artists: ['Artist 1', 'Artist 2'],
-      explicit: true,
-      type: 'Song',
-    },
-    {
-      cover: '../../../assets/images/unveranosinti.png',
-      title: 'Sweet Nothing',
-      artists: ['Artist 4', 'Artist 5'],
-      explicit: false,
-      type: 'Song',
-    },
-    {
-      cover: '../../../assets/images/unveranosinti.png',
-      title: 'Safety Net',
-      artists: ['Artist 3', 'Artist 6'],
-      explicit: true,
-      type: 'Song',
-    },
-    {
-      cover: '../../../assets/images/unveranosinti.png',
-      title: 'Songs For You',
-      artists: ['Artist 4', 'Artist 5'],
-      explicit: false,
-      type: 'Song',
-    },
-  ];
+  musicItems: MusicItem[] = [];
 
   filteredMusic: MusicItem[] = [];
   searchTerm: string = '';
@@ -74,14 +45,41 @@ export class SearchTracksPage implements OnInit {
     this._location.back();
   }
 
-  onSearchTermChanged(searchTerm: string) {
+  private searchTimeout: any;
+
+  async onSearchTermChanged(searchTerm: string) {
     this.searchTerm = searchTerm;
-    if (this.searchTerm.trim() === '') {
-      this.filteredMusic = [];
-    } else {
-      this.filteredMusic = this.musicItems.filter((item) =>
-        item.title.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    }
+    clearTimeout(this.searchTimeout);
+    this.searchTimeout = setTimeout(() => {
+      try {
+        if (this.searchTerm === '') {
+          this.filteredMusic = [];
+          return;
+        }
+        fetch(
+          `https://beatsyncserver.onrender.com/search/TracksByName?filter=${this.searchTerm}&skip=0`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log('Success:', data);
+            this.musicItems = data;
+            if (this.searchTerm.trim() === '') {
+              this.filteredMusic = [];
+            } else {
+              this.filteredMusic = this.musicItems.filter((item) =>
+                item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+              );
+            }
+          });
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }, 500);
   }
 }
