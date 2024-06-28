@@ -1,0 +1,101 @@
+.album-detail-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #121212;
+  color: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.album-cover {
+  position: absolute;
+  width: 112px;
+  height: 112px;
+  left: 20px;
+  top: 71px;
+  background-size: cover;
+  border-radius: 20px;
+}
+
+.album-type {
+  position: absolute;
+  width: 115px;
+  height: 17px;
+  left: calc(50% - 115px / 2 + 2.5px);
+  top: 71px;
+  font-family: "BROmnyMedium";
+  font-size: 12px;
+  color: #a3a3a9;
+}
+
+.album-title {
+  position: absolute;
+  width: 176px;
+  height: 22px;
+  left: calc(50% - 176px / 2 + 33px);
+  top: 95px;
+  font-family: "BROmnySemiBold";
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.album-artists {
+  position: absolute;
+  width: 115px;
+  height: 22px;
+  left: calc(50% - 115px / 2 + 2.5px);
+  top: 117px;
+  font-family: "BROmnyMedium";
+  font-size: 18px;
+  color: #61da5e;
+}
+
+.album-genre-release {
+  position: absolute;
+  width: 115px;
+  height: 17px;
+  left: calc(50% - 115px / 2 + 2.5px);
+  top: 143px;
+  font-family: "BROmnyMedium";
+  font-size: 12px;
+  color: #a3a3a9;
+}
+
+.album-popularity {
+  position: absolute;
+  width: 115px;
+  height: 17px;
+  left: calc(50% - 115px / 2 + 2.5px);
+  top: 170px;
+  font-family: "BROmnyMedium";
+  font-size: 12px;
+  color: #61da5e;
+}
+
+.buttons-container {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 372px;
+  top: 205px;
+}
+
+.tracklist-container {
+  position: absolute;
+  width: 374px;
+  height: 299px;
+  top: 265px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tracklist-container::-webkit-scrollbar {
+  display: none;
+}
+
+.close-button {
+  position: absolute;
+  top: 30px;
+}

@@ -1,0 +1,57 @@
+.album-track-container {
+  position: absolute;
+  width: 374px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.track-title {
+  font-family: "BROmnyMedium";
+  font-size: 15px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.track-artists {
+  font-family: "BROmnyMedium";
+  font-size: 11px;
+  color: #a3a3a9;
+  display: flex;
+  align-items: center;
+}
+
+.like-button {
+  width: 19px;
+  height: 19px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.like-button.liked img {
+  content: url("../../../assets/images/mini-player/liked.svg");
+}
+
+.like-button img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.like-button:hover {
+  transform: scale(1.1);
+}
+
+.like-button:active {
+  transform: scale(0.9);
+}
