@@ -22,7 +22,7 @@ export class ArtistItemComponent {
     refId: 'unknownRefId',
     name: 'Default Title',
     genres: ['Default Genre'],
-    images: [],
+    images: ['../../../assets/images/no-cover.png'],
     popularity: 0,
   };
 
@@ -34,5 +34,16 @@ export class ArtistItemComponent {
 
   onButtonClick() {
     this.onPress.emit();
+  }
+
+  getArtistImage(): string {
+    if (
+      this.artist.images &&
+      this.artist.images.length > 0 &&
+      this.artist.images[0].url
+    ) {
+      return this.artist.images[0].url;
+    }
+    return '../../../assets/images/no-artist-pfp.png';
   }
 }
