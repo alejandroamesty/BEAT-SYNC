@@ -21,11 +21,7 @@
   </div>
 
   <app-control-button
-    [source]="
-      music.type === 'Album'
-        ? '../../../assets/images/go-to.png'
-        : '../../../assets/images/add.png'
-    "
+    [source]="getControlButtonIcon()"
     [size]="24"
     (onPress)="onButtonClick()"
     class="control-button"

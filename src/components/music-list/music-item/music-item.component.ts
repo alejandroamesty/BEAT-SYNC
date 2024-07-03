@@ -47,6 +47,7 @@ export class MusicItemComponent {
     type: 'Song',
   };
 
+  @Input() isPlaylist: boolean = false;
   @Output() onPress = new EventEmitter<void>();
 
   handleClick() {
@@ -68,5 +69,14 @@ export class MusicItemComponent {
       return this.music.cover_img[0].url;
     }
     return '../../../assets/images/no-cover.png';
+  }
+
+  getControlButtonIcon(): string {
+    if (this.isPlaylist && this.music.type === 'Song') {
+      return '../../../assets/images/remove.png';
+    }
+    return this.music.type === 'Album'
+      ? '../../../assets/images/go-to.png'
+      : '../../../assets/images/add.png';
   }
 }

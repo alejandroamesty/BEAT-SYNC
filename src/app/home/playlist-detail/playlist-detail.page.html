@@ -1,13 +1,47 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>PlaylistDetail</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">PlaylistDetail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content scroll-y="false">
+  <div class="playlist-detail-container">
+    <div class="close-button">
+      <app-control-button
+        source="../../assets/images/left.png"
+        alt="Close"
+        [size]="24"
+        (onPress)="closePage()"
+      />
+    </div>
+    <div class="delete-button">
+      <app-control-button
+        source="../../assets/images/delete-playlist.png"
+        alt="Close"
+        [size]="24"
+        (onPress)="deletePlaylist()"
+      />
+    </div>
+    <div
+      class="playlist-cover"
+      [ngStyle]="{'background-image': 'url(' + playlistCover + ')'}"
+    ></div>
+    <div class="music-type">PLAYLIST</div>
+    <div class="playlist-title">{{ playlistTitle }}</div>
+    <div class="user">By {{ user }}</div>
+    <div class="playlist-description">{{ description }}</div>
+    <div class="buttons-container">
+      <app-simple-button
+        caption="Play"
+        source="../../../assets/images/play.png"
+        (onPress)="handlePlayClick()"
+      ></app-simple-button>
+      <app-simple-button
+        caption="Edit"
+        source="../../../assets/images/edit-playlist.png"
+        (onPress)="handlePlayClick()"
+      ></app-simple-button>
+    </div>
+    <div class="songs-container">
+      <app-music-list
+        [isPlaylist]="true"
+        [height]="'450px'"
+        [musicList]="musicItems"
+      ></app-music-list>
+    </div>
+  </div>
 </ion-content>

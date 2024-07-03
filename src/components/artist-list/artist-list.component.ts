@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArtistItemComponent } from './artist-item/artist-item.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-artist-list',
@@ -19,9 +20,12 @@ export class ArtistListComponent {
     popularity: Number | null;
   }> = [];
 
+  constructor(private router: Router) {}
+
   @Input() height: string = 'auto';
 
   handleItemPress(title: string) {
+    this.router.navigate(['artist-detail']);
     console.log('Artist item pressed:', title);
   }
 }

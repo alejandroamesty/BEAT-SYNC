@@ -33,6 +33,8 @@ export class MusicListComponent {
     type: 'Song' | 'Album';
   }> = [];
 
+  @Input() isPlaylist: boolean = false;
+
   @Input() height: string = 'auto';
 
   handleItemPress(type: string) {
