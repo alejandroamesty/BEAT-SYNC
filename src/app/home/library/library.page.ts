@@ -7,6 +7,7 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
 import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 import { SearchInputComponent } from 'src/components/search-input/search-input.component';
 import { MusicListComponent } from 'src/components/music-list/music-list.component';
@@ -72,13 +73,14 @@ export class LibraryPage implements OnInit {
 
   @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.playlistList = [...this.originalPlaylistList];
   }
 
   handleItemPress(title: string) {
+    this.router.navigate(['playlist-detail']);
     console.log('Music item pressed:', title);
   }
 

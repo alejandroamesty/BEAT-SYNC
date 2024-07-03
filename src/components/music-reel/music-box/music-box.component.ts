@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-music-box',
@@ -18,6 +19,8 @@ export class MusicBoxComponent {
 
   @Output() onPress: EventEmitter<void> = new EventEmitter<void>();
 
+  constructor(private router: Router) {}
+
   get subtitle(): string {
     if (this.type === 'playlist') {
       return `Playlist • ${this.description}`;
@@ -28,6 +31,13 @@ export class MusicBoxComponent {
   }
 
   handleClick() {
+    if (this.type === 'playlist') {
+      this.router.navigate(['playlist-detail']);
+      console.log('Playlist clicked:', this.title);
+    } else if (this.type === 'album') {
+      this.router.navigate(['album-detail']);
+      console.log('Album clicked:', this.title);
+    }
     this.onPress.emit();
   }
 }

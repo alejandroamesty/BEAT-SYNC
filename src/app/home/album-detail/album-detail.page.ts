@@ -10,6 +10,7 @@ import {
 } from '@ionic/angular/standalone';
 import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-album-detail',
@@ -106,10 +107,15 @@ export class AlbumDetailPage implements OnInit {
 
   ngOnInit(): void {}
 
-  constructor(private _location: Location) {}
+  constructor(private _location: Location, private router: Router) {}
 
   handlePlayClick() {
     console.log('Play button clicked');
+  }
+
+  handleViewClick() {
+    this.router.navigate(['artist-detail']);
+    console.log('View button clicked');
   }
 
   handleLikeClick(track: any) {

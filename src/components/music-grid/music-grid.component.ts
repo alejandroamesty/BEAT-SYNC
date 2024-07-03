@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MusicCardComponent } from './music-card/music-card.component';
+import { Router } from '@angular/router';
 
 interface MusicItem {
   title: string;
@@ -17,7 +18,10 @@ interface MusicItem {
 export class MusicGridComponent {
   @Input() musicItems: MusicItem[] = [];
 
+  constructor(private router: Router) {}
+
   handleCardPress(item: MusicItem) {
+    this.router.navigate(['album-detail']);
     console.log('Music Card Pressed:', item);
   }
 }
