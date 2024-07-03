@@ -1,6 +1,7 @@
 <div class="music-list-container" [style.height]="height">
   <app-music-item
     *ngFor="let item of musicList"
+    [isPlaylist]="isPlaylist"
     [music]="item"
     (onPress)="handleItemPress(item.name)"
     class="music-item"
