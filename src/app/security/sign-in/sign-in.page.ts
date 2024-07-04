@@ -66,6 +66,10 @@ export class SignInPage implements OnInit {
       body: JSON.stringify({ email: this.email, password: this.password }),
     }).then((response) => {
       if (response.status === 200) {
+        // save sessionId in localStorage
+        response.json().then((data) => {
+          localStorage.setItem('userId', data.sessionId);
+        });
         this.router.navigate(['main-tab']);
       } else if (response.status === 404) {
         console.log('User not Found');
@@ -81,11 +85,9 @@ export class SignInPage implements OnInit {
 
   passwordChange(event: any) {
     this.password = event;
-    console.log(event);
   }
 
   emailChange(event: any) {
     this.email = event;
-    console.log(event);
   }
 }

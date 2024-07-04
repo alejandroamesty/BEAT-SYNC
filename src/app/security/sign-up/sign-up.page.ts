@@ -33,7 +33,10 @@ import { ControlButtonComponent } from 'src/components/control-button/control-bu
 })
 export class SignUpPage implements OnInit {
   constructor(private router: Router) {}
-
+  email: string = '';
+  password: string = '';
+  confirmPassword: string = '';
+  fetching: boolean = false;
   ngOnInit() {}
 
   navigateToSignIn() {
@@ -48,7 +51,57 @@ export class SignUpPage implements OnInit {
     this.router.navigate(['forgot-password']);
   }
 
+  handleEmailChange(event: any) {
+    this.email = event;
+  }
+
+  handlePasswordChange(event: any) {
+    this.password = event;
+  }
+
+  handleConfirmPasswordChange(event: any) {
+    this.confirmPassword = event;
+  }
+
   navigateToHome() {
-    this.router.navigate(['main-tab']);
+    if (this.email === '' || this.password === '' || this.password.length < 8) {
+      console.error('Invalid email or password');
+      return;
+    }
+    //regex for email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.email)) {
+      console.error('Invalid email');
+      return;
+    }
+    if (this.password !== this.confirmPassword) {
+      console.error('Passwords do not match');
+      return;
+    }
+    if (this.fetching) return;
+    this.fetching = true;
+    fetch(`https://beatsyncserver.onrender.com/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.email,
+        password: this.password,
+      }),
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          this.fetching = false;
+          this.router.navigate(['sign-in']);
+        } else {
+          this.fetching = false;
+          console.error('Not able to register user');
+        }
+      })
+      .catch((error) => {
+        this.fetching = false;
+        console.error('Error while registering user', error);
+      });
   }
 }

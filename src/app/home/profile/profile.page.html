@@ -34,6 +34,7 @@
     class="option-3"
     source="../../../assets/images/profile/delete-account.png"
     [title]="'Delete account'"
+    (onPress)="handleDeletePress()"
   ></app-option-card>
   <app-option-card
     class="option-4"
@@ -50,5 +51,15 @@
     [acceptButtonText]="'ACCEPT'"
     (onCancel)="handleCancel()"
     (onAccept)="handleAccept()"
+  ></app-confirmation-modal>
+  <app-confirmation-modal
+    [visible]="showDeleteModal"
+    [image]="'../../../assets/images/profile/delete-account.png'"
+    [title]="'Deleting account'"
+    [text]="'You are about to delete your account. Are you sure this is what you want?'"
+    [cancelButtonText]="'CANCEL'"
+    [acceptButtonText]="'ACCEPT'"
+    (onCancel)="handleDeleteCancel()"
+    (onAccept)="handleDeleteAccept()"
   ></app-confirmation-modal>
 </ion-content>

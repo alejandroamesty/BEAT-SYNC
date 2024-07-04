@@ -32,6 +32,8 @@ import { ConfirmationModalComponent } from 'src/components/confirmation-modal/co
 })
 export class ProfilePage implements OnInit {
   showModal: boolean = false;
+  showDeleteModal: boolean = false;
+  fetching: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -39,6 +41,37 @@ export class ProfilePage implements OnInit {
 
   handleLogoutPress() {
     this.showModal = true;
+  }
+
+  handleDeletePress() {
+    this.showDeleteModal = true;
+  }
+
+  handleDeleteCancel() {
+    this.showDeleteModal = false;
+  }
+
+  handleDeleteAccept() {
+    this.showDeleteModal = false;
+    if (this.fetching) return;
+    this.fetching = true;
+    fetch('https://beatsyncserver.onrender.com/auth/unregister', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId: localStorage.getItem('userId') }),
+    }).then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        this.fetching = false;
+        localStorage.removeItem('userId');
+        this.router.navigate(['start-screen']);
+      } else {
+        this.fetching = false;
+        console.log('Failed to delete');
+      }
+    });
   }
 
   handleCancel() {

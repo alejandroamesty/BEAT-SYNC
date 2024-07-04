@@ -31,9 +31,15 @@ import { SaveButtonComponent } from 'src/components/save-button/save-button.comp
   ],
 })
 export class ForgotPasswordPage implements OnInit {
+  email: string = '';
+  fetching: boolean = false;
   constructor(private navCtrl: NavController) {}
 
   ngOnInit() {}
+
+  handleEmailChange(event: any) {
+    this.email = event;
+  }
 
   navigateToSignIn() {
     this.navCtrl.navigateForward('sign-in', {
@@ -43,10 +49,42 @@ export class ForgotPasswordPage implements OnInit {
   }
 
   navigateToVerifyCode() {
+    if (this.email === '' || this.fetching) return;
+    this.fetching = true;
+    /* fetch(
+      'https://beatsyncserver.onrender.com/passwordRecovery/forgotPassword',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: this.email,
+        }),
+      }
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('Email sent');
+          localStorage.setItem('email', this.email);
+          this.navCtrl.navigateForward('verify-code', {
+            animated: true,
+            animationDirection: 'forward',
+          });
+        } else {
+          console.log('Email not sent');
+        }
+      })
+      .catch((error) => {
+        console.log('Error: ', error);
+      }); */
+
+    // testing purposes only vvv
     this.navCtrl.navigateForward('verify-code', {
       animated: true,
       animationDirection: 'forward',
     });
+    this.fetching = false;
   }
 
   navigateToSignUp() {
