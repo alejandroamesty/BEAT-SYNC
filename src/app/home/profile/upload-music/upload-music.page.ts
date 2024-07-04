@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 import { BorderInputComponent } from 'src/components/border-input/border-input.component';
 import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 import { SaveButtonComponent } from 'src/components/save-button/save-button.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-upload-music',
@@ -39,9 +39,11 @@ export class UploadMusicPage implements OnInit {
   artists: string = '';
   genres: string = '';
 
-  constructor(private _location: Location, private http: HttpClient) {}
+  constructor(private _location: Location) {}
 
   ngOnInit() {}
+
+  uploadingTrack: boolean = false;
 
   async goBack() {
     this._location.back();
@@ -73,51 +75,68 @@ export class UploadMusicPage implements OnInit {
   }
 
   updateTitle(event: any) {
-    this.title = event.target.value;
+    this.title = event;
   }
 
   updateArtists(event: any) {
-    this.artists = event.target.value;
+    this.artists = event;
   }
 
   updateGenres(event: any) {
-    this.genres = event.target.value;
+    this.genres = event;
   }
 
   async uploadTrack() {
-    if (!this.selectedFile) return;
-
+    if (
+      this.title === '' ||
+      this.artists === '' ||
+      this.genres === '' ||
+      !this.selectedFile
+    ) {
+      console.error('Please fill out all fields');
+      return;
+    }
+    console.log('Session: ', localStorage.getItem('userId'));
     const formData = new FormData();
+    formData.append('userId', localStorage.getItem('userId') || '');
     formData.append('songFile', this.selectedFile);
-    formData.append('songName', this.title);
-    formData.append('songArtist', this.artists);
-    formData.append('songGenres', this.genres);
-
+    formData.append('songName', this.title.trim());
+    this.artists.split(',').forEach((artist) => {
+      artist = artist.trim();
+      formData.append('songArtist', artist);
+    });
+    this.genres.split(',').forEach((genre) => {
+      genre = genre.trim();
+      formData.append('songGenres', genre);
+    });
     const duration = await this.getAudioDuration(this.selectedFile);
     formData.append('songDuration', duration.toString());
-
     formData.append('songReleaseDate', new Date().toISOString().split('T')[0]);
     formData.append('songDiscNumber', '1');
     formData.append('songTrackNumber', '1');
 
-    this.http
-      .post('https://beatsyncserver.onrender.com/track', formData)
-      .subscribe({
-        next: (response) => {
-          console.log('Track uploaded successfully:', response);
-          this.goBack();
-        },
-        error: (error) => {
-          console.error('Error uploading track:', error);
-        },
-      });
+    if (this.uploadingTrack) return;
+    this.uploadingTrack = true;
+    await fetch('https://beatsyncserver.onrender.com/track', {
+      method: 'POST',
+      body: formData,
+    }).then((response) => {
+      if (response.status === 200) {
+        console.log('Track uploaded successfully:', response);
+        this.uploadingTrack = false;
+        this.goBack();
+      } else {
+        console.error('Error uploading track:', response);
+        this.uploadingTrack = false;
+      }
+    });
   }
 
   getAudioDuration(file: File): Promise<number> {
     return new Promise((resolve, reject) => {
       const audio = new Audio(URL.createObjectURL(file));
       audio.addEventListener('loadedmetadata', () => {
-        resolve(audio.duration * 1000);
+        resolve(audio.duration);
       });
       audio.addEventListener('error', (e) => {
         reject(e);
@@ -127,9 +146,11 @@ export class UploadMusicPage implements OnInit {
 
   async checkSession(): Promise<boolean> {
     try {
-      const response = await this.http
-        .get('https://beatsyncserver.onrender.com/auth/checkSession')
-        .toPromise();
+      const response = await fetch(
+        `https://beatsyncserver.onrender.com/auth/checkSession?userId=${localStorage.getItem(
+          'userId'
+        )}`
+      );
       console.log('Check session response:', response);
       return true;
     } catch (error) {
