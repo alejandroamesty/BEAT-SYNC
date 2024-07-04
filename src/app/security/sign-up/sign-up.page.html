@@ -1,6 +1,10 @@
 <ion-content scroll-y="false">
   <div class="arrow">
-    <app-control-button source="../../../assets/images/arrow-go-back.png" [size]="40" (onPress)="navigateToStartScreen()"></app-control-button>
+    <app-control-button
+      source="../../../assets/images/arrow-go-back.png"
+      [size]="40"
+      (onPress)="navigateToStartScreen()"
+    ></app-control-button>
   </div>
   <div class="title">Create your account</div>
   <div class="subtitle">Welcome aboard.</div>
@@ -14,6 +18,7 @@
       [backgroundColor]="'#212121'"
       [isPassword]="false"
       [type]="'email'"
+      (valueChange)="handleEmailChange($event)"
     ></app-border-input>
   </div>
   <div class="captionInput2">Password</div>
@@ -25,6 +30,7 @@
       [backgroundColor]="'#212121'"
       [isPassword]="false"
       [type]="'password'"
+      (valueChange)="handlePasswordChange($event)"
     ></app-border-input>
   </div>
   <div class="captionInput3">Confirm password</div>
@@ -36,10 +42,15 @@
       [backgroundColor]="'#212121'"
       [isPassword]="false"
       [type]="'password'"
+      (valueChange)="handleConfirmPasswordChange($event)"
     ></app-border-input>
   </div>
   <div class="signInButton">
-    <app-save-button title="Sign up" [width]="350" (onPress)="navigateToHome()"></app-save-button>
+    <app-save-button
+      title="Sign up"
+      [width]="350"
+      (onPress)="navigateToHome()"
+    ></app-save-button>
   </div>
   <span class="normal-text" (click)="navigateToSignIn()"
     >Already have an account?<span class="bold-text"> Sign in</span></span

@@ -19,23 +19,23 @@
       [fontSize]="14"
       [backgroundColor]="'#212121'"
       [isPassword]="false"
-      (onChange)="updateTitle($event)"
+      (valueChange)="updateTitle($event)"
     ></app-border-input>
     <app-border-input
-      [placeholder]="'Enter the featured artists'"
+      [placeholder]="'Enter the artists separated by commas'"
       [value]="artists"
       [fontSize]="14"
       [backgroundColor]="'#212121'"
       [isPassword]="false"
-      (onChange)="updateArtists($event)"
+      (valueChange)="updateArtists($event)"
     ></app-border-input>
     <app-border-input
-      [placeholder]="'Enter the genres'"
+      [placeholder]="'Enter the genres separated by commas'"
       [value]="genres"
       [fontSize]="14"
       [backgroundColor]="'#212121'"
       [isPassword]="false"
-      (onChange)="updateGenres($event)"
+      (valueChange)="updateGenres($event)"
     ></app-border-input>
   </div>
   <div class="uploadFile">
