@@ -49,4 +49,8 @@ export class ProfilePage implements OnInit {
     this.showModal = false;
     this.router.navigate(['start-screen']);
   }
+
+  navigateToUpload() {
+    this.router.navigate(['upload-music']);
+  }
 }

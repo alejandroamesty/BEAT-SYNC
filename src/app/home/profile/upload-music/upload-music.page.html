@@ -1,0 +1,66 @@
+<ion-content scroll-y="false">
+  <!-- Existing Content -->
+  <div class="arrow">
+    <app-control-button
+      source="../../../assets/images/arrow-go-back.png"
+      [size]="40"
+      (onPress)="goBack()"
+    ></app-control-button>
+  </div>
+  <div class="title">Upload a track</div>
+  <div class="subtitle">Get your music heard.</div>
+  <div class="captionInput">
+    Complete the form with all the details about your track
+  </div>
+  <div class="dataInput">
+    <app-border-input
+      [placeholder]="'Enter the track title'"
+      [value]="title"
+      [fontSize]="14"
+      [backgroundColor]="'#212121'"
+      [isPassword]="false"
+      (onChange)="updateTitle($event)"
+    ></app-border-input>
+    <app-border-input
+      [placeholder]="'Enter the featured artists'"
+      [value]="artists"
+      [fontSize]="14"
+      [backgroundColor]="'#212121'"
+      [isPassword]="false"
+      (onChange)="updateArtists($event)"
+    ></app-border-input>
+    <app-border-input
+      [placeholder]="'Enter the genres'"
+      [value]="genres"
+      [fontSize]="14"
+      [backgroundColor]="'#212121'"
+      [isPassword]="false"
+      (onChange)="updateGenres($event)"
+    ></app-border-input>
+  </div>
+  <div class="uploadFile">
+    <img
+      src="../../../../assets/images/cloud.png"
+      alt="Cloud Icon"
+      class="cloud-icon"
+    />
+    <div class="placeholders">
+      <div class="defaultTitle" (click)="handleClick()">{{ defaultTitle }}</div>
+      <div class="defaultSubtitle">{{ defaultSubtitle }}</div>
+    </div>
+    <input
+      type="file"
+      id="fileInput"
+      accept=".mp3"
+      (change)="handleFileChange($event)"
+      hidden
+    />
+  </div>
+  <div class="uploadButton">
+    <app-save-button
+      title="Upload"
+      [width]="350"
+      (onPress)="handleSave()"
+    ></app-save-button>
+  </div>
+</ion-content>

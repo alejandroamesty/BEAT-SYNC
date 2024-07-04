@@ -69,9 +69,14 @@ export const routes: Routes = [
   {
     path: 'playlist-detail',
     loadComponent: () => import('./home/playlist-detail/playlist-detail.page').then( m => m.PlaylistDetailPage)
-  },  {
+  },
+  {
     path: 'artist-detail',
     loadComponent: () => import('./home/artist-detail/artist-detail.page').then( m => m.ArtistDetailPage)
+  },
+  {
+    path: 'upload-music',
+    loadComponent: () => import('./home/profile/upload-music/upload-music.page').then( m => m.UploadMusicPage)
   }
 
 ];

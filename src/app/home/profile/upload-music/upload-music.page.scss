@@ -1,0 +1,132 @@
+ion-content {
+  --ion-background-color: linear-gradient(180deg, #171717 0%, #000000 100%);
+}
+
+.title {
+  position: absolute;
+  left: 30px;
+  top: 101px;
+  font-family: "BROmnySemiBold";
+  font-size: 30px;
+  color: #ffffff;
+}
+
+.subtitle {
+  position: absolute;
+  left: 30px;
+  top: 149px;
+  font-family: "BROmnyRegular";
+  font-size: 30px;
+  color: #a3a3a9;
+}
+
+.captionInput {
+  position: absolute;
+  width: 349px;
+  height: 40px;
+  left: 30px;
+  top: 222px;
+
+  font-family: "BROmnyRegular";
+  font-size: 15px;
+  line-height: 20px;
+  color: #ffffff;
+}
+
+.normal-text {
+  position: absolute;
+  width: 414px;
+  height: 22px;
+  left: calc(50% - 414px / 2);
+  top: 692px;
+  font-family: "BROmnyRegular";
+  font-size: 15px;
+  text-align: center;
+
+  color: #ffffff;
+}
+
+.bold-text {
+  font-family: "BROmnySemiBold";
+  color: #61da5e;
+}
+
+.dataInput {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  top: 282px;
+  gap: 17px;
+}
+
+.uploadButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  top: 640px;
+}
+
+app-save-button {
+  width: 350px;
+}
+
+.arrow {
+  position: absolute;
+  left: 25px;
+  top: 42px;
+}
+
+.uploadFile {
+  display: flex;
+  position: absolute;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  width: 349px;
+  height: 110px;
+  left: 32px;
+  top: 501px;
+  background: #212121;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 30px;
+  gap: 28px;
+}
+
+.cloud-icon {
+  width: 57px;
+  height: 56px;
+  left: 77px;
+  top: 528px;
+}
+
+.placeholders {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.defaultTitle {
+  width: 174px;
+  font-family: "BROmnySemiBold";
+  font-size: 15px;
+  color: #61da5e;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.defaultSubtitle {
+  width: 166px;
+  font-family: "BROmnyRegular";
+  font-size: 12px;
+  color: #a3a3a9;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
