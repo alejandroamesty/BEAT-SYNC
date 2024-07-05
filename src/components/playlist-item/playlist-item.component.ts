@@ -11,13 +11,17 @@ import { ControlButtonComponent } from 'src/components/control-button/control-bu
 })
 export class PlaylistItemComponent {
   @Input() playlist: {
-    cover: string;
+    _id: string;
     title: string;
     user: string;
+    songIds: Array<string>;
+    songs: Array<any>;
   } = {
-    cover: '../../../assets/images/unveranosinti.png',
+    _id: 'default Id',
     title: 'Default Title',
     user: 'Default User',
+    songIds: [],
+    songs: [],
   };
 
   @Output() onPress = new EventEmitter<void>();

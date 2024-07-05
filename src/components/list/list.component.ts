@@ -18,10 +18,25 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule],
 })
 export class ListComponent implements OnChanges {
-  @Input() data: any[] = [];
+  @Input() data: {
+    id: string;
+    name: string;
+    description: string;
+    userId: string;
+    songIds: string[];
+    checked: boolean;
+  }[] = [];
+
   @Output() setExternalList = new EventEmitter<any[]>();
 
-  items: any[] = [];
+  items: {
+    id: string;
+    name: string;
+    description: string;
+    userId: string;
+    songIds: string[];
+    checked: boolean;
+  }[] = [];
   containerHeight: number = 200;
 
   ngOnChanges(changes: SimpleChanges) {
@@ -38,7 +53,7 @@ export class ListComponent implements OnChanges {
     return this.items.filter((item) => item.name.startsWith(letter));
   }
 
-  handleCheck(id: number) {
+  handleCheck(id: string) {
     this.items = this.items.map((item) =>
       item.id === id ? { ...item, checked: !item.checked } : item
     );

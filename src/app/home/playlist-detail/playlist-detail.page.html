@@ -42,13 +42,22 @@
         [height]="'450px'"
         [musicList]="musicItems"
         [showSeeMore]="false"
+        (onItemPress)="handleItemPress($event)"
       ></app-music-list>
     </div>
   </div>
   <ng-template #modalContent>
     <div class="custom-modal-content">
-      <app-simple-input placeholder="Title" [characterLimit]="50"></app-simple-input>
-      <app-simple-input placeholder="Description" [characterLimit]="50"></app-simple-input>
+      <app-simple-input
+        placeholder="Title"
+        [characterLimit]="50"
+        (onChangeText)="handleTitleChange($event)"
+      ></app-simple-input>
+      <app-simple-input
+        placeholder="Description"
+        [characterLimit]="50"
+        (onChangeText)="handleDescriptionChange($event)"
+      ></app-simple-input>
     </div>
   </ng-template>
   <app-custom-modal

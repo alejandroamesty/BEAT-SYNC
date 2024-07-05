@@ -17,14 +17,22 @@
     ></app-search-input>
     <div class="playlist-list-container">
       <div class="playlist-cards">
-        <app-playlist-card type="Liked" [songCount]="1637" (onPress)="openLikedView()"></app-playlist-card>
-        <app-playlist-card type="Artist" [songCount]="12" (onPress)="openCatalogView()"></app-playlist-card>
+        <app-playlist-card
+          type="Liked"
+          [songCount]="1637"
+          (onPress)="openLikedView()"
+        ></app-playlist-card>
+        <app-playlist-card
+          type="Artist"
+          [songCount]="12"
+          (onPress)="openCatalogView()"
+        ></app-playlist-card>
       </div>
       <div class="playlist-items">
         <app-playlist-item
           *ngFor="let item of playlistList"
           [playlist]="item"
-          (onPress)="handleItemPress(item.title)"
+          (onPress)="handleItemPress(item)"
           class="playlist-item"
         ></app-playlist-item>
       </div>
@@ -32,8 +40,16 @@
   </div>
   <ng-template #modalContent>
     <div class="custom-modal-content">
-      <app-simple-input placeholder="Title" [characterLimit]="50"></app-simple-input>
-      <app-simple-input placeholder="Description" [characterLimit]="50"></app-simple-input>
+      <app-simple-input
+        placeholder="Title"
+        [characterLimit]="50"
+        (onChangeText)="handleTitleChange($event)"
+      ></app-simple-input>
+      <app-simple-input
+        placeholder="Description"
+        [characterLimit]="50"
+        (onChangeText)="handleDescriptionChange($event)"
+      ></app-simple-input>
     </div>
   </ng-template>
   <app-custom-modal
