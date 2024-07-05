@@ -57,7 +57,7 @@ export class SearchAlbumsPage implements OnInit {
           return;
         }
         fetch(
-          `https://beatsyncserver.onrender.com/search/TracksByName?filter=${this.searchTerm}&skip=0`,
+          `https://beatsyncserver.onrender.com/search/Albums?filter=${this.searchTerm}&skip=0`,
           {
             method: 'GET',
             headers: {
@@ -80,6 +80,6 @@ export class SearchAlbumsPage implements OnInit {
       } catch (error) {
         console.error('Error:', error);
       }
-    }, 500);
+    }, 1500);
   }
 }

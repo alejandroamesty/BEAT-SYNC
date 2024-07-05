@@ -2,12 +2,15 @@
   <div class="music-box-container">
     <div *ngFor="let music of musicData" class="music-box-wrapper">
       <app-music-box
-        [title]="music.title"
-        [cover]="music.cover"
+        [_id]="music._id"
+        [refId]="music.refId"
+        [artists]="music.artists ?? undefined"
+        [title]="music.name"
+        [cover]="music.images?.[0]?.url || '../../../assets/images/no-album-cover.png'"
         [type]="music.type"
         [description]="music.description"
         [releaseDate]="music.releaseDate"
-        [songCount]="music.songCount"
+        [songCount]="music.totalTracks"
         (onPress)="handleMusicBoxClick()"
       ></app-music-box>
     </div>

@@ -1,8 +1,19 @@
 <div class="tracklist-container" [ngStyle]="{ height: height }">
   <ng-container *ngFor="let track of sortedTracks">
     <app-album-track
+      [_id]="track._id"
+      [refId]="track.refId"
       [title]="track.title"
+      [url]="track.url"
+      [cover]="track.cover"
+      [releaseDate]="track.releaseDate"
+      [duration_ms]="track.duration_ms"
+      [disc_number]="track.disc_number"
+      [number]="track.number"
+      [album]="track.album"
+      [albumRefId]="track.albumRefId"
       [artists]="track.artists"
+      [genres]="track.genres"
       [liked]="track.liked"
       (onPress)="handleTrackLike(track)"
       class="album-track"

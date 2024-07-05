@@ -146,6 +146,6 @@ export class SearchTracksPage implements OnInit {
       } catch (error) {
         console.error('Error:', error);
       }
-    }, 500);
+    }, 1500);
   }
 }
