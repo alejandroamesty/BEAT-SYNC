@@ -1,4 +1,10 @@
-import { Component, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  ViewChild,
+  TemplateRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -37,21 +43,32 @@ export class SearchTracksPage implements OnInit {
   filteredMusic: MusicItem[] = [];
   searchTerm: string = '';
   skip: number = 0;
+  selectedItem: any = {};
 
-  filteredItems: { id: number; name: string; checked: boolean }[] = [];
-  playlists: { id: number; name: string; checked: boolean }[] = [
-    { id: 1, name: 'Chill Vibes', checked: true },
-    { id: 2, name: 'Workout Mix', checked: true },
-    { id: 3, name: 'Party Time', checked: true },
-    { id: 4, name: 'Focus Beats', checked: true },
-    { id: 5, name: 'Classical Essentials', checked: true },
-    { id: 6, name: 'Jazz & Blues', checked: true },
-    { id: 7, name: 'Rock Classics', checked: true },
-    { id: 8, name: 'Hip Hop Hits', checked: true },
-    { id: 9, name: 'Country Roads', checked: true },
-    { id: 10, name: 'Pop Favourites', checked: true },
-    { id: 11, name: 'Indie Mix', checked: true },
-    { id: 12, name: 'Metal Mayhem', checked: true },
+  filteredItems: {
+    id: string;
+    name: string;
+    description: string;
+    userId: string;
+    songIds: string[];
+    checked: boolean;
+  }[] = [];
+  playlists: {
+    id: string;
+    name: string;
+    description: string;
+    userId: string;
+    songIds: string[];
+    checked: boolean;
+  }[] = [
+    {
+      id: 'default id',
+      name: 'default name',
+      description: 'default description',
+      userId: 'default userId',
+      songIds: ['default songIds'],
+      checked: false,
+    },
   ];
 
   sortOrder: 'recent' | 'oldest' = 'recent';
@@ -63,9 +80,43 @@ export class SearchTracksPage implements OnInit {
   }
 
   private searchTimeout: any;
-
+  fetching: Boolean = false;
   openModal() {
-    this.isModalVisible = true;
+    if (this.fetching) return;
+    fetch(
+      `https://beatsyncserver.onrender.com/playlist?userId=${localStorage.getItem(
+        'userId'
+      )}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((data) => {
+            this.playlists = data.map((item: any) => {
+              return {
+                id: item._id,
+                name: item.name,
+                description: item.description,
+                userId: item.userId,
+                songIds: item.songIds,
+                checked: false,
+              };
+            });
+            this.filteredItems = [...this.playlists];
+            this.isModalVisible = true;
+          });
+        } else {
+          console.error('Failed to get playlists');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   closeModal() {
@@ -78,13 +129,48 @@ export class SearchTracksPage implements OnInit {
   }
 
   handleDone() {
-    console.log('Done button clicked');
+    if (this.fetching) return;
+    this.fetching = true;
+    for (const playlist of this.filteredItems) {
+      if (!playlist.checked) continue;
+      if (playlist.songIds.includes(this.selectedItem.id)) continue;
+      console.log(
+        'playlistSongs:',
+        playlist.songIds,
+        'selectedItem:',
+        this.selectedItem.id
+      );
+      fetch('https://beatsyncserver.onrender.com/playlist', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: playlist.id,
+          userId: localStorage.getItem('userId'),
+          name: playlist.name,
+          description: playlist.description,
+          songIds: [...playlist.songIds, this.selectedItem.id],
+        }),
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            console.log('Success:', response);
+          } else {
+            console.error('Failed to add song to playlist');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+    this.fetching = false;
     this.closeModal();
   }
 
-  onControlClick() {
+  onControlClick(event: any) {
     this.openModal();
-    console.log('Control button clicked from Search');
+    this.selectedItem = event;
   }
 
   ngOnInit() {
@@ -103,7 +189,14 @@ export class SearchTracksPage implements OnInit {
   }
 
   updateFilteredItems(
-    updatedItems: { id: number; name: string; checked: boolean }[]
+    updatedItems: {
+      id: string;
+      name: string;
+      description: string;
+      userId: string;
+      songIds: string[];
+      checked: boolean;
+    }[]
   ) {
     this.filteredItems = updatedItems;
   }

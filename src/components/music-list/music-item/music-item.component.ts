@@ -53,9 +53,14 @@ export class MusicItemComponent {
 
   allArtists: string = '';
   ngOnInit() {
-    this.allArtists = this.music.artists
-      .map((artist) => artist.name)
-      .join(', ');
+    if (typeof this.music.artists === 'string') {
+      this.allArtists = this.music.artists;
+    } else {
+      console.log(this.music.artists);
+      this.allArtists = this.music.artists
+        .map((artist) => artist.name)
+        .join(', ');
+    }
   }
 
   handleClick() {

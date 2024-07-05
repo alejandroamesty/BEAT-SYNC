@@ -59,8 +59,8 @@ export class MusicListComponent {
     }
   }
 
-  handleControlButtonClick() {
-    this.onItemPress.emit();
+  handleControlButtonClick(event?: any) {
+    this.onItemPress.emit(event || undefined);
   }
 
   loadMoreTracks() {
