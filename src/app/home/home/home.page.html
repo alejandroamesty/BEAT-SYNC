@@ -1,7 +1,9 @@
 <ion-content scroll-y="false">
   <div id="container">
     <div class="title">Good morning</div>
-    <app-music-grid [musicItems]="musicItems"></app-music-grid>
+    <div class="album-recommendations">
+      <app-music-grid [musicItems]="musicItems"></app-music-grid>
+    </div>
     <div class="subtitle">Your playlists</div>
     <div class="music-reel">
       <app-music-reel [musicData]="musicData"></app-music-reel>

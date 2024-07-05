@@ -23,8 +23,11 @@
 
 .player-container {
   position: absolute;
-  left: calc(50% - 370px / 2);
-  top: calc(50% - 68px / 2 + 229px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  bottom: calc(195px - 11%);
 }
 
 .navigation {

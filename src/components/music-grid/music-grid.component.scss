@@ -1,13 +1,13 @@
 .music-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
   width: 370px;
   height: 133px;
-  position: absolute;
+  align-items: center;
+  justify-content: center;
 }
 
 app-music-card {
-  flex: 0 1 calc(50% - 10px);
   box-sizing: border-box;
 }

@@ -82,14 +82,11 @@ app-save-button {
 
 .uploadFile {
   display: flex;
-  position: absolute;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
   width: 349px;
   height: 110px;
-  left: 32px;
-  top: 501px;
   background: #212121;
   border: 1px solid rgba(255, 255, 255, 0.17);
   border-radius: 30px;
@@ -129,4 +126,15 @@ app-save-button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.uploadContainer {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+  top: 501px;
 }

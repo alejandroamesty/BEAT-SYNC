@@ -37,23 +37,27 @@
       (valueChange)="updateGenres($event)"
     ></app-border-input>
   </div>
-  <div class="uploadFile">
-    <img
-      src="../../../../assets/images/cloud.png"
-      alt="Cloud Icon"
-      class="cloud-icon"
-    />
-    <div class="placeholders">
-      <div class="defaultTitle" (click)="handleClick()">{{ defaultTitle }}</div>
-      <div class="defaultSubtitle">{{ defaultSubtitle }}</div>
+  <div class="uploadContainer">
+    <div class="uploadFile">
+      <img
+        src="../../../../assets/images/cloud.png"
+        alt="Cloud Icon"
+        class="cloud-icon"
+      />
+      <div class="placeholders">
+        <div class="defaultTitle" (click)="handleClick()">
+          {{ defaultTitle }}
+        </div>
+        <div class="defaultSubtitle">{{ defaultSubtitle }}</div>
+      </div>
+      <input
+        type="file"
+        id="fileInput"
+        accept=".mp3"
+        (change)="handleFileChange($event)"
+        hidden
+      />
     </div>
-    <input
-      type="file"
-      id="fileInput"
-      accept=".mp3"
-      (change)="handleFileChange($event)"
-      hidden
-    />
   </div>
   <div class="uploadButton">
     <app-save-button
