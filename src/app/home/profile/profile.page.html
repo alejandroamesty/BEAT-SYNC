@@ -29,6 +29,7 @@
     class="option-2"
     source="../../../assets/images/profile/edit-account.png"
     [title]="'Edit account'"
+    (onPress)="navigateToEdit()"
   ></app-option-card>
   <app-option-card
     class="option-3"
@@ -54,7 +55,7 @@
   ></app-confirmation-modal>
   <app-confirmation-modal
     [visible]="showDeleteModal"
-    [image]="'../../../assets/images/profile/delete-account.png'"
+    [image]="'../../../assets/images/warning.png'"
     [title]="'Deleting account'"
     [text]="'You are about to delete your account. Are you sure this is what you want?'"
     [cancelButtonText]="'CANCEL'"

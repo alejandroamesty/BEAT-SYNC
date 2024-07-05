@@ -86,4 +86,8 @@ export class ProfilePage implements OnInit {
   navigateToUpload() {
     this.router.navigate(['upload-music']);
   }
+
+  navigateToEdit() {
+    this.router.navigate(['edit-account']);
+  }
 }

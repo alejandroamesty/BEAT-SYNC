@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -12,6 +12,8 @@ import { ControlButtonComponent } from 'src/components/control-button/control-bu
 import { SimpleButtonComponent } from 'src/components/simple-button/simple-button.component';
 import { MusicListComponent } from 'src/components/music-list/music-list.component';
 import { MusicItem } from 'src/components/music-list/music.model';
+import { CustomModalComponent } from 'src/components/custom-modal/custom-modal.component';
+import { SimpleInputComponent } from 'src/components/simple-input/simple-input.component';
 
 @Component({
   selector: 'app-playlist-detail',
@@ -28,6 +30,8 @@ import { MusicItem } from 'src/components/music-list/music.model';
     ControlButtonComponent,
     SimpleButtonComponent,
     MusicListComponent,
+    CustomModalComponent,
+    SimpleInputComponent,
   ],
 })
 export class PlaylistDetailPage implements OnInit {
@@ -35,6 +39,10 @@ export class PlaylistDetailPage implements OnInit {
   playlistTitle: string = 'fav songs of 2024';
   user: string = 'Alejandro';
   description: string = '(hasta ahora) / ordenadas por lanzamiento';
+
+  isModalVisible: boolean = false;
+
+  @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
 
   musicItems: MusicItem[] = [
     {
@@ -138,5 +146,23 @@ export class PlaylistDetailPage implements OnInit {
 
   deletePlaylist() {
     this._location.back();
+  }
+
+  openModal() {
+    this.isModalVisible = true;
+  }
+
+  closeModal() {
+    this.isModalVisible = false;
+  }
+
+  handleCancel() {
+    console.log('Cancel button clicked');
+    this.closeModal();
+  }
+
+  handleDone() {
+    console.log('Done button clicked');
+    this.closeModal();
   }
 }
