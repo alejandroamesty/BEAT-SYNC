@@ -81,6 +81,9 @@ export const routes: Routes = [
   {
     path: 'edit-account',
     loadComponent: () => import('./home/profile/edit-account/edit-account.page').then( m => m.EditAccountPage)
-  }
-
+  },
+  {
+    path: 'catalog-detail/:type',
+    loadComponent: () => import('./home/catalog-detail/catalog-detail.page').then( m => m.CatalogDetailPage)
+  },  
 ];

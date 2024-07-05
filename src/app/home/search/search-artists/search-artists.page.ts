@@ -35,6 +35,7 @@ export class SearchArtistsPage implements OnInit {
 
   filteredArtists: any[] = [];
   searchTerm: string = '';
+  skip: number = 0;
 
   constructor(private _location: Location) {}
 
@@ -50,29 +51,40 @@ export class SearchArtistsPage implements OnInit {
     this.searchTerm = searchTerm;
     clearTimeout(this.searchTimeout);
     this.searchTimeout = setTimeout(() => {
-      try {
-        if (this.searchTerm === '') {
-          this.filteredArtists = [];
-          return;
-        }
-        fetch(
-          `https://beatsyncserver.onrender.com/search/Artist?filter=${this.searchTerm}&skip=0`,
-          {
-            method: 'GET',
-          }
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('Success:', data);
-            this.artistItems = data;
-
-            this.filteredArtists = this.artistItems.filter((item) =>
-              item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-            );
-          });
-      } catch (error) {
-        console.error(error);
-      }
+      this.skip = 0;
+      this.loadArtists();
     }, 1500);
+  }
+
+  async loadArtists() {
+    if (this.searchTerm.trim() === '') {
+      this.filteredArtists = [];
+      return;
+    }
+    try {
+      const response = await fetch(
+        `https://beatsyncserver.onrender.com/search/Artist?filter=${this.searchTerm}&skip=${this.skip}`,
+        {
+          method: 'GET',
+        }
+      );
+      const data = await response.json();
+      console.log('Success:', data);
+      this.artistItems = this.skip === 0 ? data : [...this.artistItems, ...data];
+      if (this.searchTerm.trim() === '') {
+        this.filteredArtists = [];
+      } else {
+        this.filteredArtists = this.artistItems.filter((item) =>
+          item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  loadMoreArtists() {
+    this.skip += 10;
+    this.loadArtists();
   }
 }

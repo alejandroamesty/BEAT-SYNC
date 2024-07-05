@@ -8,47 +8,58 @@
         (onPress)="closePage()"
       />
     </div>
-    <div class="delete-button">
-      <app-control-button
-        source="../../assets/images/delete-playlist.png"
-        alt="Close"
-        [size]="24"
-        (onPress)="deletePlaylist()"
+    <div class="playlist-cover" [ngStyle]="{'background': playlistCover}">
+      <img
+        class="cover-icon"
+        [src]="type === 'Liked' ? '../../../assets/images/liked-songs.png' : '../../../assets/images/your-songs.png'"
+        alt="Icon"
       />
     </div>
-    <div
-      class="playlist-cover"
-      [ngStyle]="{'background-image': 'url(' + playlistCover + ')'}"
-    ></div>
-    <div class="music-type">PLAYLIST</div>
+    <div class="music-type">
+      {{ type === 'Liked' ? 'PLAYLIST' : 'DISCOGRAPHY' }}
+    </div>
     <div class="playlist-title">{{ playlistTitle }}</div>
     <div class="user">By {{ user }}</div>
     <div class="playlist-description">{{ description }}</div>
     <div class="buttons-container">
       <app-simple-button
+        class="left-button"
         caption="Play"
         source="../../../assets/images/play.png"
         (onPress)="handlePlayClick()"
       ></app-simple-button>
       <app-simple-button
-        caption="Edit"
-        source="../../../assets/images/edit-playlist.png"
-        (onPress)="openModal()"
+        class="right-button"
+        [caption]="rightButtonCaption"
+        [source]="rightButtonIcon"
+        (onPress)="type === 'Liked' ? removeSongsClick() : uploadSongsClick()"
       ></app-simple-button>
     </div>
     <div class="songs-container">
       <app-music-list
+        *ngIf="type === 'Liked'"
         [isPlaylist]="true"
         [height]="'450px'"
         [musicList]="musicItems"
         [showSeeMore]="false"
       ></app-music-list>
+      <app-album-tracklist
+        *ngIf="type === 'Catalog'"
+        [tracks]="yourTracks"
+        [height]="'450px'"
+      ></app-album-tracklist>
     </div>
   </div>
   <ng-template #modalContent>
     <div class="custom-modal-content">
-      <app-simple-input placeholder="Title" [characterLimit]="50"></app-simple-input>
-      <app-simple-input placeholder="Description" [characterLimit]="50"></app-simple-input>
+      <app-simple-input
+        placeholder="Title"
+        [characterLimit]="50"
+      ></app-simple-input>
+      <app-simple-input
+        placeholder="Description"
+        [characterLimit]="50"
+      ></app-simple-input>
     </div>
   </ng-template>
   <app-custom-modal

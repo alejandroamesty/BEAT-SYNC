@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArtistItemComponent } from './artist-item/artist-item.component';
 import { Router } from '@angular/router';
@@ -23,6 +23,7 @@ export class ArtistListComponent {
   constructor(private router: Router) {}
 
   @Input() height: string = 'auto';
+  @Output() loadMore = new EventEmitter<void>();
 
   handleItemPress(artist: {
     _id?: string;
@@ -38,5 +39,9 @@ export class ArtistListComponent {
         image: artist.images[0].url || null,
       },
     });
+  }
+
+  loadMoreArtists() {
+    this.loadMore.emit();
   }
 }

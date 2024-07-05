@@ -96,6 +96,14 @@ export class LibraryPage implements OnInit {
     }
   }
 
+  openLikedView() {
+    this.router.navigate(['catalog-detail', 'Liked']);
+  }
+
+  openCatalogView() {
+    this.router.navigate(['catalog-detail', 'Catalog']);
+  }
+
   openModal() {
     this.isModalVisible = true;
   }

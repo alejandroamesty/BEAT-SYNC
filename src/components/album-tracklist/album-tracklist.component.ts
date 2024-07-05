@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlbumTrackComponent } from './album-track/album-track.component';
 
-interface Track {
+export interface Track {
   _id?: string;
   refId: string;
   title: string;
@@ -16,7 +16,7 @@ interface Track {
   albumRefId: string;
   artists: { name: string; id: string }[];
   genres: string[];
-  liked: boolean;
+  liked?: boolean;
 }
 
 @Component({
@@ -40,11 +40,11 @@ export class AlbumTracklistComponent implements OnInit {
     album: string;
     albumRefId: string;
     artists: { name: string; id: string }[];
-    mainArtist: string;
+    mainArtist?: string;
     genres: string[];
-    liked: boolean;
+    liked?: boolean;
   }[] = [];
-  @Input() height: string = 'auto'; // Default height to auto
+  @Input() height: string = 'auto';
 
   sortedTracks: Track[] = [];
 

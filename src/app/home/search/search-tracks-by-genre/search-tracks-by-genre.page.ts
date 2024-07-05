@@ -36,6 +36,7 @@ export class SearchTracksByGenrePage implements OnInit {
 
   filteredMusic: MusicItem[] = [];
   searchTerm: string = '';
+  skip: number = 0;
 
   constructor(private _location: Location) {}
 
@@ -51,39 +52,46 @@ export class SearchTracksByGenrePage implements OnInit {
     this.searchTerm = searchTerm;
     clearTimeout(this.searchTimeout);
     this.searchTimeout = setTimeout(() => {
-      try {
-        if (this.searchTerm === '') {
-          this.filteredMusic = [];
-          return;
-        }
-        fetch(
-          `https://beatsyncserver.onrender.com/search/TracksByGenre?filter=${this.searchTerm}&skip=0`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('Success:', data);
-            this.musicItems = data;
-            if (this.searchTerm.trim() === '') {
-              this.filteredMusic = [];
-            } else {
-              this.filteredMusic = this.musicItems.filter(
-                (item) =>
-                  item.genres?.some((genre) =>
-                    genre.toLowerCase().includes(this.searchTerm.toLowerCase())
-                  )
-                // item.genre?.toLowerCase().includes(this.searchTerm.toLowerCase())
-              );
-            }
-          });
-      } catch (error) {
-        console.error('Error:', error);
-      }
+      this.skip = 0;
+      this.loadTracks();
     }, 1500);
+  }
+
+  async loadTracks() {
+    if (this.searchTerm.trim() === '') {
+      this.filteredMusic = [];
+      return;
+    }
+    try {
+      const response = await fetch(
+        `https://beatsyncserver.onrender.com/search/TracksByGenre?filter=${this.searchTerm}&skip=${this.skip}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const data = await response.json();
+      console.log('Success:', data);
+      this.musicItems = this.skip === 0 ? data : [...this.musicItems, ...data];
+      if (this.searchTerm.trim() === '') {
+        this.filteredMusic = [];
+      } else {
+        this.filteredMusic = this.musicItems.filter(
+          (item) =>
+            item.genres?.some((genre) =>
+              genre.toLowerCase().includes(this.searchTerm.toLowerCase())
+            )
+        );
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  loadMoreTracks() {
+    this.skip += 10;
+    this.loadTracks();
   }
 }

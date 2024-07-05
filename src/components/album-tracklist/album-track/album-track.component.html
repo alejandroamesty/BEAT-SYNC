@@ -3,16 +3,29 @@
     <div class="track-title">{{ title }}</div>
     <div class="track-artists">{{ allArtists }}</div>
   </div>
-  <div class="like-button" (click)="onLikeClick()" [class.liked]="liked">
-    <img
-      *ngIf="!liked"
-      src="../../../assets/images/mini-player/unliked.svg"
-      alt="Like Button"
-    />
-    <img
-      *ngIf="liked"
-      src="../../../assets/images/mini-player/liked.svg"
-      alt="Liked Button"
-    />
-  </div>
+  <ng-container *ngIf="type === 'track'; else catalogTemplate">
+    <div class="like-button" (click)="onLikeClick()" [class.liked]="liked">
+      <img
+        *ngIf="!liked"
+        src="../../../assets/images/mini-player/unliked.svg"
+        alt="Like Button"
+      />
+      <img
+        *ngIf="liked"
+        src="../../../assets/images/mini-player/liked.svg"
+        alt="Liked Button"
+      />
+    </div>
+  </ng-container>
+  <ng-template #catalogTemplate>
+    <app-control-button
+      [source]="
+        liked
+          ? '../../../assets/images/remove-icon.png'
+          : '../../../assets/images/upload-icon.png'
+      "
+      (click)="handleControlButtonClick()"
+    >
+    </app-control-button>
+  </ng-template>
 </div>

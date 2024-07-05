@@ -21,6 +21,7 @@
     *ngIf="filteredMusic.length > 0"
     [musicList]="filteredMusic"
     (onItemPress)="onControlClick()"
+    (loadMore)="loadMoreTracks()"
   ></app-music-list>
   <ng-template #modalContent>
     <div class="custom-modal-content">
