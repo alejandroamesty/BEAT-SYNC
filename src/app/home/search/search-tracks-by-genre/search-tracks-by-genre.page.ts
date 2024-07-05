@@ -33,10 +33,10 @@ export class SearchTracksByGenrePage implements OnInit {
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
 
   musicItems: MusicItem[] = [];
-
   filteredMusic: MusicItem[] = [];
   searchTerm: string = '';
   skip: number = 0;
+  sortOrder: 'recent' | 'oldest' = 'recent';
 
   constructor(private _location: Location) {}
 
@@ -78,15 +78,33 @@ export class SearchTracksByGenrePage implements OnInit {
       if (this.searchTerm.trim() === '') {
         this.filteredMusic = [];
       } else {
-        this.filteredMusic = this.musicItems.filter(
-          (item) =>
-            item.genres?.some((genre) =>
-              genre.toLowerCase().includes(this.searchTerm.toLowerCase())
-            )
+        this.filteredMusic = this.musicItems.filter((item) =>
+          item.genres?.some((genre) =>
+            genre.toLowerCase().includes(this.searchTerm.toLowerCase())
+          )
         );
       }
+      this.applySorting();
     } catch (error) {
       console.error('Error:', error);
+    }
+  }
+
+  applySorting() {
+    if (this.sortOrder === 'recent') {
+      this.filteredMusic = this.musicItems.slice().sort((a, b) => {
+        return (
+          new Date(b.release_date).getTime() -
+          new Date(a.release_date).getTime()
+        );
+      });
+    } else if (this.sortOrder === 'oldest') {
+      this.filteredMusic = this.musicItems.slice().sort((a, b) => {
+        return (
+          new Date(a.release_date).getTime() -
+          new Date(b.release_date).getTime()
+        );
+      });
     }
   }
 
