@@ -10,11 +10,10 @@
     </div>
     <div
       class="artist-pfp"
-      [ngStyle]="{'background-image': 'url(' + artistImage + ')'}"
+      [ngStyle]="{'background-image': 'url(' + this.artist.image + ')'}"
     ></div>
     <div class="artist-info">
-      <div class="artist-name">{{ name }}</div>
-      <div class="follower-count">{{ followerCount }} followers</div>
+      <div class="artist-name">{{ this.artist.name }}</div>
     </div>
     <div class="section-title">Albums</div>
     <div class="music-reel">

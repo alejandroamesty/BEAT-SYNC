@@ -10,7 +10,18 @@ import { MusicBoxComponent } from './music-box/music-box.component';
   imports: [CommonModule, MusicBoxComponent],
 })
 export class MusicReelComponent {
-  @Input() musicData: MusicData[] = [];
+  @Input() musicData: {
+    _id: string;
+    refId: string;
+    type: 'Album' | 'Playlist';
+    name: string;
+    releaseDate?: string;
+    images?: { url: string }[];
+    artists?: { name: string; id: string }[];
+    totalTracks: number;
+    cover?: string;
+    description?: string;
+  }[] = [];
 
   handleMusicBoxClick() {
     console.log('Music Box Clicked');
@@ -20,7 +31,7 @@ export class MusicReelComponent {
 export interface MusicData {
   cover: string;
   title: string;
-  type: 'playlist' | 'album';
+  type: 'Playlist' | 'Album';
   description?: string;
   releaseDate?: string;
   songCount?: number;

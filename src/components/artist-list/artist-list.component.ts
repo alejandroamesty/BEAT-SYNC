@@ -24,8 +24,19 @@ export class ArtistListComponent {
 
   @Input() height: string = 'auto';
 
-  handleItemPress(title: string) {
-    this.router.navigate(['artist-detail']);
-    console.log('Artist item pressed:', title);
+  handleItemPress(artist: {
+    _id?: string;
+    refId: string;
+    name: string;
+    genres: string[];
+    images: any[];
+    popularity: Number | null;
+  }) {
+    this.router.navigate(['artist-detail'], {
+      queryParams: {
+        ...artist,
+        image: artist.images[0].url || null,
+      },
+    });
   }
 }

@@ -10,7 +10,7 @@ import {
 } from '@ionic/angular/standalone';
 import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-album-detail',
@@ -29,93 +29,142 @@ import { Router } from '@angular/router';
   ],
 })
 export class AlbumDetailPage implements OnInit {
+  _id: string = 'unknownId';
+  refId: string = 'unknownRefId';
   albumCover: string = '../../../assets/images/unveranosinti.png';
   albumTitle: string = 'Un Verano Sin Ti';
   artists: string = 'Bad Bunny';
+  artistId: string = 'unknownId';
   genre: string = 'LATIN';
   releaseYear: string = '2022';
   popularity: number = 100;
 
-  tracklist = [
-    {
-      number: 1,
-      title: 'Me Porto Bonito',
-      artists: 'Bad Bunny, Chencho Corleone',
-      liked: true,
-    },
-    {
-      number: 2,
-      title: 'Después de la Playa',
-      artists: 'Bad Bunny',
-      liked: false,
-    },
-    {
-      number: 3,
-      title: 'La Mama de la Mama',
-      artists: 'Bad Bunny',
-      liked: true,
-    },
-    {
-      number: 4,
-      title: 'La Noche de Anoche',
-      artists: 'Bad Bunny, Rosalía',
-      liked: false,
-    },
-    {
-      number: 5,
-      title: 'Te Mudaste',
-      artists: 'Bad Bunny',
-      liked: false,
-    },
-    {
-      number: 6,
-      title: 'Hoy Cobre',
-      artists: 'Bad Bunny',
-      liked: false,
-    },
-    {
-      number: 7,
-      title: 'Yo Visto Así',
-      artists: 'Bad Bunny',
-      liked: false,
-    },
-    {
-      number: 8,
-      title: 'La Droga',
-      artists: 'Bad Bunny',
-      liked: false,
-    },
-    {
-      number: 9,
-      title: '100 Millones',
-      artists: 'Bad Bunny, Luar La L',
-      liked: false,
-    },
-    {
-      number: 10,
-      title: 'Tú No Metes Cabra',
-      artists: 'Bad Bunny',
-      liked: false,
-    },
-    {
-      number: 11,
-      title: 'Amorfoda',
-      artists: 'Bad Bunny',
-      liked: false,
-    },
-  ];
+  tracklist: {
+    _id?: string;
+    refId: string;
+    title: string;
+    url: string | null;
+    cover: string;
+    releaseDate: string;
+    duration_ms: number;
+    disc_number: number;
+    number: number;
+    album: string;
+    albumRefId: string;
+    artists: { name: string; id: string }[];
+    genres: string[];
+    liked: boolean;
+    mainArtist: string;
+  }[] = [];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    try {
+      fetch(
+        `https://beatsyncserver.onrender.com/get/TracksByAlbum?filter=${this.refId}`,
+        {
+          method: 'GET',
+        }
+      )
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw new Error('Failed to fetch data');
+          }
+        })
+        .then((data) => {
+          console.log('Success:', data);
+          this.tracklist = data.map((track: any) => {
+            return {
+              _id: track._id || 'unknownId',
+              refId: track.id,
+              title: track.name,
+              url: track.url,
+              cover:
+                track.cover_img?.[0]?.url ||
+                '../../../assets/images/no-artist-pfp.png',
+              releaseDate: track.release_date,
+              duration_ms: track.duration_ms,
+              disc_number: track.disc_number,
+              number: track.disc_number,
+              album: track.album,
+              albumRefId: track.album_refId,
+              artists: track.artists,
+              genres: track.genres,
+              liked: track.liked || false,
+            };
+          });
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  constructor(private _location: Location, private router: Router) {}
+  constructor(
+    private _location: Location,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParams.subscribe((params) => {
+      this._id = params['_id'];
+      this.refId = params['refId'];
+      this.albumTitle = params['title'];
+      this.genre = params['genres'];
+      this.albumCover =
+        params['cover'] || '../../../assets/images/no-artist-pfp.png';
+      this.popularity = params['popularity'];
+
+      if (typeof params['artistNames'] === 'string') {
+        this.artists = params['artistNames'];
+      } else {
+        this.artists = params['artistNames'].join(', ');
+      }
+
+      if (typeof params['artistIds'] === 'string') {
+        this.artistId = params['artistIds'];
+      } else {
+        this.artistId = params['artistIds'][0];
+      }
+    });
+  }
 
   handlePlayClick() {
     console.log('Play button clicked');
   }
 
   handleViewClick() {
-    this.router.navigate(['artist-detail']);
-    console.log('View button clicked');
+    try {
+      fetch(
+        `https://beatsyncserver.onrender.com/Artist?artistRefId=${this.artistId}`,
+        {
+          method: 'GET',
+        }
+      )
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw new Error('Failed to fetch data');
+          }
+        })
+        .then((data) => {
+          console.log('Success:', data);
+          this.router.navigate(['artist-detail'], {
+            queryParams: {
+              _id: data._id,
+              refId: data.refId,
+              name: data.name,
+              genres: data.genres,
+              image:
+                data.images?.[0]?.url ||
+                '../../../assets/images/no-artist-pfp.png',
+              popularity: data.popularity,
+            },
+          });
+        });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   handleLikeClick(track: any) {

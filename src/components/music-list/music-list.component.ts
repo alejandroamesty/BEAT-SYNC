@@ -37,9 +37,22 @@ export class MusicListComponent {
 
   @Input() height: string = 'auto';
 
-  handleItemPress(type: string) {
-    if (type === 'Album') {
-      this.router.navigate(['album-detail']);
+  handleItemPress(item: any) {
+    console.log(item);
+    if (item.type === 'Album') {
+      this.router.navigate(['album-detail'], {
+        queryParams: {
+          _id: item._id,
+          refId: item.refId,
+          title: item.title ?? item.name,
+          cover: item.cover_img?.[0].url || null,
+          type: item.type,
+          releaseDate: item.release_date,
+          songCount: item.total_tracks,
+          artistNames: item.artists?.map((artist: any) => artist.name),
+          artistIds: item.artists?.map((artist: any) => artist.id),
+        },
+      });
     }
   }
 }

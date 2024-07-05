@@ -50,6 +50,13 @@ export class MusicItemComponent {
   @Input() isPlaylist: boolean = false;
   @Output() onPress = new EventEmitter<void>();
 
+  allArtists: string = '';
+  ngOnInit() {
+    this.allArtists = this.music.artists
+      .map((artist) => artist.name)
+      .join(', ');
+  }
+
   handleClick() {
     this.onPress.emit();
     console.log('Music item pressed:', this.music.name);

@@ -47,30 +47,25 @@ export class HomePage {
     },
   ];
 
-  musicData: MusicData[] = [
+  musicData: {
+    _id: string;
+    refId: string;
+    type: 'Album' | 'Playlist';
+    name: string;
+    releaseDate?: string;
+    images: { url: string }[];
+    artists: { name: string; id: string }[];
+    totalTracks: number;
+  }[] = [
     {
-      title: 'fav songs of 2024',
-      cover: '../../../assets/images/example-covers/volume.webp',
-      type: 'playlist',
-      description: 'ordenadas por lanzamiento',
-    },
-    {
-      title: 'reggaetón viejo',
-      cover: '../../../assets/images/example-covers/daddyyankee.jpg',
-      type: 'playlist',
-      description: 'Daddy Yankee y más',
-    },
-    {
-      title: 'nostálgicas',
-      cover: '../../../assets/images/example-covers/danny.jpg',
-      type: 'playlist',
-      description: 'Danny Ocean, Feid y más',
-    },
-    {
-      title: 'fav songs of 2023',
-      cover: '../../../assets/images/badbunny.jpeg',
-      type: 'playlist',
-      description: 'ordenadas por lanzamiento',
+      _id: 'unknownId',
+      refId: 'unknownRefId',
+      type: 'Album',
+      name: 'nadie sabe lo que pasará mañana',
+      releaseDate: '06/05/2022',
+      images: [{ url: '../../../assets/images/unveranosinti.png' }],
+      artists: [{ name: 'Bad Bunny', id: 'unknownId' }],
+      totalTracks: 23,
     },
   ];
 }
