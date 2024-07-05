@@ -50,26 +50,4 @@
       ></app-album-tracklist>
     </div>
   </div>
-  <ng-template #modalContent>
-    <div class="custom-modal-content">
-      <app-simple-input
-        placeholder="Title"
-        [characterLimit]="50"
-      ></app-simple-input>
-      <app-simple-input
-        placeholder="Description"
-        [characterLimit]="50"
-      ></app-simple-input>
-    </div>
-  </ng-template>
-  <app-custom-modal
-    [visible]="isModalVisible"
-    (visibilityChange)="closeModal()"
-    [title]="'Edit playlist'"
-    [cancelButtonName]="'Cancel'"
-    [doneButtonName]="'Done'"
-    [cancelButtonAction]="handleCancel.bind(this)"
-    [doneButtonAction]="handleDone.bind(this)"
-    [modalContent]="modalContent"
-  ></app-custom-modal>
 </ion-content>

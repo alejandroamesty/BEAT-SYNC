@@ -1,12 +1,7 @@
 import { Component, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
 import { SearchInputComponent } from 'src/components/search-input/search-input.component';
 import { MusicListComponent } from 'src/components/music-list/music-list.component';
 import { MusicItem } from 'src/components/music-list/music.model';
@@ -21,10 +16,6 @@ import { ListComponent } from 'src/components/list/list.component';
   styleUrls: ['./search-tracks.page.scss'],
   standalone: true,
   imports: [
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
     CommonModule,
     FormsModule,
     SearchInputComponent,
@@ -32,6 +23,7 @@ import { ListComponent } from 'src/components/list/list.component';
     CustomModalComponent,
     ListComponent,
     SearchInputComponent,
+    IonicModule,
   ],
 })
 export class SearchTracksPage implements OnInit {
@@ -46,8 +38,8 @@ export class SearchTracksPage implements OnInit {
   searchTerm: string = '';
   skip: number = 0;
 
-  filteredItems: { id: number, name: string, checked: boolean }[] = [];
-  playlists: { id: number, name: string, checked: boolean }[] = [
+  filteredItems: { id: number; name: string; checked: boolean }[] = [];
+  playlists: { id: number; name: string; checked: boolean }[] = [
     { id: 1, name: 'Chill Vibes', checked: true },
     { id: 2, name: 'Workout Mix', checked: true },
     { id: 3, name: 'Party Time', checked: true },
@@ -61,6 +53,8 @@ export class SearchTracksPage implements OnInit {
     { id: 11, name: 'Indie Mix', checked: true },
     { id: 12, name: 'Metal Mayhem', checked: true },
   ];
+
+  sortOrder: 'recent' | 'oldest' = 'recent';
 
   constructor(private _location: Location) {}
 
@@ -95,6 +89,7 @@ export class SearchTracksPage implements OnInit {
 
   ngOnInit() {
     this.filteredItems = [...this.playlists];
+    this.loadTracks();
   }
 
   onListSearchTermChanged(searchTerm: string) {
@@ -107,7 +102,9 @@ export class SearchTracksPage implements OnInit {
     }
   }
 
-  updateFilteredItems(updatedItems: { id: number; name: string; checked: boolean }[]) {
+  updateFilteredItems(
+    updatedItems: { id: number; name: string; checked: boolean }[]
+  ) {
     this.filteredItems = updatedItems;
   }
 
@@ -138,15 +135,27 @@ export class SearchTracksPage implements OnInit {
       const data = await response.json();
       console.log('Success:', data);
       this.musicItems = this.skip === 0 ? data : [...this.musicItems, ...data];
-      if (this.searchTerm.trim() === '') {
-        this.filteredMusic = [];
-      } else {
-        this.filteredMusic = this.musicItems.filter((item) =>
-          item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-        );
-      }
+      this.applySorting();
     } catch (error) {
       console.error('Error:', error);
+    }
+  }
+
+  applySorting() {
+    if (this.sortOrder === 'recent') {
+      this.filteredMusic = this.musicItems.slice().sort((a, b) => {
+        return (
+          new Date(b.release_date).getTime() -
+          new Date(a.release_date).getTime()
+        );
+      });
+    } else if (this.sortOrder === 'oldest') {
+      this.filteredMusic = this.musicItems.slice().sort((a, b) => {
+        return (
+          new Date(a.release_date).getTime() -
+          new Date(b.release_date).getTime()
+        );
+      });
     }
   }
 
