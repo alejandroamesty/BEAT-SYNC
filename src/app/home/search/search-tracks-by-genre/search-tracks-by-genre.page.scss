@@ -68,5 +68,32 @@ app-music-list {
   width: 370px;
   height: 438px;
   left: calc(50% - 370px / 2);
+  top: 170px;
+}
+
+.sort-dropdown {
+  position: absolute;
+  font-family: "BROmnyRegular";
+  font-size: 15px;
   top: 126px;
+  left: calc(50% - 185px);
+}
+
+.sort-dropdown label {
+  font-family: "BROmnySemiBold";
+}
+
+.sort-dropdown select {
+  padding: 8px;
+  font-size: 14px;
+  border: none;
+  background-color: rgb(54, 54, 54);
+  border-radius: 25px;
+  width: 150px;
+  margin-left: 15px;
+  padding-right: 20px;
+}
+
+.sort-dropdown select:focus {
+  outline: none;
 }
