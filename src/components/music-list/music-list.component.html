@@ -4,10 +4,14 @@
     [isPlaylist]="isPlaylist"
     [music]="item"
     (onPress)="handleItemPress(item)"
-    (onControlButtonClick)="handleControlButtonClick()"
+    (onControlButtonClick)="handleControlButtonClick(item)"
     class="music-item"
   ></app-music-item>
-  <div class="see-more" *ngIf="showSeeMore && musicList.length > 0" (click)="loadMoreTracks()">
+  <div
+    class="see-more"
+    *ngIf="showSeeMore && musicList.length > 0"
+    (click)="loadMoreTracks()"
+  >
     See more
   </div>
 </div>

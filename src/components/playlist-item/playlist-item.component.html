@@ -1,9 +1,13 @@
 <div class="playlist-item-container" (click)="handleClick()">
-  <img [src]="playlist.cover" alt="Cover" class="cover" />
+  <img
+    [src]="'../../../assets/images/your-songs.png'"
+    alt="Cover"
+    class="cover"
+  />
   <div class="playlist-data">
     <div class="title">{{ playlist.title }}</div>
     <div class="details-container">
-      <div class="description">Playlist • {{ playlist.user }}</div>
+      <div class="description">Playlist<!--  • {{ playlist.user }} --></div>
     </div>
   </div>
   <app-control-button

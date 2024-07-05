@@ -67,7 +67,7 @@ export class CatalogDetailPage implements OnInit {
     {
       cover_img: ['../../../assets/images/unveranosinti.png'],
       name: 'Sweet Dreams',
-      artists: ['Artist 1', 'Artist 2'],
+      artists: [{ name: 'Artist 1', id: 'artist1' }],
       explicit: true,
       type: 'Song',
       release_date: '14-10-2010',
@@ -77,7 +77,7 @@ export class CatalogDetailPage implements OnInit {
     {
       cover_img: ['../../../assets/images/unveranosinti.png'],
       name: 'Sweet Nothing',
-      artists: ['Artist 4', 'Artist 5'],
+      artists: [{ name: 'Artist 2', id: 'artist2' }],
       explicit: false,
       type: 'Song',
       release_date: '14-10-2010',
@@ -87,7 +87,7 @@ export class CatalogDetailPage implements OnInit {
     {
       cover_img: ['../../../assets/images/unveranosinti.png'],
       name: 'Safety Net',
-      artists: ['Artist 3', 'Artist 6'],
+      artists: [{ name: 'Artist 3', id: 'artist3' }],
       explicit: true,
       type: 'Song',
       release_date: '14-10-2010',
@@ -97,7 +97,10 @@ export class CatalogDetailPage implements OnInit {
     {
       cover_img: ['../../../assets/images/unveranosinti.png'],
       name: 'Songs For You',
-      artists: ['Artist 4', 'Artist 5'],
+      artists: [
+        { name: 'Artist 4', id: 'artist4' },
+        { name: 'Artist 5', id: 'artist5' },
+      ],
       explicit: false,
       type: 'Song',
       release_date: '14-10-2010',
@@ -107,7 +110,7 @@ export class CatalogDetailPage implements OnInit {
     {
       cover_img: ['../../../assets/images/unveranosinti.png'],
       name: 'Sweet Dreams',
-      artists: ['Artist 1', 'Artist 2'],
+      artists: [{ name: 'Artist 1', id: 'artist1' }],
       explicit: true,
       type: 'Song',
       release_date: '14-10-2010',
@@ -218,7 +221,7 @@ export class CatalogDetailPage implements OnInit {
       this.playlistCover = 'linear-gradient(90deg, #4233E8 0%, #ABAEF8 100%)';
       this.playlistTitle = 'Liked Songs';
       this.description =
-        "Manage all the songs you've uploaded as an artist in one place.";
+        "Manage all the songs you've liked as an artist in one place.";
       this.rightButtonCaption = 'Remove songs';
       this.rightButtonIcon = '../../../assets/images/remove-trash.png';
     } else if (this.type === 'Catalog') {
