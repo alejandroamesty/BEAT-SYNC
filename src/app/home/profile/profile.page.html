@@ -9,8 +9,10 @@
           class="pfp-img"
         />
       </div>
-      <div class="name">Bad Bunny</div>
-      <div class="userType">Artist</div>
+      <div class="userData">
+        <div class="name">Bad Bunny</div>
+        <div class="userType">Artist</div>
+      </div>
       <div class="editButton">
         <app-control-button
           source="../../../assets/images/edit.png"
@@ -19,30 +21,32 @@
       </div>
     </div>
   </div>
-  <app-option-card
-    class="option-1"
-    source="../../../assets/images/profile/upload-music.png"
-    [title]="'Upload music'"
-    (onPress)="navigateToUpload()"
-  ></app-option-card>
-  <app-option-card
-    class="option-2"
-    source="../../../assets/images/profile/edit-account.png"
-    [title]="'Edit account'"
-    (onPress)="navigateToEdit()"
-  ></app-option-card>
-  <app-option-card
-    class="option-3"
-    source="../../../assets/images/profile/delete-account.png"
-    [title]="'Delete account'"
-    (onPress)="handleDeletePress()"
-  ></app-option-card>
-  <app-option-card
-    class="option-4"
-    source="../../../assets/images/profile/log-out.png"
-    [title]="'Log out'"
-    (onPress)="handleLogoutPress()"
-  ></app-option-card>
+  <div class="option-cards">
+    <app-option-card
+      class="option-1"
+      source="../../../assets/images/profile/upload-music.png"
+      [title]="'Upload music'"
+      (onPress)="navigateToUpload()"
+    ></app-option-card>
+    <app-option-card
+      class="option-2"
+      source="../../../assets/images/profile/edit-account.png"
+      [title]="'Edit account'"
+      (onPress)="navigateToEdit()"
+    ></app-option-card>
+    <app-option-card
+      class="option-3"
+      source="../../../assets/images/profile/delete-account.png"
+      [title]="'Delete account'"
+      (onPress)="handleDeletePress()"
+    ></app-option-card>
+    <app-option-card
+      class="option-4"
+      source="../../../assets/images/profile/log-out.png"
+      [title]="'Log out'"
+      (onPress)="handleLogoutPress()"
+    ></app-option-card>
+  </div>
   <app-confirmation-modal
     [visible]="showModal"
     [image]="'../../../assets/images/log-out-icon.png'"

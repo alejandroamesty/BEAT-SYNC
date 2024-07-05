@@ -16,6 +16,7 @@
     [backgroundColor]="'#212121'"
     [isPassword]="false"
     (valueChange)="updateEmail($event)"
+    [width]="335"
   ></app-border-input>
   <div class="subtitle2">Password</div>
   <div class="undertitle1">Current password</div>
@@ -27,6 +28,7 @@
     [backgroundColor]="'#212121'"
     [isPassword]="false"
     (valueChange)="verifyPassword($event)"
+    [width]="335"
   ></app-border-input>
   <div class="undertitle2">New password</div>
   <app-border-input
@@ -37,6 +39,7 @@
     [backgroundColor]="'#212121'"
     [isPassword]="false"
     (valueChange)="insertNewPassword($event)"
+    [width]="335"
   ></app-border-input>
   <div class="undertitle3">Confirm password</div>
   <app-border-input
@@ -47,6 +50,7 @@
     [backgroundColor]="'#212121'"
     [isPassword]="false"
     (valueChange)="confirmNewPassword($event)"
+    [width]="335"
   ></app-border-input>
   <div class="uploadButton">
     <app-save-button
