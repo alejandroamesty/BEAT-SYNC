@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -12,6 +12,8 @@ import { MusicListComponent } from 'src/components/music-list/music-list.compone
 import { MusicItem } from 'src/components/music-list/music.model';
 import { EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
+import { CustomModalComponent } from 'src/components/custom-modal/custom-modal.component';
+import { ListComponent } from 'src/components/list/list.component';
 
 @Component({
   selector: 'app-search-tracks',
@@ -27,25 +29,89 @@ import { Location } from '@angular/common';
     FormsModule,
     SearchInputComponent,
     MusicListComponent,
+    CustomModalComponent,
+    ListComponent,
+    SearchInputComponent,
   ],
 })
+
 export class SearchTracksPage implements OnInit {
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
+
+  isModalVisible: boolean = false;
+
+  @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
 
   musicItems: MusicItem[] = [];
 
   filteredMusic: MusicItem[] = [];
+  filteredItems: { id: number, name: string, checked: boolean }[] = [];
   searchTerm: string = '';
+  filterTerm: string = '';
+
+  playlists: { id: number, name: string, checked: boolean }[] = [
+    { id: 1, name: 'Chill Vibes', checked: true },
+    { id: 2, name: 'Workout Mix', checked: true },
+    { id: 3, name: 'Party Time', checked: true },
+    { id: 4, name: 'Focus Beats', checked: true },
+    { id: 5, name: 'Classical Essentials', checked: true },
+    { id: 6, name: 'Jazz & Blues', checked: true },
+    { id: 7, name: 'Rock Classics', checked: true },
+    { id: 8, name: 'Hip Hop Hits', checked: true },
+    { id: 9, name: 'Country Roads', checked: true },
+    { id: 10, name: 'Pop Favourites', checked: true },
+    { id: 11, name: 'Indie Mix', checked: true },
+    { id: 12, name: 'Metal Mayhem', checked: true },
+  ];
 
   constructor(private _location: Location) {}
-
-  ngOnInit() {}
 
   backClicked() {
     this._location.back();
   }
 
   private searchTimeout: any;
+
+  openModal() {
+    this.isModalVisible = true;
+  }
+
+  closeModal() {
+    this.isModalVisible = false;
+  }
+
+  handleCancel() {
+    console.log('Cancel button clicked');
+    this.closeModal();
+  }
+
+  handleDone() {
+    console.log('Done button clicked');
+    this.closeModal();
+  }
+
+  onControlClick() {
+    this.openModal();
+    console.log('Control button clicked from Search');
+  }
+
+  ngOnInit() {
+    this.filteredItems = [...this.playlists];
+  }
+
+  onListSearchTermChanged(searchTerm: string) {
+    if (searchTerm.trim() === '') {
+      this.filteredItems = [...this.playlists];
+    } else {
+      this.filteredItems = this.playlists.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+  }  
+
+  updateFilteredItems(updatedItems: { id: number; name: string; checked: boolean }[]) {
+    this.filteredItems = updatedItems;
+  }
 
   async onSearchTermChanged(searchTerm: string) {
     this.searchTerm = searchTerm;

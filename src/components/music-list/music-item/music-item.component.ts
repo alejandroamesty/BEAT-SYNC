@@ -49,6 +49,7 @@ export class MusicItemComponent {
 
   @Input() isPlaylist: boolean = false;
   @Output() onPress = new EventEmitter<void>();
+  @Output() onControlButtonClick = new EventEmitter<void>();
 
   allArtists: string = '';
   ngOnInit() {
@@ -59,12 +60,10 @@ export class MusicItemComponent {
 
   handleClick() {
     this.onPress.emit();
-    console.log('Music item pressed:', this.music.name);
   }
 
   onButtonClick() {
-    this.onPress.emit();
-    console.log('Button pressed:', this.music.name);
+    this.onControlButtonClick.emit();
   }
 
   getMusicCover(): string {
