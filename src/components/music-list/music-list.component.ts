@@ -37,6 +37,8 @@ export class MusicListComponent {
 
   @Input() height: string = 'auto';
 
+  @Output() onItemPress = new EventEmitter<string>();
+
   handleItemPress(item: any) {
     console.log(item);
     if (item.type === 'Album') {
@@ -53,9 +55,8 @@ export class MusicListComponent {
           artistIds: item.artists?.map((artist: any) => artist.id),
         },
       });
-
-  @Output() onItemPress = new EventEmitter<string>();
-
+    }
+  }
   handleControlButtonClick() {
     this.onItemPress.emit();
   }
