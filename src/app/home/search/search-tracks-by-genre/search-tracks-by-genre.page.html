@@ -20,5 +20,6 @@
     [height]="'600px'"
     *ngIf="filteredMusic.length > 0"
     [musicList]="filteredMusic"
+    (loadMore)="loadMoreTracks()"
   ></app-music-list>
 </ion-content>

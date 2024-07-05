@@ -5,4 +5,7 @@
     (onPress)="handleItemPress(item)"
     class="artist-item"
   ></app-artist-item>
+  <div class="see-more" *ngIf="artistList.length > 0" (click)="loadMoreArtists()">
+    See more
+  </div>
 </div>

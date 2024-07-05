@@ -34,10 +34,11 @@ export class MusicListComponent {
   }> = [];
 
   @Input() isPlaylist: boolean = false;
-
   @Input() height: string = 'auto';
+  @Input() showSeeMore: boolean = true;
 
   @Output() onItemPress = new EventEmitter<string>();
+  @Output() loadMore = new EventEmitter<void>();
 
   handleItemPress(item: any) {
     console.log(item);
@@ -57,7 +58,12 @@ export class MusicListComponent {
       });
     }
   }
+
   handleControlButtonClick() {
     this.onItemPress.emit();
+  }
+
+  loadMoreTracks() {
+    this.loadMore.emit();
   }
 }
