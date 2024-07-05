@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 
 @Component({
   selector: 'app-search-input',
@@ -8,15 +15,18 @@ import { Component, Input, Output, EventEmitter, ElementRef, AfterViewInit } fro
 })
 export class SearchInputComponent implements AfterViewInit {
   @Input() width: string = '291px';
+  @Input() backgroundColor: string = '#363636';
   @Input() placeholder: string = 'Search...';
   @Input() focusInput: boolean = false;
-  @Output() searchTermChanged: EventEmitter<string> = new EventEmitter<string>();
+  @Output() searchTermChanged: EventEmitter<string> =
+    new EventEmitter<string>();
 
   constructor(private elementRef: ElementRef) {}
 
   ngAfterViewInit() {
     if (this.focusInput) {
-      const inputElement = this.elementRef.nativeElement.querySelector('.search-input');
+      const inputElement =
+        this.elementRef.nativeElement.querySelector('.search-input');
       inputElement.focus();
     }
   }

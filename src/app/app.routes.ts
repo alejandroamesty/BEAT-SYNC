@@ -77,6 +77,10 @@ export const routes: Routes = [
   {
     path: 'upload-music',
     loadComponent: () => import('./home/profile/upload-music/upload-music.page').then( m => m.UploadMusicPage)
+  },
+  {
+    path: 'edit-account',
+    loadComponent: () => import('./home/profile/edit-account/edit-account.page').then( m => m.EditAccountPage)
   }
 
 ];

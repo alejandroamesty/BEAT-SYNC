@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MusicItemComponent } from './music-item/music-item.component';
 import { Router } from '@angular/router';
@@ -37,9 +37,15 @@ export class MusicListComponent {
 
   @Input() height: string = 'auto';
 
+  @Output() onItemPress = new EventEmitter<string>();
+
   handleItemPress(type: string) {
     if (type === 'Album') {
       this.router.navigate(['album-detail']);
     }
+  }
+
+  handleControlButtonClick() {
+    this.onItemPress.emit();
   }
 }
