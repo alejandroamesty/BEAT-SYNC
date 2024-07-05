@@ -84,6 +84,6 @@ export class SearchTracksByGenrePage implements OnInit {
       } catch (error) {
         console.error('Error:', error);
       }
-    }, 500);
+    }, 1500);
   }
 }

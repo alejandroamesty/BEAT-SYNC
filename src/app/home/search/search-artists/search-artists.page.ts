@@ -73,6 +73,6 @@ export class SearchArtistsPage implements OnInit {
       } catch (error) {
         console.error(error);
       }
-    }, 500);
+    }, 1500);
   }
 }

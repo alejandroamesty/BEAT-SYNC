@@ -10,32 +10,50 @@ import { Router } from '@angular/router';
   imports: [CommonModule],
 })
 export class MusicBoxComponent {
+  @Input() _id: string = 'unknownId';
+  @Input() refId: string = 'unknownRefId';
   @Input() title: string = 'Un Verano Sin Ti';
   @Input() cover: string = '../../../assets/images/unveranosinti.png';
-  @Input() type: 'playlist' | 'album' = 'album';
+  @Input() type: 'Playlist' | 'Album' = 'Album';
   @Input() description?: string;
-  @Input() releaseDate?: string = '06/05/2022';
+  @Input() releaseDate?: string = '06-05-2022';
   @Input() songCount?: number = 23;
+  @Input() artists?: { name: string; id: string }[] = [
+    { name: 'Bad Bunny', id: 'unknownId' },
+  ];
 
   @Output() onPress: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private router: Router) {}
 
   get subtitle(): string {
-    if (this.type === 'playlist') {
+    if (this.type === 'Playlist') {
       return `Playlist • ${this.description}`;
-    } else if (this.type === 'album') {
+    } else if (this.type === 'Album') {
       return `Album • ${this.releaseDate} • ${this.songCount} songs`;
     }
     return '';
   }
 
   handleClick() {
-    if (this.type === 'playlist') {
-      this.router.navigate(['playlist-detail']);
+    if (this.type === 'Playlist') {
+      this.router.navigate(['playlist-detail'], { queryParams: {} });
       console.log('Playlist clicked:', this.title);
-    } else if (this.type === 'album') {
-      this.router.navigate(['album-detail']);
+    } else if (this.type === 'Album') {
+      console.log('artists:' + this.artists);
+      this.router.navigate(['album-detail'], {
+        queryParams: {
+          _id: this._id,
+          refId: this.refId,
+          title: this.title,
+          cover: this.cover,
+          type: this.type,
+          releaseDate: this.releaseDate,
+          songCount: this.songCount,
+          artistNames: this.artists?.map((artist) => artist.name),
+          artistIds: this.artists?.map((artist) => artist.id),
+        },
+      });
       console.log('Album clicked:', this.title);
     }
     this.onPress.emit();

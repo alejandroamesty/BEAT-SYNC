@@ -3,9 +3,19 @@ import { CommonModule } from '@angular/common';
 import { AlbumTrackComponent } from './album-track/album-track.component';
 
 interface Track {
-  number: number;
+  _id?: string;
+  refId: string;
   title: string;
-  artists: string;
+  url: string | null;
+  cover: string;
+  releaseDate: string;
+  duration_ms: number;
+  disc_number: number;
+  number: number;
+  album: string;
+  albumRefId: string;
+  artists: { name: string; id: string }[];
+  genres: string[];
   liked: boolean;
 }
 
@@ -17,7 +27,23 @@ interface Track {
   imports: [CommonModule, AlbumTrackComponent],
 })
 export class AlbumTracklistComponent implements OnInit {
-  @Input() tracks: Track[] = [];
+  @Input() tracks: {
+    _id?: string;
+    refId: string;
+    title: string;
+    url: string | null;
+    cover: string;
+    releaseDate: string;
+    duration_ms: number;
+    disc_number: number;
+    number: number;
+    album: string;
+    albumRefId: string;
+    artists: { name: string; id: string }[];
+    mainArtist: string;
+    genres: string[];
+    liked: boolean;
+  }[] = [];
   @Input() height: string = 'auto'; // Default height to auto
 
   sortedTracks: Track[] = [];

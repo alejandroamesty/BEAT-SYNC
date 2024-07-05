@@ -51,6 +51,13 @@ export class MusicItemComponent {
   @Output() onPress = new EventEmitter<void>();
   @Output() onControlButtonClick = new EventEmitter<void>();
 
+  allArtists: string = '';
+  ngOnInit() {
+    this.allArtists = this.music.artists
+      .map((artist) => artist.name)
+      .join(', ');
+  }
+
   handleClick() {
     this.onPress.emit();
   }
