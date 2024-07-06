@@ -33,6 +33,7 @@
       <app-album-tracklist
         [tracks]="tracklist"
         height="450px"
+        (onTrackPress)="onTrackPlay($event)"
       ></app-album-tracklist>
     </div>
   </div>

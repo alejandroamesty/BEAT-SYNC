@@ -42,7 +42,8 @@
         [height]="'450px'"
         [musicList]="musicItems"
         [showSeeMore]="false"
-        (onItemPress)="handleItemPress($event)"
+        (onItemPress)="onTrackPlay($event)"
+        (onControlButtonClick)="handleItemPress($event)"
       ></app-music-list>
     </div>
   </div>

@@ -15,6 +15,7 @@ import { EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 import { CustomModalComponent } from 'src/components/custom-modal/custom-modal.component';
 import { ListComponent } from 'src/components/list/list.component';
+import { MusicPlayerService } from '../../music-player/music-player.service';
 
 @Component({
   selector: 'app-search-tracks',
@@ -73,7 +74,7 @@ export class SearchTracksPage implements OnInit {
 
   sortOrder: 'recent' | 'oldest' = 'recent';
 
-  constructor(private _location: Location) {}
+  constructor(private _location: Location, private musicPlayerService: MusicPlayerService) {}
 
   backClicked() {
     this._location.back();
@@ -255,5 +256,28 @@ export class SearchTracksPage implements OnInit {
   loadMoreTracks() {
     this.skip += 10;
     this.loadTracks();
+  }
+
+  playMusic(item: any) {
+    const songURL = item.url;
+    if (songURL) {
+      this.musicPlayerService.stop();
+      this.musicPlayerService.resetAudio();
+
+      this.musicPlayerService.initAudio(songURL);
+      this.musicPlayerService.play();
+      this.musicPlayerService.updateSongData({
+        coverImageUrl: item.cover_img?.[0].url,
+        albumTitle: item.album,
+        songTitle: item.name,
+        artists: item.artists.map((artist: any) => artist.name).join(', '),
+      });
+    } else {
+      console.error('No song URL available for playback');
+    }
+  }  
+
+  onItemPlay(item: any) {
+    this.playMusic(item);
   }
 }

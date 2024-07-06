@@ -49,10 +49,12 @@ export class AlbumTrackComponent {
     });
   }
 
-  onLikeClick() {
+  onLikeClick(event: MouseEvent) {
+    event.stopPropagation();
+  
     if (this.fetching) return;
     this.fetching = true;
-
+  
     fetch('https://beatsyncserver.onrender.com/toggleLike', {
       method: 'POST',
       headers: {
@@ -86,9 +88,14 @@ export class AlbumTrackComponent {
       }
     });
     this.onLikePress.emit();
-  }
+  }  
 
   handleControlButtonClick() {
     this.onControlButtonClick.emit();
+  }
+
+  onTrackPress() {
+    this.onPress.emit();
+    console.log('Track clicked');
   }
 }

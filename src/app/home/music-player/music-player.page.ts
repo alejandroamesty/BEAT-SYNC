@@ -1,11 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  OnInit,
-  EventEmitter,
-  OnDestroy,
-} from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonContent } from '@ionic/angular/standalone';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
@@ -51,6 +44,7 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
   currentTime: number = 0;
   isPlaying: boolean = false;
   private currentTimeSubscription: Subscription | null = null;
+  private songDataSubscription: Subscription | null = null;
 
   constructor(
     private audioService: MusicPlayerService,
@@ -63,10 +57,12 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
       this.syncWithAudioService();
     }
     this.subscribeToCurrentTime();
+    this.subscribeToSongData();
   }
 
   ngOnDestroy(): void {
     this.unsubscribeFromCurrentTime();
+    this.unsubscribeFromSongData();
   }
 
   syncWithAudioService() {
@@ -83,10 +79,27 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
     );
   }
 
+  subscribeToSongData() {
+    this.songDataSubscription = this.audioService.songData$.subscribe(
+      (newSongData) => {
+        if (newSongData) {
+          this.songData = { ...this.songData, ...newSongData };
+        }
+      }
+    );
+  }
+
   unsubscribeFromCurrentTime() {
     if (this.currentTimeSubscription) {
       this.currentTimeSubscription.unsubscribe();
       this.currentTimeSubscription = null;
+    }
+  }
+
+  unsubscribeFromSongData() {
+    if (this.songDataSubscription) {
+      this.songDataSubscription.unsubscribe();
+      this.songDataSubscription = null;
     }
   }
 

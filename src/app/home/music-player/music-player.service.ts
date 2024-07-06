@@ -5,14 +5,17 @@ import { BehaviorSubject, interval, Subscription } from 'rxjs';
   providedIn: 'root',
 })
 export class MusicPlayerService {
-  audio: HTMLAudioElement | null = null;
+  public audio: HTMLAudioElement | null = null;
+  private intervalSubscription: Subscription | null = null;
+  private currentTimeSubject = new BehaviorSubject<number>(0);
+  private songDataSubject = new BehaviorSubject<any>(null);
+
   isPlaying: boolean = false;
   currentTime: number = 0;
   duration: number = 0;
-  private currentTimeSubject = new BehaviorSubject<number>(0);
-  private intervalSubscription: Subscription | null = null;
 
   currentTime$ = this.currentTimeSubject.asObservable();
+  songData$ = this.songDataSubject.asObservable();
 
   constructor() {}
 
@@ -51,12 +54,38 @@ export class MusicPlayerService {
     }
   }
 
+  stop() {
+    if (this.audio) {
+      this.audio.pause();
+      this.audio.currentTime = 0;
+      this.isPlaying = false;
+      this.stopProgressTimer();
+    }
+  }
+
+  resetAudio() {
+    if (this.audio) {
+      this.audio.pause();
+      this.audio.src = '';
+      this.audio.load();
+      this.audio = null;
+      this.isPlaying = false;
+      this.currentTime = 0;
+      this.currentTimeSubject.next(this.currentTime);
+      this.stopProgressTimer();
+    }
+  }
+
   seekTo(time: number) {
     if (this.audio) {
       this.audio.currentTime = time;
       this.currentTime = time;
       this.currentTimeSubject.next(this.currentTime);
     }
+  }
+
+  updateSongData(songData: any) {
+    this.songDataSubject.next(songData);
   }
 
   private startProgressTimer() {
