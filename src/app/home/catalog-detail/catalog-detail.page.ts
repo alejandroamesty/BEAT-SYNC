@@ -26,6 +26,7 @@ import {
   AlbumTracklistComponent,
   Track,
 } from 'src/components/album-tracklist/album-tracklist.component';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-catalog-detail',
@@ -203,7 +204,8 @@ export class CatalogDetailPage implements OnInit {
   constructor(
     private _location: Location,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -230,6 +232,48 @@ export class CatalogDetailPage implements OnInit {
       this.description = "Manage all the songs you've liked in one place.";
       this.rightButtonCaption = 'Upload';
       this.rightButtonIcon = '../../../assets/images/upload-playlist.png';
+      this.dataService.currentSongs.subscribe(
+        (
+          songs: {
+            album: string;
+            album_refId: string;
+            artists: string[]; // Array of artist names, must conver to array of artist objects later
+            cover_img: any[];
+            disc_number: number;
+            duration_ms: number;
+            genres: string[];
+            id: string;
+            name: string;
+            popularity: number;
+            release_date: string;
+            songUrl: string;
+            track_number: number;
+            userId: string;
+            _id?: string;
+          }[]
+        ) => {
+          this.yourTracks = songs.map((song) => {
+            return {
+              _id: song._id,
+              refId: song.id,
+              title: song.name,
+              url: song.songUrl,
+              cover: song.cover_img[0],
+              releaseDate: song.release_date,
+              duration_ms: song.duration_ms,
+              disc_number: song.disc_number,
+              number: song.track_number,
+              album: song.album,
+              albumRefId: song.album_refId,
+              artists: song.artists.map((artist) => {
+                return { name: artist, id: '' };
+              }),
+              genres: song.genres,
+              liked: false,
+            };
+          });
+        }
+      );
     }
   }
 
