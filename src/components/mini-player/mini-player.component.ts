@@ -33,6 +33,18 @@ export class MiniPlayerComponent implements OnInit {
   ngOnInit(): void {
     this.detectBackgroundColor();
     this.subscribeToMusicPlayerState();
+    this.musicPlayerService.isPlaying$.subscribe((isPlaying) => {
+      this.paused = !isPlaying;
+    });
+    this.musicPlayerService.songData$.subscribe((songData) => {
+      if (songData) {
+        this.songTitle = songData.songTitle;
+        this.artists = songData.artists;
+      } else {
+        this.songTitle = 'Not playing';
+        this.artists = 'Waiting for your next beat';
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -58,7 +70,7 @@ export class MiniPlayerComponent implements OnInit {
     } else {
       this.musicPlayerService.pause();
     }
-    this.paused = !this.paused;
+
     await Haptics.impact({ style: ImpactStyle.Light });
   }
 

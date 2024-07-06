@@ -13,14 +13,15 @@ import { MiniPlayerComponent } from 'src/components/mini-player/mini-player.comp
   standalone: true,
   templateUrl: './main-tab.component.html',
   styleUrls: ['./main-tab.component.scss'],
-  imports: [IonContent, 
+  imports: [
+    IonContent,
     CommonModule,
     IonIcon,
     HomePage,
     SearchPage,
     LibraryPage,
     ProfilePage,
-    MiniPlayerComponent
+    MiniPlayerComponent,
   ],
 })
 export class MainTabComponent implements OnInit {

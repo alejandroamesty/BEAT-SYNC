@@ -9,6 +9,7 @@ export class MusicPlayerService {
   private intervalSubscription: Subscription | null = null;
   private currentTimeSubject = new BehaviorSubject<number>(0);
   private songDataSubject = new BehaviorSubject<any>(null);
+  private isPlayings = new BehaviorSubject<boolean>(false);
 
   isPlaying: boolean = false;
   currentTime: number = 0;
@@ -16,10 +17,9 @@ export class MusicPlayerService {
 
   currentTime$ = this.currentTimeSubject.asObservable();
   songData$ = this.songDataSubject.asObservable();
+  isPlaying$ = this.isPlayings.asObservable();
 
   private queue: any[] = []; // Array para almacenar las canciones en cola
-
-  constructor() {}
 
   initAudio(songURL: string) {
     if (!this.audio) {
@@ -45,6 +45,7 @@ export class MusicPlayerService {
     if (this.audio && !this.isPlaying) {
       this.audio.play();
       this.isPlaying = true;
+      this.isPlayings.next(this.isPlaying);
       this.startProgressTimer();
     }
   }
@@ -53,6 +54,7 @@ export class MusicPlayerService {
     if (this.audio && this.isPlaying) {
       this.audio.pause();
       this.isPlaying = false;
+      this.isPlayings.next(this.isPlaying);
       this.stopProgressTimer();
     }
   }
@@ -62,6 +64,7 @@ export class MusicPlayerService {
       this.audio.pause();
       this.audio.currentTime = 0;
       this.isPlaying = false;
+      this.isPlayings.next(this.isPlaying);
       this.stopProgressTimer();
     }
   }
@@ -73,6 +76,7 @@ export class MusicPlayerService {
       this.audio.load();
       this.audio = null;
       this.isPlaying = false;
+      this.isPlayings.next(this.isPlaying);
       this.currentTime = 0;
       this.currentTimeSubject.next(this.currentTime);
       this.stopProgressTimer();
@@ -125,7 +129,9 @@ export class MusicPlayerService {
           coverImageUrl: nextSong.cover_img?.[0].url,
           albumTitle: nextSong.album,
           songTitle: nextSong.name,
-          artists: nextSong.artists.map((artist: any) => artist.name).join(', '),
+          artists: nextSong.artists
+            .map((artist: any) => artist.name)
+            .join(', '),
         });
       }
     }
@@ -141,10 +147,16 @@ export class MusicPlayerService {
 
   queueNextSong(currentSongId: string, currentSongGenre: string) {
     console.log('currentSongGenre:', currentSongGenre);
-    fetch(`https://beatsyncserver.onrender.com/search/TracksByGenre?skip=0&filter=${encodeURIComponent(currentSongGenre)}`)
-      .then(response => response.json())
-      .then(data => {
-        const nextSong = data.find((song: any) => song.id !== currentSongId && song.url !== null);
+    fetch(
+      `https://beatsyncserver.onrender.com/search/TracksByGenre?skip=0&filter=${encodeURIComponent(
+        currentSongGenre
+      )}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const nextSong = data.find(
+          (song: any) => song.id !== currentSongId && song.url !== null
+        );
         if (nextSong) {
           this.enqueueSong(nextSong);
           console.log('Next song queued:', nextSong);
@@ -152,7 +164,7 @@ export class MusicPlayerService {
           console.log('No valid next song found.');
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching next song:', error);
       });
   }
