@@ -62,6 +62,10 @@ export class SearchArtistsPage implements OnInit {
       return;
     }
     try {
+      if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(this.searchTerm)) {
+        console.log('Special characters found in search term');
+        return;
+      }
       const response = await fetch(
         `https://beatsyncserver.onrender.com/search/Artist?filter=${this.searchTerm}&skip=${this.skip}`,
         {
@@ -70,7 +74,8 @@ export class SearchArtistsPage implements OnInit {
       );
       const data = await response.json();
       console.log('Success:', data);
-      this.artistItems = this.skip === 0 ? data : [...this.artistItems, ...data];
+      this.artistItems =
+        this.skip === 0 ? data : [...this.artistItems, ...data];
       if (this.searchTerm.trim() === '') {
         this.filteredArtists = [];
       } else {
