@@ -206,6 +206,7 @@ export class LibraryPage implements OnInit {
   }
 
   openCatalogView() {
+    console.log('Your songs:', this.yourSongs);
     this.dataService.changeSongs(this.yourSongs);
     this.router.navigate(['catalog-detail', 'Catalog']);
   }

@@ -49,6 +49,7 @@
         *ngIf="type === 'Catalog'"
         [tracks]="yourTracks"
         [height]="'450px'"
+        (onTrackPress)="onItemPlay($event)"
       ></app-album-tracklist>
     </div>
   </div>

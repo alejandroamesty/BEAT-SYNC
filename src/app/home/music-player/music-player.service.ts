@@ -126,7 +126,9 @@ export class MusicPlayerService {
         this.initAudio(nextSong.url);
         this.play();
         this.updateSongData({
-          coverImageUrl: nextSong.cover_img?.[0].url,
+          coverImageUrl:
+            nextSong.cover_img?.[0]?.url ||
+            '../../../assets/images/no-cover.png',
           albumTitle: nextSong.album,
           songTitle: nextSong.name,
           artists: nextSong.artists

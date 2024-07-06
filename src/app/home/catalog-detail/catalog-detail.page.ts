@@ -120,7 +120,6 @@ export class CatalogDetailPage implements OnInit {
           }[]
         ) => {
           this.musicItems = songs.map((song) => {
-            console.log(song);
             return {
               _id: song._id,
               refId: song.id,
@@ -159,7 +158,7 @@ export class CatalogDetailPage implements OnInit {
             name: string;
             popularity: number;
             release_date: string;
-            songUrl: string;
+            url: string;
             track_number: number;
             userId: string;
             _id?: string;
@@ -170,7 +169,7 @@ export class CatalogDetailPage implements OnInit {
               _id: song._id,
               refId: song.id,
               title: song.name,
-              url: song.songUrl,
+              url: song.url,
               cover: song.cover_img[0],
               releaseDate: song.release_date,
               duration_ms: song.duration_ms,
@@ -277,7 +276,8 @@ export class CatalogDetailPage implements OnInit {
       this.musicPlayerService.initAudio(songURL);
       this.musicPlayerService.play();
       this.musicPlayerService.updateSongData({
-        coverImageUrl: item.cover_img?.[0].url,
+        coverImageUrl:
+          item.cover_img?.[0]?.url || '../../../assets/images/no-cover.png',
         albumTitle: item.album,
         songTitle: item.name,
         artists: item.artists.map((artist: any) => artist.name).join(', '),
@@ -289,6 +289,7 @@ export class CatalogDetailPage implements OnInit {
   }
 
   onItemPlay(item: any) {
+    console.log(item);
     this.playMusic(item);
   }
 }
