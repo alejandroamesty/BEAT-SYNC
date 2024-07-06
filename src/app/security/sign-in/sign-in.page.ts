@@ -69,6 +69,7 @@ export class SignInPage implements OnInit {
         // save sessionId in localStorage
         response.json().then((data) => {
           localStorage.setItem('userId', data.sessionId);
+          localStorage.setItem('email', this.email);
           if (data.isArtist.id) {
           }
           localStorage.setItem(
@@ -101,7 +102,6 @@ export class SignInPage implements OnInit {
                 return song.id;
               });
               localStorage.setItem('likedSongs', JSON.stringify(likedSongs));
-              console.log(likedSongs);
             });
           });
         });
