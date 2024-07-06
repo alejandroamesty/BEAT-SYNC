@@ -48,10 +48,11 @@ export class MusicItemComponent {
   };
 
   @Input() isPlaylist: boolean = false;
-  @Output() onPress = new EventEmitter<void>();
+  @Output() onPress = new EventEmitter<any>(); // Cambiado a EventEmitter<any>
   @Output() onControlButtonClick = new EventEmitter<void>();
 
   allArtists: string = '';
+
   ngOnInit() {
     if (typeof this.music.artists === 'string') {
       this.allArtists = this.music.artists;
@@ -64,7 +65,7 @@ export class MusicItemComponent {
   }
 
   handleClick() {
-    this.onPress.emit();
+    this.onPress.emit(this.music);
   }
 
   onButtonClick() {

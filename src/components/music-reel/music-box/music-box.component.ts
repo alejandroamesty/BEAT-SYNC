@@ -18,6 +18,7 @@ export class MusicBoxComponent {
   @Input() description?: string;
   @Input() releaseDate?: string = '06-05-2022';
   @Input() songCount?: number = 23;
+  @Input() songIds?: Array<string> = [];
   @Input() artists?: { name: string; id: string }[] = [
     { name: 'Bad Bunny', id: 'unknownId' },
   ];
@@ -37,7 +38,12 @@ export class MusicBoxComponent {
 
   handleClick() {
     if (this.type === 'Playlist') {
-      this.router.navigate(['playlist-detail'], { queryParams: {} });
+      this.router.navigate(['playlist-detail'], { queryParams: {
+        id: this._id,
+        playlistTitle: this.title,
+        description: this.description,
+        songIds: this.songIds,
+      } });
       console.log('Playlist clicked:', this.title);
     } else if (this.type === 'Album') {
       console.log('artists:' + this.artists);

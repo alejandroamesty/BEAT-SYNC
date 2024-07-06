@@ -11,6 +11,7 @@ import {
 import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MusicPlayerService } from '../music-player/music-player.service';
 
 @Component({
   selector: 'app-album-detail',
@@ -103,7 +104,8 @@ export class AlbumDetailPage implements OnInit {
   constructor(
     private _location: Location,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private musicPlayerService: MusicPlayerService
   ) {
     this.route.queryParams.subscribe((params) => {
       this._id = params['_id'];
@@ -180,4 +182,37 @@ export class AlbumDetailPage implements OnInit {
     this._location.back();
     console.log('Close button clicked');
   }
+
+  // Dentro de album-detail.page.ts
+playMusic(track: any) {
+  console.log('Playing track:', track); // Añadir este log
+  if (!track) {
+    console.error('Track is undefined');
+    return;
+  }
+  const songURL = track.url;
+  if (songURL) {
+    this.musicPlayerService.stop();
+    this.musicPlayerService.resetAudio();
+
+    this.musicPlayerService.initAudio(songURL);
+    this.musicPlayerService.play();
+    this.musicPlayerService.updateSongData({
+      coverImageUrl: track.cover || '../../../assets/images/no-artist-pfp.png',
+      albumTitle: track.album,
+      songTitle: track.title,
+      artists: track.artists.map((artist: any) => artist.name).join(', '),
+    });
+  } else {
+    console.error('No song URL available for playback');
+  }
+}
+
+
+// Dentro de album-detail.page.ts, en la función onTrackPlay
+onTrackPlay(track: any) {
+  console.log('Track to play:', track); // Añadir este log
+  this.playMusic(track);
+}
+
 }

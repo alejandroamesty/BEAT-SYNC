@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlbumTrackComponent } from './album-track/album-track.component';
 
@@ -45,6 +45,7 @@ export class AlbumTracklistComponent implements OnInit {
     liked?: boolean;
   }[] = [];
   @Input() height: string = 'auto';
+  @Output() onTrackPress = new EventEmitter<any>();
 
   sortedTracks: Track[] = [];
 
@@ -62,5 +63,11 @@ export class AlbumTracklistComponent implements OnInit {
 
   handleTrackLike(track: Track) {
     // console.log(`Track liked: ${track.title}`);
+  }
+
+  // Dentro de album-tracklist.component.ts
+  handleTrackPress(track: Track) {
+    console.log('Track pressed:', track); // Añadir este log
+    this.onTrackPress.emit(track); // Asegúrate de que el evento pase el track
   }
 }
