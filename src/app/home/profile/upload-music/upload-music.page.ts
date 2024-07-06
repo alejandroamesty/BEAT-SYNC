@@ -8,6 +8,7 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { Location } from '@angular/common';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { BorderInputComponent } from 'src/components/border-input/border-input.component';
 import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 import { SaveButtonComponent } from 'src/components/save-button/save-button.component';
@@ -61,6 +62,7 @@ export class UploadMusicPage implements OnInit {
   }
 
   handleClick() {
+    Haptics.impact({ style: ImpactStyle.Light });
     const fileInput = document.getElementById('fileInput') as HTMLElement;
     fileInput.click();
   }

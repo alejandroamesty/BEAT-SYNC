@@ -133,6 +133,7 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
   }
 
   togglePlayPause(): void {
+    Haptics.impact({ style: ImpactStyle.Light });
     if (this.isPlaying) {
       this.audioService.pause();
     } else {
@@ -158,14 +159,17 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
   }
 
   onLikeClick() {
+    Haptics.impact({ style: ImpactStyle.Light });
     this.liked = !this.liked;
   }
 
   nextSong() {
+    Haptics.impact({ style: ImpactStyle.Light });
     this.audioService.playNextInQueue();
   }
 
   restartSong() {
+    Haptics.impact({ style: ImpactStyle.Light });
     this.audioService.seekTo(0);
   }
 }
