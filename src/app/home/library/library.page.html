@@ -23,13 +23,14 @@
           (onPress)="openLikedView()"
         ></app-playlist-card>
         <app-playlist-card
+          class="if-card"
           *ngIf="userType === 'Artist'"
           type="Artist"
           [songCount]="yourSongs.length"
           (onPress)="openCatalogView()"
         ></app-playlist-card>
       </div>
-      <div class="playlist-items">
+      <div class="playlist-items" [ngStyle]="getPlaylistItemsStyle()">
         <app-playlist-item
           *ngFor="let item of playlistList"
           [playlist]="item"
@@ -42,11 +43,13 @@
   <ng-template #modalContent>
     <div class="custom-modal-content">
       <app-simple-input
+        [width]="335"
         placeholder="Title"
         [characterLimit]="50"
         (onChangeText)="handleTitleChange($event)"
       ></app-simple-input>
       <app-simple-input
+        [width]="335"
         placeholder="Description"
         [characterLimit]="50"
         (onChangeText)="handleDescriptionChange($event)"

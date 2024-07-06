@@ -14,11 +14,16 @@
 }
 
 .track-title {
+  width: 300px;
   font-family: "BROmnyMedium";
   font-size: 15px;
   color: #ffffff;
   display: flex;
   align-items: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .track-artists {

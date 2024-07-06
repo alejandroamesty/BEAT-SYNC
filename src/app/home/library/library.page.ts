@@ -173,6 +173,12 @@ export class LibraryPage implements OnInit {
     });
   }
 
+  getPlaylistItemsStyle() {
+    return {
+      top: this.userType === 'Artist' ? '170px' : '85px',
+    };
+  }
+
   handleItemPress(item: any) {
     this.router.navigate(['playlist-detail'], {
       queryParams: {
