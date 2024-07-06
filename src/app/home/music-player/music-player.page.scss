@@ -8,7 +8,6 @@
   align-items: center;
   justify-content: flex-start;
 
-  
   .close-button {
     position: absolute;
     left: 32px;
@@ -119,4 +118,32 @@
     display: flex;
     top: 255px;
   }
+
+  .span-next {
+    position: absolute;
+    width: 119px;
+    height: 22px;
+    font-family: "BROmnySemiBold";
+    font-size: 15px;
+    color: #61da5e;
+  }
+
+  .next-song-info {
+    position: absolute;
+    width: 305px;
+    height: 22px;
+    top: 800px;
+    font-family: "BROmnyRegular";
+    font-size: 15px;
+    color: #ffffff;
+    left: 31px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.next-song-info span {
+  color: #61da5e;
+  font-family: "BROmnySemiBold";
 }

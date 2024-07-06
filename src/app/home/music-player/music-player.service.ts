@@ -9,8 +9,9 @@ export class MusicPlayerService {
   private intervalSubscription: Subscription | null = null;
   private currentTimeSubject = new BehaviorSubject<number>(0);
   private songDataSubject = new BehaviorSubject<any>(null);
-  private isPlayings = new BehaviorSubject<boolean>(false);
+  private isPlayings = new BehaviorSubject<boolean>(false);private nextSongNameSubject = new BehaviorSubject<string>('');
 
+  nextSongName$ = this.nextSongNameSubject.asObservable();
   isPlaying: boolean = false;
   currentTime: number = 0;
   duration: number = 0;
@@ -36,7 +37,7 @@ export class MusicPlayerService {
         this.currentTime = 0;
         this.currentTimeSubject.next(this.currentTime);
         this.stopProgressTimer();
-        this.playNextInQueue(); // Llamar a playNextInQueue al terminar la canción actual
+        this.playNextInQueue();
       };
     }
   }
@@ -135,6 +136,7 @@ export class MusicPlayerService {
             .map((artist: any) => artist.name)
             .join(', '),
         });
+        this.nextSongNameSubject.next("No song suggested");
       }
     }
   }
@@ -162,6 +164,7 @@ export class MusicPlayerService {
         if (nextSong) {
           this.enqueueSong(nextSong);
           console.log('Next song queued:', nextSong);
+          this.nextSongNameSubject.next(nextSong.name);
         } else {
           console.log('No valid next song found.');
         }

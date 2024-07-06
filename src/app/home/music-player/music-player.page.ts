@@ -50,14 +50,22 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
   duration: number = 0;
   currentTime: number = 0;
   isPlaying: boolean = false;
+  nextSongName: string = 'No song suggested';
   private currentTimeSubscription: Subscription | null = null;
   private songDataSubscription: Subscription | null = null;
   private queueSubscription: Subscription | null = null;
-
+  private nextSongSubscription: Subscription | null = null;
+  
   constructor(
     private audioService: MusicPlayerService,
     private _location: Location
-  ) {}
+  ) {
+    this.nextSongSubscription = this.audioService.nextSongName$.subscribe(
+      (name) => {
+        this.nextSongName = name;
+      }
+    );
+  }
 
   ngOnInit(): void {
     this.queueSubscription = this.audioService.songData$.subscribe(() => {
@@ -79,6 +87,10 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
     if (this.queueSubscription) {
       this.queueSubscription.unsubscribe();
       this.queueSubscription = null;
+    }
+    if (this.nextSongSubscription) {
+      this.nextSongSubscription.unsubscribe();
+      this.nextSongSubscription = null;
     }
   }
 
