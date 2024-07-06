@@ -51,7 +51,7 @@ export class ForgotPasswordPage implements OnInit {
   navigateToVerifyCode() {
     if (this.email === '' || this.fetching) return;
     this.fetching = true;
-    /* fetch(
+    fetch(
       'https://beatsyncserver.onrender.com/passwordRecovery/forgotPassword',
       {
         method: 'POST',
@@ -65,7 +65,7 @@ export class ForgotPasswordPage implements OnInit {
     )
       .then((response) => {
         if (response.status === 200) {
-          console.log('Email sent');
+          this.fetching = false;
           localStorage.setItem('email', this.email);
           this.navCtrl.navigateForward('verify-code', {
             animated: true,
@@ -77,14 +77,7 @@ export class ForgotPasswordPage implements OnInit {
       })
       .catch((error) => {
         console.log('Error: ', error);
-      }); */
-
-    // testing purposes only vvv
-    this.navCtrl.navigateForward('verify-code', {
-      animated: true,
-      animationDirection: 'forward',
-    });
-    this.fetching = false;
+      });
   }
 
   navigateToSignUp() {

@@ -70,6 +70,7 @@ export class SignInPage implements OnInit {
         response.json().then((data) => {
           localStorage.setItem('userId', data.sessionId);
           localStorage.setItem('email', this.email);
+          this.router.navigate(['main-tab']);
           if (data.isArtist.id) {
           }
           localStorage.setItem(
@@ -105,7 +106,6 @@ export class SignInPage implements OnInit {
             });
           });
         });
-        this.router.navigate(['main-tab']);
       } else if (response.status === 404) {
         console.log('User not Found');
       } else if (response.status === 401) {

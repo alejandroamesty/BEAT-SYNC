@@ -12,7 +12,8 @@
     Enter the 6 digits code that you received on your email
   </div>
   <div class="emailInput">
-    <app-verification-input> </app-verification-input>
+    <app-verification-input (codeChange)="handleCodeChange($event)">
+    </app-verification-input>
   </div>
   <span class="normal-text" (click)="navigateToSignUp()">
     Don't have an account?
