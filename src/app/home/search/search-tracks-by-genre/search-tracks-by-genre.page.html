@@ -27,6 +27,32 @@
     [height]="'600px'"
     *ngIf="filteredMusic.length > 0"
     [musicList]="filteredMusic"
+    (onItemPress)="onControlClick($event)"
     (loadMore)="loadMoreTracks()"
   ></app-music-list>
+  <ng-template #modalContent>
+    <div class="custom-modal-content">
+      <app-search-input
+        [width]="'350px'"
+        [placeholder]="'Search by playlist name'"
+        [focusInput]="false"
+        class="filter-input"
+        (searchTermChanged)="onListSearchTermChanged($event)"
+      ></app-search-input>
+      <app-list
+        [data]="filteredItems"
+        (setExternalList)="updateFilteredItems($event)"
+      ></app-list>
+    </div>
+  </ng-template>
+  <app-custom-modal
+    [visible]="isModalVisible"
+    (visibilityChange)="closeModal()"
+    [title]="'Add to playlist'"
+    [cancelButtonName]="'Cancel'"
+    [doneButtonName]="'Done'"
+    [cancelButtonAction]="handleCancel.bind(this)"
+    [doneButtonAction]="handleDone.bind(this)"
+    [modalContent]="modalContent"
+  ></app-custom-modal>
 </ion-content>

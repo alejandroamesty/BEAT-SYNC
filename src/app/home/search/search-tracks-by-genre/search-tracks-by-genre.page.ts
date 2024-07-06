@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -12,6 +12,8 @@ import { MusicListComponent } from 'src/components/music-list/music-list.compone
 import { MusicItem } from 'src/components/music-list/music.model';
 import { EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
+import { CustomModalComponent } from 'src/components/custom-modal/custom-modal.component';
+import { ListComponent } from 'src/components/list/list.component';
 
 @Component({
   selector: 'app-search-tracks',
@@ -27,6 +29,8 @@ import { Location } from '@angular/common';
     FormsModule,
     SearchInputComponent,
     MusicListComponent,
+    CustomModalComponent,
+    ListComponent,
   ],
 })
 export class SearchTracksByGenrePage implements OnInit {
@@ -37,8 +41,38 @@ export class SearchTracksByGenrePage implements OnInit {
   searchTerm: string = '';
   skip: number = 0;
   sortOrder: 'recent' | 'oldest' = 'recent';
+  selectedItem: any = {};
+  isModalVisible: boolean = false;
+
+  filteredItems: {
+    id: string;
+    name: string;
+    description: string;
+    userId: string;
+    songIds: string[];
+    checked: boolean;
+  }[] = [];
+  playlists: {
+    id: string;
+    name: string;
+    description: string;
+    userId: string;
+    songIds: string[];
+    checked: boolean;
+  }[] = [
+    {
+      id: 'default id',
+      name: 'default name',
+      description: 'default description',
+      userId: 'default userId',
+      songIds: ['default songIds'],
+      checked: false,
+    },
+  ];
 
   constructor(private _location: Location) {}
+  
+  @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
 
   ngOnInit() {}
 
@@ -55,6 +89,45 @@ export class SearchTracksByGenrePage implements OnInit {
       this.skip = 0;
       this.loadTracks();
     }, 1500);
+  }
+
+  fetching: Boolean = false;
+  openModal() {
+    if (this.fetching) return;
+    fetch(
+      `https://beatsyncserver.onrender.com/playlist?userId=${localStorage.getItem(
+        'userId'
+      )}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((data) => {
+            this.playlists = data.map((item: any) => {
+              return {
+                id: item._id,
+                name: item.name,
+                description: item.description,
+                userId: item.userId,
+                songIds: item.songIds,
+                checked: false,
+              };
+            });
+            this.filteredItems = [...this.playlists];
+            this.isModalVisible = true;
+          });
+        } else {
+          console.error('Failed to get playlists');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 
   async loadTracks() {
@@ -106,6 +179,83 @@ export class SearchTracksByGenrePage implements OnInit {
         );
       });
     }
+  }
+
+  handleDone() {
+    if (this.fetching) return;
+    this.fetching = true;
+    for (const playlist of this.filteredItems) {
+      if (!playlist.checked) continue;
+      if (playlist.songIds.includes(this.selectedItem.id)) continue;
+      console.log(
+        'playlistSongs:',
+        playlist.songIds,
+        'selectedItem:',
+        this.selectedItem.id
+      );
+      fetch('https://beatsyncserver.onrender.com/playlist', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: playlist.id,
+          userId: localStorage.getItem('userId'),
+          name: playlist.name,
+          description: playlist.description,
+          songIds: [...playlist.songIds, this.selectedItem.id],
+        }),
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            console.log('Success:', response);
+          } else {
+            console.error('Failed to add song to playlist');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+    this.fetching = false;
+    this.closeModal();
+  }
+
+  closeModal() {
+    this.isModalVisible = false;
+  }
+
+  handleCancel() {
+    console.log('Cancel button clicked');
+    this.closeModal();
+  }
+
+  onControlClick(event: any) {
+    this.openModal();
+    this.selectedItem = event;
+  }
+
+  onListSearchTermChanged(searchTerm: string) {
+    if (searchTerm.trim() === '') {
+      this.filteredItems = [...this.playlists];
+    } else {
+      this.filteredItems = this.playlists.filter((item) =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+  }
+
+  updateFilteredItems(
+    updatedItems: {
+      id: string;
+      name: string;
+      description: string;
+      userId: string;
+      songIds: string[];
+      checked: boolean;
+    }[]
+  ) {
+    this.filteredItems = updatedItems;
   }
 
   loadMoreTracks() {

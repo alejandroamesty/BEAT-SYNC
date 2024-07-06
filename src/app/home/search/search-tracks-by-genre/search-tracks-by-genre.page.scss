@@ -71,6 +71,18 @@ app-music-list {
   top: 170px;
 }
 
+.custom-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.filter-input {
+  top: 10px;
+  margin-bottom: 20px;
+  transition: bottom 0.3s ease;
+}
+
 .sort-dropdown {
   position: absolute;
   font-family: "BROmnyRegular";
