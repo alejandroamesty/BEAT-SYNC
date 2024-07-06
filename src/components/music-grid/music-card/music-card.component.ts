@@ -38,7 +38,8 @@ import {
 export class MusicCardComponent {
   @Input() title: string = 'Un Verano Sin Ti';
   @Input() cover: string = '../../../assets/images/unveranosinti.png';
-  @Output() onPress: EventEmitter<void> = new EventEmitter<void>();
+  @Input() album: any;
+  @Output() onPress: EventEmitter<any> = new EventEmitter<any>();
 
   animationState: string = 'normal';
 
@@ -46,7 +47,7 @@ export class MusicCardComponent {
     this.animationState = 'scaled';
     setTimeout(() => {
       this.animationState = 'normal';
-      this.onPress.emit();
+      this.onPress.emit(this.album);
     }, 200);
   }
 }
