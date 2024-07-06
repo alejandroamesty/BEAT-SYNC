@@ -148,4 +148,12 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
   onLikeClick() {
     this.liked = !this.liked;
   }
+
+  nextSong() {
+    this.audioService.playNextInQueue();
+  }
+
+  restartSong() {
+    this.audioService.seekTo(0);
+  }
 }

@@ -101,7 +101,7 @@ export class MusicPlayerService {
     }
     this.intervalSubscription = interval(1000).subscribe(() => {
       if (this.audio && !this.audio.paused) {
-        this.currentTime = Math.floor(this.audio.currentTime);
+        this.currentTime = Math.floor(this.audio.currentTime) || 0;
         this.currentTimeSubject.next(this.currentTime);
       }
     });
