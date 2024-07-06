@@ -69,6 +69,41 @@ export class SignInPage implements OnInit {
         // save sessionId in localStorage
         response.json().then((data) => {
           localStorage.setItem('userId', data.sessionId);
+          if (data.isArtist.id) {
+          }
+          localStorage.setItem(
+            'artistId',
+            data.isArtist ? data.isArtist.id : null
+          );
+          localStorage.setItem(
+            'userType',
+            data.isArtist ? 'Artist' : 'Listener'
+          );
+          localStorage.setItem(
+            'name',
+            data.isArtist ? data.isArtist.name : this.email
+          );
+          localStorage.setItem(
+            'pfp',
+            data.isArtist ? data.isArtist.url : '../../assets/images/artist.png'
+          );
+          fetch(
+            `https://beatsyncserver.onrender.com/get/likedSongs?userId=${data.sessionId}`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          ).then((response) => {
+            response.json().then((data) => {
+              const likedSongs = data.map((song: any) => {
+                return song.id;
+              });
+              localStorage.setItem('likedSongs', JSON.stringify(likedSongs));
+              console.log(likedSongs);
+            });
+          });
         });
         this.router.navigate(['main-tab']);
       } else if (response.status === 404) {
