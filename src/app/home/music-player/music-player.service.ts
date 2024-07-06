@@ -17,6 +17,8 @@ export class MusicPlayerService {
   currentTime$ = this.currentTimeSubject.asObservable();
   songData$ = this.songDataSubject.asObservable();
 
+  private queue: any[] = []; // Array para almacenar las canciones en cola
+
   constructor() {}
 
   initAudio(songURL: string) {
@@ -34,6 +36,7 @@ export class MusicPlayerService {
         this.currentTime = 0;
         this.currentTimeSubject.next(this.currentTime);
         this.stopProgressTimer();
+        this.playNextInQueue(); // Llamar a playNextInQueue al terminar la canción actual
       };
     }
   }
@@ -105,5 +108,52 @@ export class MusicPlayerService {
       this.intervalSubscription.unsubscribe();
       this.intervalSubscription = null;
     }
+  }
+
+  enqueueSong(song: any) {
+    this.queue.push(song);
+  }
+
+  playNextInQueue() {
+    if (this.queue.length > 0) {
+      const nextSong = this.queue.shift();
+      if (nextSong && nextSong.url) {
+        this.resetAudio();
+        this.initAudio(nextSong.url);
+        this.play();
+        this.updateSongData({
+          coverImageUrl: nextSong.cover_img?.[0].url,
+          albumTitle: nextSong.album,
+          songTitle: nextSong.name,
+          artists: nextSong.artists.map((artist: any) => artist.name).join(', '),
+        });
+      }
+    }
+  }
+
+  clearQueue() {
+    this.queue = [];
+  }
+
+  getQueue() {
+    return this.queue;
+  }
+
+  queueNextSong(currentSongId: string, currentSongGenre: string) {
+    console.log('currentSongGenre:', currentSongGenre);
+    fetch(`https://beatsyncserver.onrender.com/search/TracksByGenre?skip=0&filter=${encodeURIComponent(currentSongGenre)}`)
+      .then(response => response.json())
+      .then(data => {
+        const nextSong = data.find((song: any) => song.id !== currentSongId && song.url !== null);
+        if (nextSong) {
+          this.enqueueSong(nextSong);
+          console.log('Next song queued:', nextSong);
+        } else {
+          console.log('No valid next song found.');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching next song:', error);
+      });
   }
 }

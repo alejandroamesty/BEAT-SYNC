@@ -183,36 +183,34 @@ export class AlbumDetailPage implements OnInit {
     console.log('Close button clicked');
   }
 
-  // Dentro de album-detail.page.ts
-playMusic(track: any) {
-  console.log('Playing track:', track); // Añadir este log
-  if (!track) {
-    console.error('Track is undefined');
-    return;
+  playMusic(track: any) {
+    console.log('Playing track:', track);
+    if (!track) {
+      console.error('Track is undefined');
+      return;
+    }
+    const songURL = track.url;
+    if (songURL) {
+      this.musicPlayerService.stop();
+      this.musicPlayerService.resetAudio();
+
+      this.musicPlayerService.initAudio(songURL);
+      this.musicPlayerService.play();
+      this.musicPlayerService.updateSongData({
+        coverImageUrl:
+          track.cover || '../../../assets/images/no-artist-pfp.png',
+        albumTitle: track.album,
+        songTitle: track.title,
+        artists: track.artists.map((artist: any) => artist.name).join(', '),
+      });
+      this.musicPlayerService.queueNextSong(track.id, track.genres[0]);
+    } else {
+      console.error('No song URL available for playback');
+    }
   }
-  const songURL = track.url;
-  if (songURL) {
-    this.musicPlayerService.stop();
-    this.musicPlayerService.resetAudio();
 
-    this.musicPlayerService.initAudio(songURL);
-    this.musicPlayerService.play();
-    this.musicPlayerService.updateSongData({
-      coverImageUrl: track.cover || '../../../assets/images/no-artist-pfp.png',
-      albumTitle: track.album,
-      songTitle: track.title,
-      artists: track.artists.map((artist: any) => artist.name).join(', '),
-    });
-  } else {
-    console.error('No song URL available for playback');
+  onTrackPlay(track: any) {
+    console.log('Track to play:', track);
+    this.playMusic(track);
   }
-}
-
-
-// Dentro de album-detail.page.ts, en la función onTrackPlay
-onTrackPlay(track: any) {
-  console.log('Track to play:', track); // Añadir este log
-  this.playMusic(track);
-}
-
 }

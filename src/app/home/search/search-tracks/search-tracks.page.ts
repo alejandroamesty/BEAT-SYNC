@@ -37,6 +37,8 @@ export class SearchTracksPage implements OnInit {
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
 
   isModalVisible: boolean = false;
+  currentSongId: string = '';
+  currentSongGenre: string = '';
 
   @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
 
@@ -272,10 +274,11 @@ export class SearchTracksPage implements OnInit {
         songTitle: item.name,
         artists: item.artists.map((artist: any) => artist.name).join(', '),
       });
+      this.musicPlayerService.queueNextSong(item.id, item.genres[0]);
     } else {
       console.error('No song URL available for playback');
     }
-  }  
+  }
 
   onItemPlay(item: any) {
     this.playMusic(item);
