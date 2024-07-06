@@ -1,8 +1,11 @@
 <div class="music-box" (click)="handleClick()">
-  <div
-    class="cover"
-    [ngStyle]="{ 'background-image': 'url(' + cover + ')' }"
-  ></div>
+  <div class="playlist-cover" [ngStyle]="{ 'background-color': backgroundColor }">
+    <img
+      [src]="'../../../assets/images/playlist-default.png'"
+      alt="Cover"
+      class="cover"
+    />
+  </div>
   <div class="music-data">
     <div class="title">{{ title }}</div>
     <div class="subtitle">{{ subtitle }}</div>
