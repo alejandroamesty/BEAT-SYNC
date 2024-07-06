@@ -34,8 +34,15 @@ export class ProfilePage implements OnInit {
   showModal: boolean = false;
   showDeleteModal: boolean = false;
   fetching: boolean = false;
+  image: string = '';
+  name: string = '';
+  userType: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.image = localStorage.getItem('pfp') || '';
+    this.name = localStorage.getItem('name') || '';
+    this.userType = localStorage.getItem('userType') || '';
+  }
 
   ngOnInit() {}
 

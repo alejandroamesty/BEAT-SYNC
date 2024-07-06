@@ -42,6 +42,7 @@ export class LibraryPage implements OnInit {
   title: string = '';
   description: string = '';
   yourSongs: any[] = [];
+  userType: string = 'Listener';
 
   originalPlaylistList: {
     _id: string;
@@ -67,6 +68,7 @@ export class LibraryPage implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
 
   constructor(private router: Router, private dataService: DataService) {
+    this.userType = localStorage.getItem('userType') || 'Listener';
     this.loadData();
   }
 
@@ -163,7 +165,6 @@ export class LibraryPage implements OnInit {
   }
 
   openCatalogView() {
-    console.log('your Songs', this.yourSongs);
     this.dataService.changeSongs(this.yourSongs);
     this.router.navigate(['catalog-detail', 'Catalog']);
   }
