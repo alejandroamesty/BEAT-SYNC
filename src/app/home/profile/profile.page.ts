@@ -87,8 +87,6 @@ export class ProfilePage implements OnInit {
 
   handleAccept() {
     this.showModal = false;
-    localStorage.clear();
-
     this.router.navigate(['start-screen']);
   }
 
