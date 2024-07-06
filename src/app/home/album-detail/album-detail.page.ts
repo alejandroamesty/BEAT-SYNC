@@ -32,7 +32,7 @@ import { MusicPlayerService } from '../music-player/music-player.service';
 export class AlbumDetailPage implements OnInit {
   _id: string = 'unknownId';
   refId: string = 'unknownRefId';
-  albumCover: string = '../../../assets/images/unveranosinti.png';
+  albumCover: string = '../../../assets/images/no-cover.png';
   albumTitle: string = 'Un Verano Sin Ti';
   artists: string = 'Bad Bunny';
   artistId: string = 'unknownId';
@@ -184,35 +184,34 @@ export class AlbumDetailPage implements OnInit {
   }
 
   // Dentro de album-detail.page.ts
-playMusic(track: any) {
-  console.log('Playing track:', track); // Añadir este log
-  if (!track) {
-    console.error('Track is undefined');
-    return;
+  playMusic(track: any) {
+    console.log('Playing track:', track); // Añadir este log
+    if (!track) {
+      console.error('Track is undefined');
+      return;
+    }
+    const songURL = track.url;
+    if (songURL) {
+      this.musicPlayerService.stop();
+      this.musicPlayerService.resetAudio();
+
+      this.musicPlayerService.initAudio(songURL);
+      this.musicPlayerService.play();
+      this.musicPlayerService.updateSongData({
+        coverImageUrl:
+          track.cover || '../../../assets/images/no-artist-pfp.png',
+        albumTitle: track.album,
+        songTitle: track.title,
+        artists: track.artists.map((artist: any) => artist.name).join(', '),
+      });
+    } else {
+      console.error('No song URL available for playback');
+    }
   }
-  const songURL = track.url;
-  if (songURL) {
-    this.musicPlayerService.stop();
-    this.musicPlayerService.resetAudio();
 
-    this.musicPlayerService.initAudio(songURL);
-    this.musicPlayerService.play();
-    this.musicPlayerService.updateSongData({
-      coverImageUrl: track.cover || '../../../assets/images/no-artist-pfp.png',
-      albumTitle: track.album,
-      songTitle: track.title,
-      artists: track.artists.map((artist: any) => artist.name).join(', '),
-    });
-  } else {
-    console.error('No song URL available for playback');
+  // Dentro de album-detail.page.ts, en la función onTrackPlay
+  onTrackPlay(track: any) {
+    console.log('Track to play:', track); // Añadir este log
+    this.playMusic(track);
   }
-}
-
-
-// Dentro de album-detail.page.ts, en la función onTrackPlay
-onTrackPlay(track: any) {
-  console.log('Track to play:', track); // Añadir este log
-  this.playMusic(track);
-}
-
 }

@@ -64,82 +64,9 @@ export class CatalogDetailPage implements OnInit {
   @Output() removeSongs: EventEmitter<void> = new EventEmitter<void>();
   @Output() uploadSongs: EventEmitter<void> = new EventEmitter<void>();
 
-  musicItems: MusicItem[] = [
-    {
-      cover_img: ['../../../assets/images/unveranosinti.png'],
-      name: 'Sweet Dreams',
-      artists: [{ name: 'Artist 1', id: 'artist1' }],
-      explicit: true,
-      type: 'Song',
-      release_date: '14-10-2010',
-      refId: '2',
-      popularity: 5,
-    },
-    {
-      cover_img: ['../../../assets/images/unveranosinti.png'],
-      name: 'Sweet Nothing',
-      artists: [{ name: 'Artist 2', id: 'artist2' }],
-      explicit: false,
-      type: 'Song',
-      release_date: '14-10-2010',
-      refId: '2',
-      popularity: 5,
-    },
-    {
-      cover_img: ['../../../assets/images/unveranosinti.png'],
-      name: 'Safety Net',
-      artists: [{ name: 'Artist 3', id: 'artist3' }],
-      explicit: true,
-      type: 'Song',
-      release_date: '14-10-2010',
-      refId: '2',
-      popularity: 5,
-    },
-    {
-      cover_img: ['../../../assets/images/unveranosinti.png'],
-      name: 'Songs For You',
-      artists: [
-        { name: 'Artist 4', id: 'artist4' },
-        { name: 'Artist 5', id: 'artist5' },
-      ],
-      explicit: false,
-      type: 'Song',
-      release_date: '14-10-2010',
-      refId: '2',
-      popularity: 5,
-    },
-    {
-      cover_img: ['../../../assets/images/unveranosinti.png'],
-      name: 'Sweet Dreams',
-      artists: [{ name: 'Artist 1', id: 'artist1' }],
-      explicit: true,
-      type: 'Song',
-      release_date: '14-10-2010',
-      refId: '2',
-      popularity: 5,
-    },
-  ];
+  musicItems: MusicItem[] = [];
 
-  yourTracks: Track[] = [
-    {
-      refId: '1',
-      title: 'Track One',
-      url: null,
-      cover: '../../../assets/images/album-cover1.png',
-      releaseDate: '2021-01-01',
-      duration_ms: 180000,
-      disc_number: 1,
-      number: 1,
-      album: 'Album One',
-      albumRefId: 'album1',
-      artists: [
-        { name: 'Artist A', id: 'artist1' },
-        { name: 'Artist B', id: 'artist2' },
-      ],
-      genres: ['Pop', 'Dance'],
-      liked: true,
-    },
-  ];
+  yourTracks: Track[] = [];
 
   constructor(
     private _location: Location,
