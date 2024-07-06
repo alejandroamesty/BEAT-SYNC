@@ -16,10 +16,13 @@
         (onPress)="deletePlaylist()"
       />
     </div>
-    <div
-      class="playlist-cover"
-      [ngStyle]="{'background-image': 'url(' + playlistCover + ')'}"
-    ></div>
+    <div class="playlist-cover" [ngStyle]="{ 'background-color': playlistBackgroundColor }">
+      <img
+        [src]="'../../../assets/images/playlist-default.png'"
+        alt="Cover"
+        class="cover"
+      />
+    </div>
     <div class="music-type">PLAYLIST</div>
     <div class="playlist-title">{{ playlistTitle }}</div>
     <div class="user">By {{ user }}</div>

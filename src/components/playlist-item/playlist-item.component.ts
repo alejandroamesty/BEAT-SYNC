@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 
@@ -9,7 +9,7 @@ import { ControlButtonComponent } from 'src/components/control-button/control-bu
   styleUrls: ['./playlist-item.component.scss'],
   imports: [CommonModule, ControlButtonComponent],
 })
-export class PlaylistItemComponent {
+export class PlaylistItemComponent implements OnInit {
   @Input() playlist: {
     _id: string;
     title: string;
@@ -25,6 +25,30 @@ export class PlaylistItemComponent {
   };
 
   @Output() onPress = new EventEmitter<void>();
+
+  private vibrantColors: string[] = ['#FFAA1A', '#FF7A67', '#61DA5E', '#3EA0FF'];
+  static usedColors: Set<string> = new Set();
+  backgroundColor: string = '';
+
+  ngOnInit() {
+    this.backgroundColor = this.getUniqueVibrantColor();
+  }
+
+  getUniqueVibrantColor(): string {
+    const availableColors = this.vibrantColors.filter(color => !PlaylistItemComponent.usedColors.has(color));
+
+    if (availableColors.length === 0) {
+      PlaylistItemComponent.usedColors.clear();
+      availableColors.push(...this.vibrantColors);
+    }
+
+    const randomIndex = Math.floor(Math.random() * availableColors.length);
+    const selectedColor = availableColors[randomIndex];
+
+    PlaylistItemComponent.usedColors.add(selectedColor);
+
+    return selectedColor;
+  }
 
   handleClick() {
     this.onPress.emit();

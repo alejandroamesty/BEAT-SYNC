@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
@@ -10,7 +10,7 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./music-box.component.scss'],
   imports: [CommonModule],
 })
-export class MusicBoxComponent {
+export class MusicBoxComponent implements OnInit {
   @Input() _id: string = 'unknownId';
   @Input() refId: string = 'unknownRefId';
   @Input() title: string = 'Un Verano Sin Ti';
@@ -30,13 +30,28 @@ export class MusicBoxComponent {
 
   constructor(private router: Router, private dataService: DataService) {}
 
-  get subtitle(): string {
-    if (this.type === 'Playlist') {
-      return `Playlist • ${this.description}`;
-    } else if (this.type === 'Album') {
-      return `Album • ${this.releaseDate} • ${this.songCount} songs`;
+  private vibrantColors: string[] = ['#FFAA1A', '#FF7A67', '#61DA5E', '#3EA0FF'];
+  static usedColors: Set<string> = new Set(); // Set para almacenar colores ya usados
+  backgroundColor: string = '';
+
+  ngOnInit() {
+    this.backgroundColor = this.getUniqueVibrantColor();
+  }
+
+  getUniqueVibrantColor(): string {
+    const availableColors = this.vibrantColors.filter(color => !MusicBoxComponent.usedColors.has(color));
+
+    if (availableColors.length === 0) {
+      MusicBoxComponent.usedColors.clear();
+      availableColors.push(...this.vibrantColors);
     }
-    return '';
+
+    const randomIndex = Math.floor(Math.random() * availableColors.length);
+    const selectedColor = availableColors[randomIndex];
+
+    MusicBoxComponent.usedColors.add(selectedColor);
+
+    return selectedColor;
   }
 
   handleClick() {
@@ -70,5 +85,14 @@ export class MusicBoxComponent {
       console.log('Album clicked:', this.title);
     }
     this.onPress.emit();
+  }
+
+  get subtitle(): string {
+    if (this.type === 'Playlist') {
+      return `Playlist • ${this.description}`;
+    } else if (this.type === 'Album') {
+      return `Album • ${this.releaseDate} • ${this.songCount} songs`;
+    }
+    return '';
   }
 }

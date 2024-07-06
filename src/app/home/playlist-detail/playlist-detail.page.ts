@@ -51,6 +51,9 @@ export class PlaylistDetailPage implements OnInit {
 
   @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
 
+  private vibrantColors: string[] = ['#FFAA1A', '#FF7A67', '#61DA5E', '#3EA0FF'];
+  playlistBackgroundColor: string = '';
+  static usedColors: Set<string> = new Set();
   musicItems: MusicItem[] = [];
 
   ngOnInit(): void {}
@@ -96,6 +99,7 @@ export class PlaylistDetailPage implements OnInit {
         );
       });
     });
+    this.playlistBackgroundColor = this.getUniqueVibrantColor();
   }
 
   handlePlayClick() {
@@ -191,6 +195,22 @@ export class PlaylistDetailPage implements OnInit {
         console.error(error);
       });
     this.closeModal();
+  }
+
+  getUniqueVibrantColor(): string {
+    const availableColors = this.vibrantColors.filter(color => !PlaylistDetailPage.usedColors.has(color));
+
+    if (availableColors.length === 0) {
+      PlaylistDetailPage.usedColors.clear();
+      availableColors.push(...this.vibrantColors);
+    }
+
+    const randomIndex = Math.floor(Math.random() * availableColors.length);
+    const selectedColor = availableColors[randomIndex];
+
+    PlaylistDetailPage.usedColors.add(selectedColor);
+
+    return selectedColor;
   }
 
   handleTitleChange(event: string) {

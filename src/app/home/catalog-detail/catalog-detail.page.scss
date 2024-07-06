@@ -33,7 +33,7 @@ ion-content {
   position: absolute;
   width: 115px;
   height: 17px;
-  left: calc(50% - 115px / 2 + 2.5px);
+  left: calc(50% - 45px);
   top: 71px;
   font-family: "BROmnyMedium";
   font-size: 12px;
@@ -44,7 +44,7 @@ ion-content {
   position: absolute;
   width: 176px;
   height: 22px;
-  left: calc(50% - 176px / 2 + 33px);
+  left: calc(50% - 45px);
   top: 95px;
   font-family: "BROmnySemiBold";
   font-size: 18px;
@@ -55,7 +55,7 @@ ion-content {
   position: absolute;
   width: 215px;
   height: 22px;
-  left: calc(50% - 115px / 2 + 2.5px);
+  left: calc(50% - 45px);
   top: 117px;
   font-family: "BROmnyMedium";
   font-size: 18px;
@@ -68,9 +68,9 @@ ion-content {
 
 .playlist-description {
   position: absolute;
-  width: 242px;
+  width: 220px;
   height: 40px;
-  left: calc(50% - 115px / 2 + 2.5px);
+  left: calc(50% - 45px);
   top: 143px;
   font-family: "BROmnyMedium";
   font-size: 12px;

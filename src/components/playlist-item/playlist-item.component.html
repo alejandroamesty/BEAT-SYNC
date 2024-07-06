@@ -1,9 +1,11 @@
 <div class="playlist-item-container" (click)="handleClick()">
-  <img
-    [src]="'../../../assets/images/your-songs.png'"
-    alt="Cover"
-    class="cover"
-  />
+  <div class="cover-bg" [ngStyle]="{ 'background-color': backgroundColor }">
+    <img
+      [src]="'../../../assets/images/playlist-default.png'"
+      alt="Cover"
+      class="cover"
+    />
+  </div>
   <div class="playlist-data">
     <div class="title">{{ playlist.title }}</div>
     <div class="details-container">

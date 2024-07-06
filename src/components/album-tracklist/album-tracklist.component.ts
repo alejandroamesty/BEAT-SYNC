@@ -65,7 +65,6 @@ export class AlbumTracklistComponent implements OnInit {
     // console.log(`Track liked: ${track.title}`);
   }
 
-  // Dentro de album-tracklist.component.ts
   handleTrackPress(track: Track) {
     if (track.album === '') {
       const newTrack: any = {
