@@ -39,7 +39,7 @@ import { DataService } from 'src/app/services/data.service';
 export class PlaylistDetailPage implements OnInit {
   playlistCover: string = '../../../assets/images/your-songs.png';
   playlistTitle: string = 'fav songs of 2024';
-  user: string = 'Alejandro';
+  user: string = '';
   description: string = '(hasta ahora) / ordenadas por lanzamiento';
   fetching: Boolean = false;
 
@@ -61,6 +61,7 @@ export class PlaylistDetailPage implements OnInit {
     private route: ActivatedRoute,
     private dataService: DataService
   ) {
+    this.user = localStorage.getItem('name') || '';
     this.route.queryParams.subscribe((params) => {
       this.id = params['playlistId'] || 'default id';
       this.playlistTitle = params['playlistTitle'];

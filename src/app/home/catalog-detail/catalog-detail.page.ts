@@ -53,7 +53,7 @@ export class CatalogDetailPage implements OnInit {
   playlistCover: string = '';
   playlistTitle: string = '';
   description: string = '';
-  user: string = 'Alejandro';
+  user: string = '';
   rightButtonCaption: string = '';
   rightButtonIcon: string = '';
   fetching: boolean = false;
@@ -146,7 +146,9 @@ export class CatalogDetailPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dataService: DataService
-  ) {}
+  ) {
+    this.user = localStorage.getItem('name') || '';
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
