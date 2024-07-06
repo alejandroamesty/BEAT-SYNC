@@ -75,8 +75,7 @@ export class PlaylistDetailPage implements OnInit {
       songs.forEach((song: any) => {
         newSongList.push({
           cover_img:
-            song.cover_img?.[0]?.url ||
-            '../../../assets/images/unveranosinti.png',
+            song.cover_img || '../../../assets/images/unveranosinti.png',
           name: song.name,
           artists: song.artists,
           explicit: song.explicit,

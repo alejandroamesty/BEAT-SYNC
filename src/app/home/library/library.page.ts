@@ -70,6 +70,7 @@ export class LibraryPage implements OnInit {
 
   constructor(private router: Router, private dataService: DataService) {
     this.userType = localStorage.getItem('userType') || 'Listener';
+    this.likedSongs = JSON.parse(localStorage.getItem('likedSongs') || '[]');
     this.loadData();
   }
 
