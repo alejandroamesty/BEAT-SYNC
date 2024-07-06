@@ -87,6 +87,23 @@ export class SignInPage implements OnInit {
             'pfp',
             data.isArtist ? data.isArtist.url : '../../assets/images/artist.png'
           );
+          fetch(
+            `https://beatsyncserver.onrender.com/get/likedSongs?userId=${data.sessionId}`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          ).then((response) => {
+            response.json().then((data) => {
+              const likedSongs = data.map((song: any) => {
+                return song.id;
+              });
+              localStorage.setItem('likedSongs', JSON.stringify(likedSongs));
+              console.log(likedSongs);
+            });
+          });
         });
         this.router.navigate(['main-tab']);
       } else if (response.status === 404) {

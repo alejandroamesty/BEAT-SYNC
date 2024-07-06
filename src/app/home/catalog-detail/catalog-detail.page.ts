@@ -56,7 +56,7 @@ export class CatalogDetailPage implements OnInit {
   user: string = 'Alejandro';
   rightButtonCaption: string = '';
   rightButtonIcon: string = '';
-
+  fetching: boolean = false;
   isModalVisible: boolean = false;
 
   @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
@@ -139,66 +139,6 @@ export class CatalogDetailPage implements OnInit {
       genres: ['Pop', 'Dance'],
       liked: true,
     },
-    {
-      refId: '2',
-      title: 'Track Two',
-      url: null,
-      cover: '../../../assets/images/album-cover2.png',
-      releaseDate: '2021-02-01',
-      duration_ms: 200000,
-      disc_number: 1,
-      number: 2,
-      album: 'Album Two',
-      albumRefId: 'album2',
-      artists: [{ name: 'Artist C', id: 'artist3' }],
-      genres: ['Rock'],
-      liked: false,
-    },
-    {
-      refId: '3',
-      title: 'Track Three',
-      url: null,
-      cover: '../../../assets/images/album-cover3.png',
-      releaseDate: '2021-03-01',
-      duration_ms: 240000,
-      disc_number: 1,
-      number: 3,
-      album: 'Album Three',
-      albumRefId: 'album3',
-      artists: [{ name: 'Artist D', id: 'artist4' }],
-      genres: ['Jazz', 'Blues'],
-      liked: true,
-    },
-    {
-      refId: '4',
-      title: 'Track Four',
-      url: null,
-      cover: '../../../assets/images/album-cover4.png',
-      releaseDate: '2021-04-01',
-      duration_ms: 210000,
-      disc_number: 1,
-      number: 4,
-      album: 'Album Four',
-      albumRefId: 'album4',
-      artists: [{ name: 'Artist E', id: 'artist5' }],
-      genres: ['Hip-Hop'],
-      liked: false,
-    },
-    {
-      refId: '5',
-      title: 'Track Five',
-      url: null,
-      cover: '../../../assets/images/album-cover5.png',
-      releaseDate: '2021-05-01',
-      duration_ms: 230000,
-      disc_number: 1,
-      number: 5,
-      album: 'Album Five',
-      albumRefId: 'album5',
-      artists: [{ name: 'Artist F', id: 'artist6' }],
-      genres: ['Classical'],
-      liked: true,
-    },
   ];
 
   constructor(
@@ -220,12 +160,52 @@ export class CatalogDetailPage implements OnInit {
 
   initializeProperties() {
     if (this.type === 'Liked') {
+      console.log('Liked songs');
       this.playlistCover = 'linear-gradient(90deg, #4233E8 0%, #ABAEF8 100%)';
       this.playlistTitle = 'Liked Songs';
       this.description =
         "Manage all the songs you've liked as an artist in one place.";
       this.rightButtonCaption = 'Remove songs';
       this.rightButtonIcon = '../../../assets/images/remove-trash.png';
+      this.dataService.currentSongs.subscribe(
+        (
+          songs: {
+            album: string;
+            album_refId: string;
+            artists: { name: string; id: string }[]; // Array of artist names, must conver to array of artist objects later
+            cover_img: any[];
+            disc_number: number;
+            duration_ms: number;
+            genres: string[];
+            id: string;
+            name: string;
+            popularity: number;
+            release_date: string;
+            songUrl: string;
+            track_number: number;
+            userId: string;
+            explicit: boolean;
+            _id?: string;
+          }[]
+        ) => {
+          this.musicItems = songs.map((song) => {
+            return {
+              _id: song._id,
+              refId: song.id,
+              name: song.name,
+              cover_img: [song.cover_img?.[0]?.url || ''],
+              release_date: song.release_date,
+              duration_ms: song.duration_ms,
+              disc_number: song.disc_number,
+              artists: song.artists,
+              genres: song.genres,
+              explicit: song.explicit,
+              popularity: song.popularity,
+              type: 'Song',
+            };
+          });
+        }
+      );
     } else if (this.type === 'Catalog') {
       this.playlistCover = 'linear-gradient(90deg, #27AEAE 0%, #9BE8E3 100%)';
       this.playlistTitle = 'Your Songs';
@@ -270,6 +250,7 @@ export class CatalogDetailPage implements OnInit {
               }),
               genres: song.genres,
               liked: false,
+              explicit: false,
             };
           });
         }
@@ -303,6 +284,7 @@ export class CatalogDetailPage implements OnInit {
   }
 
   removeSongsClick() {
+    console.log('Remove songs button clicked');
     this.removeSongs.emit();
   }
 
@@ -318,5 +300,37 @@ export class CatalogDetailPage implements OnInit {
   handleDone() {
     console.log('Done button clicked');
     this.closeModal();
+  }
+
+  handleItemPress(item: any) {
+    if (this.fetching) return;
+    this.fetching = true;
+    fetch('https://beatsyncserver.onrender.com/toggleLike', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: localStorage.getItem('userId'),
+        songRefId: item.refId,
+      }),
+    }).then((response) => {
+      if (response.status === 200) {
+        this.musicItems = this.musicItems.filter(
+          (song) => song.refId !== item.refId
+        );
+        const likedSongs = localStorage.getItem('likedSongs');
+        if (likedSongs) {
+          const likedSongsArray = JSON.parse(likedSongs);
+          const newLikedSongs = likedSongsArray.filter(
+            (songId: string) => songId !== item.refId
+          );
+          localStorage.setItem('likedSongs', JSON.stringify(newLikedSongs));
+        }
+        response.json().then((data) => {
+          console.log(data);
+        });
+      }
+    });
   }
 }
