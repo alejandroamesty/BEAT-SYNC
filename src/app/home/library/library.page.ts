@@ -42,6 +42,7 @@ export class LibraryPage implements OnInit {
   title: string = '';
   description: string = '';
   yourSongs: any[] = [];
+  likedSongs: any[] = [];
   userType: string = 'Listener';
 
   originalPlaylistList: {
@@ -129,6 +130,30 @@ export class LibraryPage implements OnInit {
       .catch((error) => {
         console.error(error);
       });
+
+    fetch(
+      `https://beatsyncserver.onrender.com/get/likedSongs?userId=${localStorage.getItem(
+        'userId'
+      )}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    ).then((response) => {
+      if (response.status === 200) {
+        response.json().then((data) => {
+          this.likedSongs = data;
+          const likedSongIds = data.map((song: any) => {
+            return song.id;
+          });
+          localStorage.setItem('likedSongs', JSON.stringify(likedSongIds));
+        });
+      } else {
+        console.error('Failed to fetch liked songs');
+      }
+    });
   }
 
   ngOnInit() {}
@@ -161,6 +186,7 @@ export class LibraryPage implements OnInit {
   }
 
   openLikedView() {
+    this.dataService.changeSongs(this.likedSongs);
     this.router.navigate(['catalog-detail', 'Liked']);
   }
 

@@ -42,6 +42,7 @@
         [height]="'450px'"
         [musicList]="musicItems"
         [showSeeMore]="false"
+        (onItemPress)="handleItemPress($event)"
       ></app-music-list>
       <app-album-tracklist
         *ngIf="type === 'Catalog'"

@@ -61,6 +61,6 @@ export class AlbumTracklistComponent implements OnInit {
   }
 
   handleTrackLike(track: Track) {
-    console.log(`Track liked: ${track.title}`);
+    // console.log(`Track liked: ${track.title}`);
   }
 }
