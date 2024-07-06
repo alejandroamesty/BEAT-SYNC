@@ -27,6 +27,7 @@ import {
   Track,
 } from 'src/components/album-tracklist/album-tracklist.component';
 import { DataService } from 'src/app/services/data.service';
+import { MusicPlayerService } from '../music-player/music-player.service';
 
 @Component({
   selector: 'app-catalog-detail',
@@ -72,7 +73,8 @@ export class CatalogDetailPage implements OnInit {
     private _location: Location,
     private router: Router,
     private route: ActivatedRoute,
-    private dataService: DataService
+    private dataService: DataService,
+    private musicPlayerService: MusicPlayerService
   ) {
     this.user = localStorage.getItem('name') || '';
   }
@@ -110,7 +112,7 @@ export class CatalogDetailPage implements OnInit {
             name: string;
             popularity: number;
             release_date: string;
-            songUrl: string;
+            url: string;
             track_number: number;
             userId: string;
             explicit: boolean;
@@ -124,6 +126,7 @@ export class CatalogDetailPage implements OnInit {
               refId: song.id,
               name: song.name,
               cover_img: song.cover_img,
+              url: song.url,
               release_date: song.release_date,
               duration_ms: song.duration_ms,
               disc_number: song.disc_number,
@@ -263,5 +266,29 @@ export class CatalogDetailPage implements OnInit {
         });
       }
     });
+  }
+
+  playMusic(item: any) {
+    const songURL = item.url;
+    if (songURL) {
+      this.musicPlayerService.stop();
+      this.musicPlayerService.resetAudio();
+
+      this.musicPlayerService.initAudio(songURL);
+      this.musicPlayerService.play();
+      this.musicPlayerService.updateSongData({
+        coverImageUrl: item.cover_img?.[0].url,
+        albumTitle: item.album,
+        songTitle: item.name,
+        artists: item.artists.map((artist: any) => artist.name).join(', '),
+      });
+      this.musicPlayerService.queueNextSong(item.id, item.genres[0]);
+    } else {
+      console.error('No song URL available for playback');
+    }
+  }
+
+  onItemPlay(item: any) {
+    this.playMusic(item);
   }
 }
