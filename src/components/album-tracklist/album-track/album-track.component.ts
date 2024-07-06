@@ -22,7 +22,9 @@ export class AlbumTrackComponent {
   @Input() genres: string[] = [''];
   @Input() releaseDate: string = new Date().toISOString();
   @Input() title: string = '';
-  @Input() artists: { name: string; id: string }[] = [{ name: '', id: '' }];
+  @Input() artists:
+    | { name: string; id: string }[]
+    | { name: any; id: string }[] = [{ name: '', id: '' }];
   @Input() liked?: boolean = false;
   @Input() type: 'track' | 'catalog' = 'track'; // Tipo por defecto
 
@@ -42,19 +44,26 @@ export class AlbumTrackComponent {
     }
     this.artists.forEach((artist, index) => {
       if (index === 0) {
-        this.allArtists = artist.name;
+        if (typeof artist.name === 'string') this.allArtists = artist.name;
+        else if (typeof artist.name === 'object')
+          this.allArtists = artist.name.name;
       } else {
-        this.allArtists += ', ' + artist.name;
+        if (typeof artist.name === 'string')
+          this.allArtists += ', ' + artist.name;
+        else if (typeof artist.name === 'object')
+          this.allArtists += ', ' + artist.name.name;
       }
     });
+    console.log(this.artists);
+    console.log(this.allArtists);
   }
 
   onLikeClick(event: MouseEvent) {
     event.stopPropagation();
-  
+
     if (this.fetching) return;
     this.fetching = true;
-  
+
     fetch('https://beatsyncserver.onrender.com/toggleLike', {
       method: 'POST',
       headers: {
@@ -88,7 +97,7 @@ export class AlbumTrackComponent {
       }
     });
     this.onLikePress.emit();
-  }  
+  }
 
   handleControlButtonClick() {
     this.onControlButtonClick.emit();
