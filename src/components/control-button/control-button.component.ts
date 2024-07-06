@@ -43,8 +43,7 @@ export class ControlButtonComponent {
 
   animationState: string = 'normal';
 
-  handlePress(event: MouseEvent) {
-    event.stopPropagation();
+  handlePress() {
     this.animationState = 'scaled';
     setTimeout(() => {
       this.animationState = 'normal';

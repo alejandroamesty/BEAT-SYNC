@@ -24,18 +24,6 @@
     <div class="playlist-title">{{ playlistTitle }}</div>
     <div class="user">By {{ user }}</div>
     <div class="playlist-description">{{ description }}</div>
-    <div class="buttons-container">
-      <app-simple-button
-        caption="Play"
-        source="../../../assets/images/play.png"
-        (onPress)="handlePlayClick()"
-      ></app-simple-button>
-      <app-simple-button
-        caption="Edit"
-        source="../../../assets/images/edit-playlist.png"
-        (onPress)="openModal()"
-      ></app-simple-button>
-    </div>
     <div class="songs-container">
       <app-music-list
         [isPlaylist]="true"

@@ -23,19 +23,17 @@
     <div class="playlist-description">{{ description }}</div>
     <div class="buttons-container">
       <app-simple-button
-        class="left-button"
-        caption="Play"
-        source="../../../assets/images/play.png"
-        (onPress)="handlePlayClick()"
-      ></app-simple-button>
-      <app-simple-button
+        *ngIf="type === 'Catalog'"
         class="right-button"
         [caption]="rightButtonCaption"
         [source]="rightButtonIcon"
-        (onPress)="type === 'Liked' ? removeSongsClick() : uploadSongsClick()"
+        (onPress)="uploadSongsClick()"
       ></app-simple-button>
     </div>
-    <div class="songs-container">
+    <div
+      class="songs-container"
+      [ngStyle]="{'top': type === 'Liked' ? '215px' : '265px'}"
+    >
       <app-music-list
         *ngIf="type === 'Liked'"
         [isPlaylist]="true"

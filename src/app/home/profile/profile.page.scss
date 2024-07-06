@@ -56,10 +56,14 @@ ion-content {
 }
 
 .name {
-  width: 175px;
+  width: 185px;
   font-family: "BROmnySemiBold";
   font-size: 18px;
   color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .userType {
@@ -78,17 +82,17 @@ ion-content {
 }
 
 .option-2 {
-  position: absolute;
+  // position: absolute;
   top: 74px;
 }
 
 .option-3 {
-  position: absolute;
+  // position: absolute;
   top: 148px;
 }
 
 .option-4 {
-  position: absolute;
+  // position: absolute;
   top: 222px;
 }
 
@@ -99,5 +103,6 @@ ion-content {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 212px;
+  top: 210px;
+  gap: 15px;
 }

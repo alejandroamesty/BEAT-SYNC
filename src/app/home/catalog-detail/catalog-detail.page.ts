@@ -96,8 +96,6 @@ export class CatalogDetailPage implements OnInit {
       this.playlistTitle = 'Liked Songs';
       this.description =
         "Manage all the songs you've liked as an artist in one place.";
-      this.rightButtonCaption = 'Remove songs';
-      this.rightButtonIcon = '../../../assets/images/remove-trash.png';
       this.dataService.currentSongs.subscribe(
         (
           songs: {
