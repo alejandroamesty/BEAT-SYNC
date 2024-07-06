@@ -1,6 +1,6 @@
 <button class="control-button"
         [ngClass]="{ 'scaled': animationState === 'scaled' }"
-        (click)="handleClick()"
+        (click)="handlePress($event)"
         [@scaleAnimation]="animationState"
         [style.width.px]="size"
         [style.height.px]="size">

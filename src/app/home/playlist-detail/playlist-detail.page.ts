@@ -86,6 +86,7 @@ export class PlaylistDetailPage implements OnInit {
           refId: song.id,
           popularity: song.popularity,
           url: song.url,
+          genres: song.genres,
         });
       });
       //sorted by release date
