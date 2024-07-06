@@ -7,7 +7,7 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 import { SearchInputComponent } from 'src/components/search-input/search-input.component';
 import { MusicListComponent } from 'src/components/music-list/music-list.component';
@@ -70,6 +70,7 @@ export class LibraryPage implements OnInit {
 
   constructor(private router: Router, private dataService: DataService) {
     this.userType = localStorage.getItem('userType') || 'Listener';
+    this.likedSongs = JSON.parse(localStorage.getItem('likedSongs') || '[]');
     this.loadData();
   }
 
@@ -156,7 +157,21 @@ export class LibraryPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  handleNavigation() {
+    const currentUrl = this.router.url;
+    const isLibraryPage = currentUrl.includes('/main-tab');
+    if (isLibraryPage) {
+      this.loadData();
+    }
+  }
+
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.handleNavigation();
+      }
+    });
+  }
 
   handleItemPress(item: any) {
     this.router.navigate(['playlist-detail'], {

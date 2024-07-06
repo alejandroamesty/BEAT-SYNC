@@ -21,6 +21,9 @@ export class MusicReelComponent {
     totalTracks: number;
     cover?: string;
     description?: string;
+    userId?: string;
+    songIds?: string[];
+    songs?: any[];
   }[] = [];
 
   handleMusicBoxClick() {
