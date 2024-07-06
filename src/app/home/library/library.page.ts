@@ -8,6 +8,7 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { Router, NavigationEnd } from '@angular/router';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 import { SearchInputComponent } from 'src/components/search-input/search-input.component';
 import { MusicListComponent } from 'src/components/music-list/music-list.component';
@@ -218,6 +219,7 @@ export class LibraryPage implements OnInit {
   }
 
   openModal() {
+    Haptics.impact({ style: ImpactStyle.Light });
     this.isModalVisible = true;
   }
 

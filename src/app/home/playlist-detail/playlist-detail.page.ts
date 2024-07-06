@@ -8,6 +8,7 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { Location } from '@angular/common';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import { ControlButtonComponent } from 'src/components/control-button/control-button.component';
 import { SimpleButtonComponent } from 'src/components/simple-button/simple-button.component';
 import { MusicListComponent } from 'src/components/music-list/music-list.component';
@@ -116,6 +117,7 @@ export class PlaylistDetailPage implements OnInit {
   }
 
   deletePlaylist() {
+    Haptics.impact({ style: ImpactStyle.Light });
     if (this.id === 'default id') {
       this._location.back();
       return;
