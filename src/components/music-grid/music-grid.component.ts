@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MusicCardComponent } from './music-card/music-card.component';
-import { Router } from '@angular/router';
 
 interface MusicItem {
+  _id: string;
+  refId: string;
   title: string;
   cover: string;
 }
@@ -17,11 +18,9 @@ interface MusicItem {
 })
 export class MusicGridComponent {
   @Input() musicItems: MusicItem[] = [];
-
-  constructor(private router: Router) {}
+  @Output() cardPress = new EventEmitter<MusicItem>();
 
   handleCardPress(item: MusicItem) {
-    this.router.navigate(['album-detail']);
-    console.log('Music Card Pressed:', item);
+    this.cardPress.emit(item);
   }
 }

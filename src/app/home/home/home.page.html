@@ -2,11 +2,13 @@
   <div id="container">
     <div class="title">Good morning</div>
     <div class="album-recommendations">
-      <app-music-grid [musicItems]="musicItems"></app-music-grid>
+      <app-music-grid [musicItems]="musicItems" (cardPress)="handleCardPress($event)"></app-music-grid>
     </div>
     <div class="subtitle">Your playlists</div>
     <div class="music-reel">
-      <app-music-reel [musicData]="musicData"></app-music-reel>
+      <app-music-reel
+        [musicData]="musicData"
+      ></app-music-reel>
     </div>
   </div>
 </ion-content>
