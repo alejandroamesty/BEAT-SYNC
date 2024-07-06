@@ -76,8 +76,7 @@ export class PlaylistDetailPage implements OnInit {
       songs.forEach((song: any) => {
         newSongList.push({
           cover_img:
-            song.cover_img ||
-            '../../../assets/images/unveranosinti.png',
+            song.cover_img || '../../../assets/images/unveranosinti.png',
           name: song.name,
           artists: song.artists,
           explicit: song.explicit,
@@ -243,16 +242,19 @@ export class PlaylistDetailPage implements OnInit {
   }
 
   playMusic(item: any) {
+    console.log('SONG ITEM', item);
     const songURL = item.url;
     if (songURL) {
       this.musicPlayerService.stop();
       this.musicPlayerService.resetAudio();
-  
+
       this.musicPlayerService.initAudio(songURL);
       this.musicPlayerService.play();
       this.musicPlayerService.updateSongData({
         songTitle: item.name,
         artists: item.artists.map((artist: any) => artist.name).join(', '),
+        coverImageUrl:
+          item.cover_img?.[0]?.url || '../../../assets/images/no-cover.png',
       });
       if (item.genres && item.genres.length > 0) {
         this.musicPlayerService.queueNextSong(item.id, item.genres[0]);
@@ -262,7 +264,7 @@ export class PlaylistDetailPage implements OnInit {
     } else {
       console.error('No song URL available for playback');
     }
-  }  
+  }
 
   onTrackPlay(item: any) {
     this.playMusic(item);

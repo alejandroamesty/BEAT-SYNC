@@ -67,7 +67,31 @@ export class AlbumTracklistComponent implements OnInit {
 
   // Dentro de album-tracklist.component.ts
   handleTrackPress(track: Track) {
-    console.log('Track pressed:', track); // Añadir este log
-    this.onTrackPress.emit(track); // Asegúrate de que el evento pase el track
+    if (track.album === '') {
+      const newTrack: any = {
+        _id: track._id,
+        url: track.url,
+        type: 'Song',
+        track_number: track.number,
+        release_date: track.releaseDate,
+        album: 'single',
+        albumRefId: '',
+        artists: track.artists.map((artist) => {
+          return artist.name;
+        }),
+        cover_img: [{ url: '../../assets/images/no-cover.png' }],
+        disc_number: track.disc_number,
+        duration_ms: track.duration_ms,
+        explicit: false,
+        genres: track.genres,
+        id: track.refId,
+        popularity: 100,
+        name: track.title,
+      };
+      this.onTrackPress.emit(newTrack);
+    } else {
+      console.log('Track has no title:', track);
+      this.onTrackPress.emit(track);
+    }
   }
 }

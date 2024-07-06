@@ -101,7 +101,7 @@ export class MusicPlayerService {
     }
     this.intervalSubscription = interval(1000).subscribe(() => {
       if (this.audio && !this.audio.paused) {
-        this.currentTime = Math.floor(this.audio.currentTime);
+        this.currentTime = Math.floor(this.audio.currentTime) || 0;
         this.currentTimeSubject.next(this.currentTime);
       }
     });
@@ -126,7 +126,9 @@ export class MusicPlayerService {
         this.initAudio(nextSong.url);
         this.play();
         this.updateSongData({
-          coverImageUrl: nextSong.cover_img?.[0].url,
+          coverImageUrl:
+            nextSong.cover_img?.[0]?.url ||
+            '../../../assets/images/no-cover.png',
           albumTitle: nextSong.album,
           songTitle: nextSong.name,
           artists: nextSong.artists
