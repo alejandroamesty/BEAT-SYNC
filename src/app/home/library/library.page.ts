@@ -41,6 +41,7 @@ import { DataService } from 'src/app/services/data.service';
 export class LibraryPage implements OnInit {
   title: string = '';
   description: string = '';
+  yourSongs: any[] = [];
 
   originalPlaylistList: {
     _id: string;
@@ -70,7 +71,6 @@ export class LibraryPage implements OnInit {
   }
 
   loadData() {
-    console.log('Loading data');
     fetch(
       `https://beatsyncserver.onrender.com/playlist?userId=${localStorage.getItem(
         'userId'
@@ -102,6 +102,30 @@ export class LibraryPage implements OnInit {
           });
         });
         this.playlistList = [...this.originalPlaylistList];
+      });
+
+    fetch(
+      `https://beatsyncserver.onrender.com/get/uploadedTracks?userId=${localStorage.getItem(
+        'userId'
+      )}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+      .then((response) => {
+        if (response.status === 200) {
+          response.json().then((data) => {
+            this.yourSongs = data;
+          });
+        } else {
+          console.error('Failed to fetch uploaded tracks');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }
 
@@ -139,6 +163,8 @@ export class LibraryPage implements OnInit {
   }
 
   openCatalogView() {
+    console.log('your Songs', this.yourSongs);
+    this.dataService.changeSongs(this.yourSongs);
     this.router.navigate(['catalog-detail', 'Catalog']);
   }
 
