@@ -37,11 +37,15 @@ export class MusicListComponent {
   @Input() height: string = 'auto';
   @Input() showSeeMore: boolean = true;
 
-  @Output() onItemPress = new EventEmitter<string>();
+  @Output() onItemPress = new EventEmitter<any>();
+  @Output() onControlButtonClick = new EventEmitter<void>();
   @Output() loadMore = new EventEmitter<void>();
 
   handleItemPress(item: any) {
-    if (item.type === 'Album') {
+    console.log(item);
+    if (item.type === 'Song') {
+      this.onItemPress.emit(item);
+    } else if (item.type === 'Album') {
       this.router.navigate(['album-detail'], {
         queryParams: {
           _id: item._id,
@@ -59,7 +63,7 @@ export class MusicListComponent {
   }
 
   handleControlButtonClick(event?: any) {
-    this.onItemPress.emit(event || undefined);
+    this.onControlButtonClick.emit(event || undefined);
   }
 
   loadMoreTracks() {

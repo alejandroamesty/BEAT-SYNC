@@ -16,6 +16,7 @@ import { CustomModalComponent } from 'src/components/custom-modal/custom-modal.c
 import { SimpleInputComponent } from 'src/components/simple-input/simple-input.component';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { MusicPlayerService } from '../music-player/music-player.service';
 
 @Component({
   selector: 'app-playlist-detail',
@@ -39,7 +40,7 @@ import { DataService } from 'src/app/services/data.service';
 export class PlaylistDetailPage implements OnInit {
   playlistCover: string = '../../../assets/images/your-songs.png';
   playlistTitle: string = 'fav songs of 2024';
-  user: string = '';
+  user: string = 'Alejandro';
   description: string = '(hasta ahora) / ordenadas por lanzamiento';
   fetching: Boolean = false;
 
@@ -59,9 +60,9 @@ export class PlaylistDetailPage implements OnInit {
   constructor(
     private _location: Location,
     private route: ActivatedRoute,
+    private musicPlayerService: MusicPlayerService,
     private dataService: DataService
   ) {
-    this.user = localStorage.getItem('name') || '';
     this.route.queryParams.subscribe((params) => {
       this.id = params['playlistId'] || 'default id';
       this.playlistTitle = params['playlistTitle'];
@@ -75,7 +76,8 @@ export class PlaylistDetailPage implements OnInit {
       songs.forEach((song: any) => {
         newSongList.push({
           cover_img:
-            song.cover_img || '../../../assets/images/unveranosinti.png',
+            song.cover_img ||
+            '../../../assets/images/unveranosinti.png',
           name: song.name,
           artists: song.artists,
           explicit: song.explicit,
@@ -237,5 +239,26 @@ export class PlaylistDetailPage implements OnInit {
         this.fetching = false;
         console.error('Error:', error);
       });
+  }
+
+  playMusic(item: any) {
+    const songURL = item.url;
+    if (songURL) {
+      this.musicPlayerService.stop();
+      this.musicPlayerService.resetAudio();
+
+      this.musicPlayerService.initAudio(songURL);
+      this.musicPlayerService.play();
+      this.musicPlayerService.updateSongData({
+        songTitle: item.name,
+        artists: item.artists.map((artist: any) => artist.name).join(', '),
+      });
+    } else {
+      console.error('No song URL available for playback');
+    }
+  }
+
+  onTrackPlay(item: any) {
+    this.playMusic(item);
   }
 }

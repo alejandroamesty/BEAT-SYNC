@@ -48,7 +48,7 @@ export class MusicItemComponent {
   };
 
   @Input() isPlaylist: boolean = false;
-  @Output() onPress = new EventEmitter<void>();
+  @Output() onPress = new EventEmitter<any>();
   @Output() onControlButtonClick = new EventEmitter<void>();
 
   allArtists: string = '';
@@ -64,7 +64,7 @@ export class MusicItemComponent {
   }
 
   handleClick() {
-    this.onPress.emit();
+    this.onPress.emit(this.music);
   }
 
   onButtonClick() {
