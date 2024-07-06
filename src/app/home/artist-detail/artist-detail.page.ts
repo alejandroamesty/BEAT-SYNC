@@ -44,18 +44,7 @@ export class ArtistDetailPage implements OnInit {
     images: { url: string }[];
     artists: { name: string; id: string }[];
     totalTracks: number;
-  }[] = [
-    {
-      _id: 'unknownId',
-      refId: 'unknownRefId',
-      type: 'Album',
-      name: 'Unknown Album',
-      releaseDate: '06/05/2022',
-      images: [{ url: '../../../assets/images/unveranosinti.png' }],
-      artists: [{ name: 'Bad Bunny', id: 'unknownId' }],
-      totalTracks: 23,
-    },
-  ];
+  }[] = [];
 
   constructor(private _location: Location, private route: ActivatedRoute) {}
 

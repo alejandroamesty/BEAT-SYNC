@@ -34,15 +34,50 @@ export class ResetPasswordPage implements OnInit {
 
   ngOnInit() {}
 
+  password: string = '';
+  confirmPassword: string = '';
+
   navigateToSignIn() {
-    this.navCtrl.navigateForward('sign-in', {
-      animated: true,
-      animationDirection: 'back',
+    if (this.password !== this.confirmPassword) {
+      return;
+    }
+    fetch(
+      `https://beatsyncserver.onrender.com/passwordRecovery/recoveryPassword`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: localStorage.getItem('email'),
+          code: Number(localStorage.getItem('code')), //NUMBER
+          newPassword: this.password,
+        }),
+      }
+    ).then((response) => {
+      if (response.status === 200) {
+        this.navCtrl.navigateForward('sign-in', {
+          animated: true,
+          animationDirection: 'back',
+        });
+      } else {
+        response.json().then((data) => {
+          console.log(data);
+        });
+      }
     });
   }
 
+  handlePasswordChange(event: any) {
+    this.password = event;
+  }
+
+  handleConfirmPasswordChange(event: any) {
+    this.confirmPassword = event;
+  }
+
   navigateToVerifyCode() {
-    this.navCtrl.navigateForward('verify-code', {
+    this.navCtrl.navigateForward('sign-in', {
       animated: true,
       animationDirection: 'back',
     });

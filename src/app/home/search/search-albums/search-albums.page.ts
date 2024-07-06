@@ -64,6 +64,10 @@ export class SearchAlbumsPage implements OnInit {
       return;
     }
     try {
+      if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(this.searchTerm)) {
+        console.log('Special characters found in search term');
+        return;
+      }
       const response = await fetch(
         `https://beatsyncserver.onrender.com/search/Albums?filter=${this.searchTerm}&skip=${this.skip}`,
         {

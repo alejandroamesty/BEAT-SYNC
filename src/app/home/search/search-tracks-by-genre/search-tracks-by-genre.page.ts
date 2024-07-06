@@ -1,4 +1,10 @@
-import { Component, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  ViewChild,
+  TemplateRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -71,8 +77,11 @@ export class SearchTracksByGenrePage implements OnInit {
     },
   ];
 
-  constructor(private _location: Location, private musicPlayerService: MusicPlayerService) {}
-  
+  constructor(
+    private _location: Location,
+    private musicPlayerService: MusicPlayerService
+  ) {}
+
   @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any>;
 
   ngOnInit() {}
@@ -137,6 +146,10 @@ export class SearchTracksByGenrePage implements OnInit {
       return;
     }
     try {
+      if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(this.searchTerm)) {
+        console.log('Special characters found in search term');
+        return;
+      }
       const response = await fetch(
         `https://beatsyncserver.onrender.com/search/TracksByGenre?filter=${this.searchTerm}&skip=${this.skip}`,
         {
@@ -273,7 +286,8 @@ export class SearchTracksByGenrePage implements OnInit {
       this.musicPlayerService.initAudio(songURL);
       this.musicPlayerService.play();
       this.musicPlayerService.updateSongData({
-        coverImageUrl: item.cover_img?.[0].url,
+        coverImageUrl:
+          item.cover_img?.[0]?.url || '../../assets/images/no-cover.png',
         albumTitle: item.album,
         songTitle: item.name,
         artists: item.artists.map((artist: any) => artist.name).join(', '),

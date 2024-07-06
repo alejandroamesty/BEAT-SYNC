@@ -76,7 +76,10 @@ export class SearchTracksPage implements OnInit {
 
   sortOrder: 'recent' | 'oldest' = 'recent';
 
-  constructor(private _location: Location, private musicPlayerService: MusicPlayerService) {}
+  constructor(
+    private _location: Location,
+    private musicPlayerService: MusicPlayerService
+  ) {}
 
   backClicked() {
     this._location.back();
@@ -219,6 +222,10 @@ export class SearchTracksPage implements OnInit {
       return;
     }
     try {
+      if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(this.searchTerm)) {
+        console.log('Special characters found in search term');
+        return;
+      }
       const response = await fetch(
         `https://beatsyncserver.onrender.com/search/TracksByName?filter=${this.searchTerm}&skip=${this.skip}`,
         {
@@ -269,10 +276,11 @@ export class SearchTracksPage implements OnInit {
       this.musicPlayerService.initAudio(songURL);
       this.musicPlayerService.play();
       this.musicPlayerService.updateSongData({
-        coverImageUrl: item.cover_img?.[0].url,
         albumTitle: item.album,
         songTitle: item.name,
         artists: item.artists.map((artist: any) => artist.name).join(', '),
+        coverImageUrl:
+          item.cover_img?.[0]?.url || '../../assets/images/no-cover.png',
       });
       this.musicPlayerService.queueNextSong(item.id, item.genres[0]);
     } else {

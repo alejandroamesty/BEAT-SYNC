@@ -32,7 +32,7 @@ import { MusicPlayerService } from '../music-player/music-player.service';
 export class AlbumDetailPage implements OnInit {
   _id: string = 'unknownId';
   refId: string = 'unknownRefId';
-  albumCover: string = '../../../assets/images/unveranosinti.png';
+  albumCover: string = '../../../assets/images/no-cover.png';
   albumTitle: string = 'Un Verano Sin Ti';
   artists: string = 'Bad Bunny';
   artistId: string = 'unknownId';
@@ -210,7 +210,6 @@ export class AlbumDetailPage implements OnInit {
   }
 
   onTrackPlay(track: any) {
-    console.log('Track to play:', track);
     this.playMusic(track);
   }
 }

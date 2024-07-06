@@ -56,18 +56,7 @@ export class HomePage implements OnInit {
     songs?: any[];
     description?: string;
     userId?: string;
-  }[] = [
-    {
-      _id: 'unknownId',
-      refId: 'unknownRefId',
-      type: 'Album',
-      name: 'nadie sabe lo que pasará mañana',
-      releaseDate: '06/05/2022',
-      images: [{ url: '../../../assets/images/unveranosinti.png' }],
-      artists: [{ name: 'Bad Bunny', id: 'unknownId' }],
-      totalTracks: 23,
-    },
-  ];
+  }[] = [];
 
   ngOnInit() {
     this.loadUserPlaylists();
