@@ -4,6 +4,8 @@ import {
   ViewChildren,
   QueryList,
   ElementRef,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -27,7 +29,7 @@ export class VerificationInputComponent implements OnInit {
   code: string[] = ['', '', '', '', '', ''];
   form: FormGroup;
   private players: AnimationPlayer[] = [];
-
+  @Output() codeChange: EventEmitter<string> = new EventEmitter<string>();
   @ViewChildren('input') inputs!: QueryList<ElementRef>;
 
   constructor(private animationBuilder: AnimationBuilder) {
@@ -50,7 +52,7 @@ export class VerificationInputComponent implements OnInit {
   }
 
   onChange(code: string) {
-    console.log('Current code:', code);
+    this.codeChange.emit(code);
   }
 
   handleChangeText(event: any, index: number) {
