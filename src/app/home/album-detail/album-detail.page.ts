@@ -183,9 +183,8 @@ export class AlbumDetailPage implements OnInit {
     console.log('Close button clicked');
   }
 
-  // Dentro de album-detail.page.ts
   playMusic(track: any) {
-    console.log('Playing track:', track); // Añadir este log
+    console.log('Playing track:', track);
     if (!track) {
       console.error('Track is undefined');
       return;
@@ -204,14 +203,13 @@ export class AlbumDetailPage implements OnInit {
         songTitle: track.title,
         artists: track.artists.map((artist: any) => artist.name).join(', '),
       });
+      this.musicPlayerService.queueNextSong(track.id, track.genres[0]);
     } else {
       console.error('No song URL available for playback');
     }
   }
 
-  // Dentro de album-detail.page.ts, en la función onTrackPlay
   onTrackPlay(track: any) {
-    console.log('Track to play:', track); // Añadir este log
     this.playMusic(track);
   }
 }

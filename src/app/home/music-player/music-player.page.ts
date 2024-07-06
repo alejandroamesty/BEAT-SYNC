@@ -52,6 +52,7 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
   isPlaying: boolean = false;
   private currentTimeSubscription: Subscription | null = null;
   private songDataSubscription: Subscription | null = null;
+  private queueSubscription: Subscription | null = null;
 
   constructor(
     private audioService: MusicPlayerService,
@@ -59,10 +60,15 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.queueSubscription = this.audioService.songData$.subscribe(() => {
+      this.playNextIfQueueNotEmpty();
+    });
+
     if (this.songData && this.songData.songURL) {
       this.audioService.initAudio(this.songData.songURL);
       this.syncWithAudioService();
     }
+
     this.subscribeToCurrentTime();
     this.subscribeToSongData();
   }
@@ -70,6 +76,10 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribeFromCurrentTime();
     this.unsubscribeFromSongData();
+    if (this.queueSubscription) {
+      this.queueSubscription.unsubscribe();
+      this.queueSubscription = null;
+    }
   }
 
   syncWithAudioService() {
@@ -116,13 +126,7 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
     } else {
       this.audioService.play();
     }
-    Haptics.impact({ style: ImpactStyle.Light });
     this.syncWithAudioService();
-  }
-
-  onLikeClick() {
-    this.liked = !this.liked;
-    Haptics.impact({ style: ImpactStyle.Light });
   }
 
   onTimeChanged(newTime: number): void {
@@ -132,5 +136,16 @@ export class MusicPlayerPage implements OnInit, OnDestroy {
 
   closePlayer() {
     this._location.back();
+  }
+
+  playNextIfQueueNotEmpty() {
+    const queue = this.audioService.getQueue();
+    if (queue.length > 0 && !this.audioService.isPlaying) {
+      this.audioService.playNextInQueue();
+    }
+  }
+
+  onLikeClick() {
+    this.liked = !this.liked;
   }
 }

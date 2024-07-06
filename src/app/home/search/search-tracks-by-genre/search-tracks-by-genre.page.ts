@@ -292,6 +292,7 @@ export class SearchTracksByGenrePage implements OnInit {
         songTitle: item.name,
         artists: item.artists.map((artist: any) => artist.name).join(', '),
       });
+      this.musicPlayerService.queueNextSong(item.id, item.genres[0]);
     } else {
       console.error('No song URL available for playback');
     }

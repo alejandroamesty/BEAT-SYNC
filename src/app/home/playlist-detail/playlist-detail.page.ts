@@ -246,17 +246,22 @@ export class PlaylistDetailPage implements OnInit {
     if (songURL) {
       this.musicPlayerService.stop();
       this.musicPlayerService.resetAudio();
-
+  
       this.musicPlayerService.initAudio(songURL);
       this.musicPlayerService.play();
       this.musicPlayerService.updateSongData({
         songTitle: item.name,
         artists: item.artists.map((artist: any) => artist.name).join(', '),
       });
+      if (item.genres && item.genres.length > 0) {
+        this.musicPlayerService.queueNextSong(item.id, item.genres[0]);
+      } else {
+        console.warn('No genres found for this song.');
+      }
     } else {
       console.error('No song URL available for playback');
     }
-  }
+  }  
 
   onTrackPlay(item: any) {
     this.playMusic(item);
