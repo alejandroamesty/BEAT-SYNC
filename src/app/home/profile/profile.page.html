@@ -3,15 +3,11 @@
     <div class="title">Profile</div>
     <div class="card">
       <div class="pfp">
-        <img
-          src="../../../assets/images/badbunny.jpeg"
-          alt="profile"
-          class="pfp-img"
-        />
+        <img src="{{image}}" alt="profile" class="pfp-img" />
       </div>
       <div class="userData">
-        <div class="name">Bad Bunny</div>
-        <div class="userType">Artist</div>
+        <div class="name">{{name}}</div>
+        <div class="userType">{{userType}}</div>
       </div>
       <div class="editButton">
         <app-control-button
@@ -23,6 +19,7 @@
   </div>
   <div class="option-cards">
     <app-option-card
+      *ngIf="userType === 'Artist'"
       class="option-1"
       source="../../../assets/images/profile/upload-music.png"
       [title]="'Upload music'"

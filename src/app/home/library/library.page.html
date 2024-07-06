@@ -23,6 +23,7 @@
           (onPress)="openLikedView()"
         ></app-playlist-card>
         <app-playlist-card
+          *ngIf="userType === 'Artist'"
           type="Artist"
           [songCount]="yourSongs.length"
           (onPress)="openCatalogView()"
