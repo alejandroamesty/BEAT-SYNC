@@ -39,7 +39,7 @@ import { DataService } from 'src/app/services/data.service';
 export class PlaylistDetailPage implements OnInit {
   playlistCover: string = '../../../assets/images/your-songs.png';
   playlistTitle: string = 'fav songs of 2024';
-  user: string = '';
+  user: string = 'Alejandro';
   description: string = '(hasta ahora) / ordenadas por lanzamiento';
   fetching: Boolean = false;
 
@@ -61,7 +61,6 @@ export class PlaylistDetailPage implements OnInit {
     private route: ActivatedRoute,
     private dataService: DataService
   ) {
-    this.user = localStorage.getItem('name') || '';
     this.route.queryParams.subscribe((params) => {
       this.id = params['playlistId'] || 'default id';
       this.playlistTitle = params['playlistTitle'];
@@ -75,7 +74,8 @@ export class PlaylistDetailPage implements OnInit {
       songs.forEach((song: any) => {
         newSongList.push({
           cover_img:
-            song.cover_img || '../../../assets/images/unveranosinti.png',
+            song.cover_img?.[0]?.url ||
+            '../../../assets/images/unveranosinti.png',
           name: song.name,
           artists: song.artists,
           explicit: song.explicit,

@@ -53,7 +53,7 @@ export class CatalogDetailPage implements OnInit {
   playlistCover: string = '';
   playlistTitle: string = '';
   description: string = '';
-  user: string = '';
+  user: string = 'Alejandro';
   rightButtonCaption: string = '';
   rightButtonIcon: string = '';
   fetching: boolean = false;
@@ -146,9 +146,7 @@ export class CatalogDetailPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dataService: DataService
-  ) {
-    this.user = localStorage.getItem('name') || '';
-  }
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -191,12 +189,11 @@ export class CatalogDetailPage implements OnInit {
           }[]
         ) => {
           this.musicItems = songs.map((song) => {
-            console.log(song);
             return {
               _id: song._id,
               refId: song.id,
               name: song.name,
-              cover_img: song.cover_img,
+              cover_img: [song.cover_img?.[0]?.url || ''],
               release_date: song.release_date,
               duration_ms: song.duration_ms,
               disc_number: song.disc_number,
@@ -319,7 +316,6 @@ export class CatalogDetailPage implements OnInit {
       }),
     }).then((response) => {
       if (response.status === 200) {
-        this.fetching = false;
         this.musicItems = this.musicItems.filter(
           (song) => song.refId !== item.refId
         );

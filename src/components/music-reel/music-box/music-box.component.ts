@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-music-box',
@@ -22,13 +21,10 @@ export class MusicBoxComponent {
   @Input() artists?: { name: string; id: string }[] = [
     { name: 'Bad Bunny', id: 'unknownId' },
   ];
-  @Input() userId?: string;
-  @Input() songIds?: string[];
-  @Input() songs?: any[];
 
   @Output() onPress: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private router: Router, private dataService: DataService) {}
+  constructor(private router: Router) {}
 
   get subtitle(): string {
     if (this.type === 'Playlist') {
@@ -41,17 +37,8 @@ export class MusicBoxComponent {
 
   handleClick() {
     if (this.type === 'Playlist') {
-      this.dataService.changeSongs(this.songs || []);
+      this.router.navigate(['playlist-detail'], { queryParams: {} });
       console.log('Playlist clicked:', this.title);
-      this.router.navigate(['playlist-detail'], {
-        queryParams: {
-          playlistId: this._id,
-          playlistTitle: this.title,
-          playlistDescription: this.description,
-          playlistUser: this.userId,
-          songIds: this.songIds,
-        },
-      });
     } else if (this.type === 'Album') {
       console.log('artists:' + this.artists);
       this.router.navigate(['album-detail'], {

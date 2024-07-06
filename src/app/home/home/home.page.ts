@@ -52,10 +52,6 @@ export class HomePage implements OnInit {
     images: { url: string }[];
     artists: { name: string; id: string }[];
     totalTracks: number;
-    songIds?: string[];
-    songs?: any[];
-    description?: string;
-    userId?: string;
   }[] = [
     {
       _id: 'unknownId',
@@ -100,12 +96,15 @@ export class HomePage implements OnInit {
 
       this.musicData = playlists.map((playlist: any) => ({
         _id: playlist._id,
+        refId: playlist._id,
         type: 'Playlist',
         name: playlist.name,
         description: playlist.description,
-        userId: playlist.userId,
-        songIds: playlist.songIds,
-        songs: playlist.songs,
+        images: playlist.songs.map((song: any) => ({
+          url: song.cover_img[0]?.url || '',
+        })),
+        artists: [],
+        totalTracks: playlist.songs.length,
       }));
     } catch (error) {
       console.error('Error fetching user playlists:', error);
@@ -175,15 +174,15 @@ export class HomePage implements OnInit {
       console.error('Album data is undefined or null');
       return;
     }
-
+  
     const artistNames = Array.isArray(album.artists)
       ? album.artists.map((artist: any) => artist.name).join(', ')
       : '';
-
+  
     const artistIds = Array.isArray(album.artists)
       ? album.artists.map((artist: any) => artist.id)
       : [];
-
+  
     this.router.navigate(['album-detail'], {
       queryParams: {
         _id: album._id,

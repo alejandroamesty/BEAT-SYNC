@@ -41,6 +41,7 @@ export class MusicListComponent {
   @Output() loadMore = new EventEmitter<void>();
 
   handleItemPress(item: any) {
+    console.log(item);
     if (item.type === 'Album') {
       this.router.navigate(['album-detail'], {
         queryParams: {
