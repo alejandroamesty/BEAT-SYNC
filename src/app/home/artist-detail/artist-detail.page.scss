@@ -11,9 +11,8 @@ ion-content {
 
 .artist-pfp {
   position: absolute;
-  width: 414px;
+  width: 100%;
   height: 338px;
-  left: calc(50% - 414px / 2);
   top: 0px;
   background-size: cover;
   background-position: center;
@@ -23,9 +22,9 @@ ion-content {
 
 .artist-name {
   position: absolute;
-  width: 274px;
-  left: calc(50% - 274px / 2 - 48px);
-  top: 279px;
+  width: 350px;
+  left: calc(50% - 175px);
+  top: 289px;
   font-family: "BROmnySemiBold";
   font-size: 35px;
   color: #ffffff;

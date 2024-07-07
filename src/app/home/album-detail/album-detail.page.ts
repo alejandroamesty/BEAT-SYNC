@@ -83,7 +83,7 @@ export class AlbumDetailPage implements OnInit {
               url: track.url,
               cover:
                 track.cover_img?.[0]?.url ||
-                '../../../assets/images/no-artist-pfp.png',
+                '../../../assets/images/no-album-cover.png',
               releaseDate: track.release_date,
               duration_ms: track.duration_ms,
               disc_number: track.disc_number,
@@ -113,7 +113,7 @@ export class AlbumDetailPage implements OnInit {
       this.albumTitle = params['title'];
       this.genre = params['genres'];
       this.albumCover =
-        params['cover'] || '../../../assets/images/no-artist-pfp.png';
+        params['cover'] || '../../../assets/images/no-album-cover.png';
       this.popularity = params['popularity'];
 
       if (typeof params['artistNames'] === 'string') {
@@ -198,7 +198,7 @@ export class AlbumDetailPage implements OnInit {
       this.musicPlayerService.play();
       this.musicPlayerService.updateSongData({
         coverImageUrl:
-          track.cover || '../../../assets/images/no-artist-pfp.png',
+          track.cover || '../../../assets/images/no-album-cover.png',
         albumTitle: track.album,
         songTitle: track.title,
         artists: track.artists.map((artist: any) => artist.name).join(', '),
