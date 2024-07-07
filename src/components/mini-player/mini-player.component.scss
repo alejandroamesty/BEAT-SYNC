@@ -21,6 +21,11 @@
   line-height: 18px;
   color: #ffffff;
   margin-bottom: 2px;
+  width: 270px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .artists {
@@ -28,6 +33,11 @@
   font-size: 14px;
   line-height: 18px;
   color: #d2d2d2;
+  width: 270px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .like-button,

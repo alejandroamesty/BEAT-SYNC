@@ -43,13 +43,17 @@ ion-content {
 
 .playlist-title {
   position: absolute;
-  width: 176px;
+  width: 230px;
   height: 22px;
   left: calc(50% - 45px);
   top: 95px;
   font-family: "BROmnySemiBold";
   font-size: 18px;
   color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user {
@@ -65,7 +69,7 @@ ion-content {
 
 .playlist-description {
   position: absolute;
-  width: 242px;
+  width: 220px;
   height: 40px;
   left: calc(50% - 45px);
   top: 143px;
@@ -76,17 +80,13 @@ ion-content {
 
 .buttons-container {
   position: absolute;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  width: 372px;
   top: 205px;
 }
 
 .songs-container {
   position: absolute;
   width: 374px;
-  top: 215px;
+  top: 265px;
   left: 50%;
   transform: translateX(-50%);
 }

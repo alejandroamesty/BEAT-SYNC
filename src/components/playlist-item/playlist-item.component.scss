@@ -28,6 +28,11 @@
   font-size: 15px;
   color: #ffffff;
   margin-bottom: 2px;
+  width: 270px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .details-container {

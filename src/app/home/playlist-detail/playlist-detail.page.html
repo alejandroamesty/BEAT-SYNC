@@ -16,7 +16,10 @@
         (onPress)="deletePlaylist()"
       />
     </div>
-    <div class="playlist-cover" [ngStyle]="{ 'background-color': playlistBackgroundColor }">
+    <div
+      class="playlist-cover"
+      [ngStyle]="{ 'background-color': playlistBackgroundColor }"
+    >
       <img
         [src]="'../../../assets/images/playlist-default.png'"
         alt="Cover"
@@ -27,6 +30,13 @@
     <div class="playlist-title">{{ playlistTitle }}</div>
     <div class="user">By {{ user }}</div>
     <div class="playlist-description">{{ description }}</div>
+    <div class="buttons-container">
+      <app-simple-button
+        caption="Edit"
+        source="../../../assets/images/edit-playlist.png"
+        (onPress)="openModal()"
+      ></app-simple-button>
+    </div>
     <div class="songs-container">
       <app-music-list
         [isPlaylist]="true"
@@ -41,11 +51,13 @@
   <ng-template #modalContent>
     <div class="custom-modal-content">
       <app-simple-input
+        [width]="335"
         placeholder="Title"
         [characterLimit]="50"
         (onChangeText)="handleTitleChange($event)"
       ></app-simple-input>
       <app-simple-input
+        [width]="335"
         placeholder="Description"
         [characterLimit]="50"
         (onChangeText)="handleDescriptionChange($event)"
